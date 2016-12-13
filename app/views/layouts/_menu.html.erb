@@ -1,6 +1,6 @@
-<div class="ui secondary pointing menu">
-  <a class="active item">
-    Home
+<div class="ui menu">
+  <a class="item" href="<%= root_path %>">
+    <%= image_tag('u1.png') %>
   </a>
   <a class="item">
     Loans
@@ -8,14 +8,14 @@
   <a class="item">
     Customers
   </a>
-  <div class="right menu">
-    <a class="ui item">
-      <%-	if user_signed_in? %>
 
-          <%= link_to current_user.email, '', class: 'ui item' %>
+
+  <div class="right menu">
+
+      <%-	if user_signed_in? %>
+          <%= link_to current_user.email, edit_user_registration_path, class: 'ui item' %>
           <%= link_to 'Log Out', destroy_user_session_path, method: 'delete', class: 'ui item' %>
       <%- end %>
-    </a>
-
+    
   </div>
 </div>

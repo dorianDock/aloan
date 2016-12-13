@@ -1,4 +1,7 @@
-<div class="ui middle aligned center aligned grid">
+
+
+
+<div class="ui attached middle aligned center aligned grid">
   <div class="six wide column"></div>
 
   <div class="four wide column">
@@ -8,6 +11,8 @@
         Ubris Loan Manager - Log In
       </div>
     </h2>
+
+
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "ui large form" }) do |f| %>
 
@@ -33,7 +38,7 @@
         <%= f.submit 'Log in', :class => 'ui fluid large teal submit button' %>
       </div>
 
-      <div class="ui error message"></div>
+
     <% end %>
 
 

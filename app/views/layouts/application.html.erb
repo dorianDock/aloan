@@ -4,6 +4,7 @@
     <title>Aloan</title>
 
 
+    <link rel="icon" type="image/png" href="<%= image_path('u1.png')%>" />
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -18,8 +19,28 @@
        end
   %>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+  <div class="ui grid">
+    <div class="five wide column"></div>
+    <div class="six wide column">
+      <%- if notice %>
+      <div class="ui attached positive message notice">
+        <p class="header notice"><%= notice %></p>
+      </div>
+      <%- end %>
+
+      <%- if alert %>
+      <div class="ui attached negative message notice">
+        <p class="header alert"><%= alert %></p>
+      </div>
+      <%- end %>
+    </div>
+    <div class="five wide column"></div>
+  </div>
+
+
+
+
+
 
     <%= yield %>
 
