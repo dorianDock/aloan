@@ -1,0 +1,21 @@
+<div class="ui secondary pointing menu">
+  <a class="active item">
+    Home
+  </a>
+  <a class="item">
+    Loans
+  </a>
+  <a class="item">
+    Customers
+  </a>
+  <div class="right menu">
+    <a class="ui item">
+      <%-	if user_signed_in? %>
+
+          <%= link_to current_user.email, '', class: 'ui item' %>
+          <%= link_to 'Log Out', destroy_user_session_path, method: 'delete', class: 'ui item' %>
+      <%- end %>
+    </a>
+
+  </div>
+</div>

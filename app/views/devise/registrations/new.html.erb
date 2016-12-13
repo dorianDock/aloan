@@ -1,29 +1,57 @@
-<h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+
+<div class="ui middle aligned center aligned grid">
+  <div class="six wide column"></div>
+
+  <div class="four wide column">
+    <h2 class="ui dark_purple image header">
+      <%= image_tag('u1.png', :class => 'image') %>
+      <div class="content">
+        Ubris Loan Manager - Sign Up
+      </div>
+    </h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "ui large form" }) do |f| %>
+        <%= devise_error_messages! %>
+
+
+        <div class="ui stacked segment">
+          <div class="field">
+            <label>Email</label>
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <%= f.email_field :email, autofocus: true %>
+            </div>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %>
+            <div class="ui left icon input">
+
+              <%= f.password_field :password, autocomplete: "off" %>
+            </div>
+          </div>
+          <div class="field">
+            <label>Password Confirmation</label>
+            <div class="ui left icon input">
+
+                <%= f.password_field :password_confirmation, autocomplete: "off" %>
+            </div>
+          </div>
+
+          <%= f.submit 'Sign up', :class => 'ui fluid large teal submit button' %>
+        </div>
+
+        <div class="ui error message"></div>
+    <% end %>
+
+
+    <div class="ui message">
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  <div class="six wide column"></div>
+</div>
