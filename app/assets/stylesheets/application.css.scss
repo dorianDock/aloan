@@ -17,8 +17,18 @@
 @import "semantic-ui";
 
 
+$grey: #DADADA;
 $dark_purple: #342936;
 
 .dark_purple{
   color: $dark_purple;
+}
+
+.registrationContainer {
+  background-color: $grey !important;
+}
+
+.centeredTitle{
+  text-align: center;
+  margin-bottom: 4%;
 }

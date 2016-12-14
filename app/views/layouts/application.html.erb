@@ -10,8 +10,15 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+<% is_registration_call=['registrations','passwords','sessions'].include?(controller_name)
+  class_for_background=''
+  if is_registration_call
+    class_for_background = 'registrationContainer'
+  end
+%>
 
-  <body>
+
+  <body class="<%= class_for_background %>">
   <%=	if user_signed_in?
          render 'layouts/menu'
        else
@@ -39,10 +46,22 @@
 
 
 
+  <%- if is_registration_call %>
+      <%= yield %>
+  <% else %>
+      <div class="ui grid">
+        <div class="three wide column"></div>
+        <div class="ten wide column">
+          <%= yield %>
+        </div>
+        <div class="three wide column"></div>
+      </div>
+
+  <% end %>
 
 
 
-    <%= yield %>
+
 
 
   </body>
