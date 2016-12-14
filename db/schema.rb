@@ -10,10 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212124523) do
+ActiveRecord::Schema.define(version: 20161214135158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "borrowers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "first_name"
+    t.string   "company_name"
+    t.datetime "birth_date"
+    t.float    "amount_wished"
+    t.text     "project_description"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  create_table "loans", force: :cascade do |t|
+    t.datetime "start_date"
+    t.datetime "contractual_end_date"
+    t.datetime "end_date"
+    t.boolean  "is_late"
+    t.boolean  "is_in_default"
+    t.float    "amount"
+    t.float    "rate"
+    t.integer  "borrower_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "step_types", force: :cascade do |t|
+    t.string   "label"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "steps", force: :cascade do |t|
+    t.integer  "loan_id"
+    t.integer  "step_type_id"
+    t.datetime "expected_date"
+    t.datetime "date_done"
+    t.boolean  "is_done"
+    t.float    "amount"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -32,4 +74,7 @@ ActiveRecord::Schema.define(version: 20161212124523) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "loans", "borrowers"
+  add_foreign_key "steps", "loans"
+  add_foreign_key "steps", "step_types"
 end

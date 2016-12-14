@@ -1,0 +1,2 @@
+class StepType < ApplicationRecord
+end
