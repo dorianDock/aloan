@@ -1,6 +1,18 @@
 <% # encoding: utf-8   %>
 <h1 class="centeredTitle">Borrowers</h1>
 
+<div class=" ui grid">
+  <div class="seven wide column"></div>
+  <div class="independentElement nine wide column">
+    <a class="ui button teal" href="<%= new_borrower_path %>"><i class="ui icon add"></i> Add </a>
+  </div>
+
+</div>
+
+
+
+
+
 <div class="ui cards">
 <%- @borrowers.each do |borrower| %>
       <div class="card">
@@ -8,10 +20,11 @@
           <div class="header"><%= borrower.full_name %></div>
           <div class="meta">Works in <%= borrower.company_name %></div>
           <div class="meta">Created on <%= borrower.created_at.strftime('%d/%m/%Y') %></div>
-          <div class="meta"><%= borrower.birth_date.strftime('%d/%m/%Y') %> (<%= borrower.age %> years old)</div>
+          <div class="meta"><%= borrower.display_birth_date %> (<%= borrower.age %> years old)</div>
           <div class="description">
             <%= borrower.project_description %>
           </div>
+          <div class="meta"><%= borrower.amount_wished %> MGA</div>
         </div>
       </div>
 <% end %>
