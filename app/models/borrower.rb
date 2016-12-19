@@ -16,15 +16,19 @@
 class Borrower < ApplicationRecord
 
 
+  has_many :loans
 
   def full_name
     name = ''
-    unless self.first_name.nil? || self.name.nil?
-      unless self.first_name.nil?
+    unless (self.first_name.nil? || self.first_name.empty?) && (self.name.nil? || self.name.empty?)
+      unless self.first_name.nil? || self.first_name.empty?
         name += self.first_name
       end
-      unless self.name.nil?
-        name += ' '+self.name
+      unless self.first_name.nil? || self.first_name.empty? || self.name.nil? || self.name.empty?
+        name += ' '
+      end
+      unless self.name.nil? || self.name.empty?
+        name += self.name
       end
     end
     name
@@ -35,10 +39,11 @@ class Borrower < ApplicationRecord
   end
 
   def age
-    if self.birth_date.nil?
+    today = Date.today
+    if self.birth_date.nil? || self.birth_date > today
       return '?'
     end
-    today = Date.today
+
     age = today.year - self.birth_date.year
     # we remove one if the birth date is not passed yet
     age -= 1 if self.birth_date.strftime("%m%d").to_i > today.strftime("%m%d").to_i

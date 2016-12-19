@@ -1,0 +1,60 @@
+
+
+<%= form_for @borrower,  html: {:multipart => true, class: 'ui form'} do |f| %>
+    <%= f.hidden_field :id %>
+    <h3 class="ui horizontal divider header">
+      <i class="ui icon user"></i>
+      <%= @borrower.full_name %>
+    </h3>
+
+    <div class="fields">
+      <div class="four wide field">
+        <div class="field">
+          <label>Name</label>
+          <%= f.text_field :name %>
+        </div>
+
+        <div class="field">
+          <label>First Name</label>
+          <%= f.text_field :first_name %>
+        </div>
+      </div>
+      <div class="four wide field">
+        <div class="field">
+          <label>Birth date</label>
+          <%= f.text_field  :birth_date, :class => 'borrowerBirthDate' %>
+        </div>
+      </div>
+
+      <div class="four wide field">
+        <div class="field">
+          <label>Company Name</label>
+          <%= f.text_field :company_name %>
+        </div>
+      </div>
+
+      <div class="four wide field">
+        <div class="field">
+          <label>Amount</label>
+          <%= f.text_field :amount_wished %>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Project Description</label>
+      <%= f.text_area :project_description %>
+    </div>
+
+
+
+    <%= f.submit 'Valider',class: 'ui primary button right floated' %>
+    <%= link_to 'Destroy', borrower_path(@borrower.id) ,method: :delete, remote: true %>
+    <a class='ui red button right floated deleteALink' data-url="<%= destroy_by_popup_borrower_path(@borrower.id) %>" data-linkid="<%= borrower.id %>">
+      <i class="fa fa-trash"></i>
+    </a>
+
+
+
+
+<% end %>

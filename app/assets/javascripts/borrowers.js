@@ -13,5 +13,21 @@ $(document).on('turbolinks:load', function(){
     });
 
 
+    $('.deleteALink').click(function(){
+        var linkId=$(this).data('linkid');
+        var linkDeletionUrl=$(this).data('url');
+        var afterAction=function(data){
+            if(data.isError===false){
+                $('#edit_useful_link_'+linkId).remove();
+            }
+
+            HandleMessageFromServer(data);
+            CloseModal();
+        };
+
+        DisplayConfirmationPopup(linkDeletionUrl,linkId,afterAction);
+    });
+
+
 });
 

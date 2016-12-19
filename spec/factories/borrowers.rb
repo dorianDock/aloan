@@ -15,10 +15,10 @@
 
 FactoryGirl.define do
   factory :borrower do
-    name "MyString"
-    first_name "MyString"
-    birth_date "2016-12-14 13:40:22"
-    amount_wished 1.5
-    project_description "MyText"
+    name 'Borrows'
+    first_name 'John'
+    birth_date '1992-03-10 13:40:22'
+    amount_wished 50000
+    project_description 'He would like to buy enough soup to serve soup for the week each week'
   end
 end

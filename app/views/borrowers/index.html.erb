@@ -25,6 +25,7 @@
             <%= borrower.project_description %>
           </div>
           <div class="meta"><%= borrower.amount_wished %> MGA</div>
+          <div class="meta"><%= link_to 'Edit', edit_borrower_path(borrower.id) %></div>
         </div>
       </div>
 <% end %>

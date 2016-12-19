@@ -11,7 +11,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 <% is_registration_call=['registrations','passwords','sessions'].include?(controller_name)
-  class_for_background=''
+  class_for_background='normalContainer'
   if is_registration_call
     class_for_background = 'registrationContainer'
   end
@@ -25,6 +25,19 @@
          render 'layouts/welcome_menu'
        end
   %>
+
+  <div class="ui positive message myCustomSuccessMessage">
+    <i class="close icon"></i>
+    <div class="header myCustomSuccessMessageHeader">
+    </div>
+    <p class="myCustomSuccessMessageContent"></p>
+  </div>
+  <div class="ui negative message myCustomErrorMessage">
+    <i class="close icon"></i>
+    <div class="header myCustomErrorMessageHeader">
+    </div>
+    <p class="myCustomErrorMessageContent"></p>
+  </div>
 
   <div class="ui grid">
     <div class="five wide column"></div>
@@ -40,6 +53,13 @@
         <p class="header alert"><%= alert %></p>
       </div>
       <%- end %>
+
+      <%- if flash[:info] %>
+          <div class="ui attached message notice">
+            <p class="header notice"><%= flash[:info] %></p>
+          </div>
+      <%- end %>
+
     </div>
     <div class="five wide column"></div>
   </div>
@@ -60,7 +80,25 @@
   <% end %>
 
 
-
+  <div class="ui small confirmationModal basic modal transition visible" style="margin-top: -122.5px; display: block !important;">
+    <div class="ui icon header">
+      <i class="trash icon"></i>
+      Delete
+    </div>
+    <div class="content">
+      <p>Do you really want to delete it?</p>
+    </div>
+    <div class="actions">
+      <div class="ui red basic cancel inverted button">
+        <i class="remove icon"></i>
+        No
+      </div>
+      <div class="ui green ok inverted button">
+        <i class="checkmark icon"></i>
+        Yes
+      </div>
+    </div>
+  </div>
 
 
 

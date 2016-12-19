@@ -21,6 +21,7 @@
 
 $grey: #DADADA;
 $dark_purple: #342936;
+$gold: gold;
 
 .dark_purple{
   color: $dark_purple;
@@ -30,9 +31,15 @@ $dark_purple: #342936;
   background-color: $grey !important;
 }
 
+.normalContainer{
+  background-color: $dark_purple !important;
+}
+
+
 .centeredTitle{
   text-align: center;
   margin-bottom: 1%;
+  color: $gold;
 }
 
 .independentElement{

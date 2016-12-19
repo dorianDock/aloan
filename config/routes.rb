@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'home/secured'
 
-  resources :borrowers
+  resources :borrowers do
+    member do
+      get 'destroy_by_popup'
+    end
+  end
 
 end
