@@ -1,10 +1,10 @@
 <% # encoding: utf-8   %>
-<h1 class="centeredTitle">Borrowers</h1>
+<h1 class="centeredTitle"><%= t('menu.borrowers') %></h1>
 
 <div class=" ui grid">
   <div class="seven wide column"></div>
   <div class="independentElement nine wide column">
-    <a class="ui button teal" href="<%= new_borrower_path %>"><i class="ui icon add"></i> Add </a>
+    <a class="ui button teal" href="<%= new_borrower_path %>"><i class="ui icon add"></i> <%= t('add') %> </a>
   </div>
 
 </div>
@@ -18,14 +18,14 @@
       <div class="card">
         <div class="content">
           <div class="header"><%= borrower.full_name %></div>
-          <div class="meta">Works in <%= borrower.company_name %></div>
-          <div class="meta">Created on <%= borrower.created_at.strftime('%d/%m/%Y') %></div>
-          <div class="meta"><%= borrower.display_birth_date %> (<%= borrower.age %> years old)</div>
+          <div class="meta"><%= t('borrower.works_in') %> <%= borrower.company_name %></div>
+          <div class="meta"><%= t('borrower.created_on') %> <%= borrower.created_at.strftime('%d/%m/%Y') %></div>
+          <div class="meta"><%= borrower.display_birth_date %> (<%= borrower.age %> <%= t('borrower.years_old') %>)</div>
           <div class="description">
             <%= borrower.project_description %>
           </div>
           <div class="meta"><%= borrower.amount_wished %> MGA</div>
-          <div class="meta"><%= link_to 'Edit', edit_borrower_path(borrower.id) %></div>
+          <div class="meta"><%= link_to t('edit'), edit_borrower_path(borrower.id) %></div>
         </div>
       </div>
 <% end %>

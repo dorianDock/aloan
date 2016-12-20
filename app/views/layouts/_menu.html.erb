@@ -3,10 +3,10 @@
     <%= image_tag('u1.png') %>
   </a>
   <a class="item">
-    Loans
+    <%= t('menu.loans') %>
   </a>
-  <a class="item">
-    Customers
+  <a class="item" href="<%=	borrowers_path %>">
+    <%= t('menu.borrowers') %>
   </a>
 
 
@@ -14,7 +14,7 @@
 
       <%-	if user_signed_in? %>
           <%= link_to current_user.email, edit_user_registration_path, class: 'ui item' %>
-          <%= link_to 'Log Out', destroy_user_session_path, method: 'delete', class: 'ui item' %>
+          <%= link_to t('menu.log_out'), destroy_user_session_path, method: 'delete', class: 'ui item' %>
       <%- end %>
     
   </div>

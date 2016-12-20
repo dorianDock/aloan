@@ -22,6 +22,8 @@
 $grey: #DADADA;
 $dark_purple: #342936;
 $gold: gold;
+$light: white;
+
 
 .dark_purple{
   color: $dark_purple;
@@ -44,4 +46,21 @@ $gold: gold;
 
 .independentElement{
   margin-bottom: 1%;
+}
+
+.light_form{
+  color: $light !important;
+}
+.light_form > .ui{
+  color: $light !important;
+}
+.light_form > .field > label{
+  color: $light !important;
+}
+.light_form > .fields > .field > label{
+  color: $light !important;
+}
+
+.light_form > .fields > .field > .field > label{
+  color: $light !important;
 }

@@ -82,20 +82,20 @@
 
   <div class="ui small confirmationModal basic modal transition visible" style="margin-top: -122.5px; display: block !important;">
     <div class="ui icon header">
-      <i class="trash icon"></i>
-      Delete
+      <i class="ui icon trash"></i>
+      <%= t('delete') %>
     </div>
     <div class="content">
-      <p>Do you really want to delete it?</p>
+      <p><%= t('delete_confirmation_question') %></p>
     </div>
     <div class="actions">
       <div class="ui red basic cancel inverted button">
-        <i class="remove icon"></i>
-        No
+        <i class="ui icon remove"></i>
+        <%= t('no') %>
       </div>
       <div class="ui green ok inverted button">
-        <i class="checkmark icon"></i>
-        Yes
+        <i class="ui icon check"></i>
+        <%= t('yes') %>
       </div>
     </div>
   </div>

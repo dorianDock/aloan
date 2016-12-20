@@ -21,7 +21,7 @@
 //= require_tree .
 
 
-$(document).on('page:change', function () {
+$(document).on('turbolinks:load', function () {
     $('.message > .close')
         .on('click', function () {
             $(this)

@@ -1,0 +1,30 @@
+
+
+fr:
+  hello: "Bonjour à tous"
+  successful_update: ' a bien été mis à jour.'
+  error_update: "Il y a eu un problème durant la mise à jour, merci de contacter l'équipe support"
+  successful_deletion: ' a bien été effacé du système.'
+  error_deletion: "Il y a eu un problème durant la suppression, merci de contacter l'équipe support"
+  submit: 'Valider'
+  delete: 'Supprimer'
+  add: 'Nouveau'
+  edit: 'Modifier'
+  borrower:
+    name: 'Nom'
+    first_name: 'Prénom'
+    birth_date: 'Date de naissance'
+    project_description: 'Description du projet'
+    amount: 'Montant'
+    company_name: 'Nom de la société'
+    works_in: 'Travaille à'
+    created_on: 'Avec nous depuis'
+    years_old: 'ans'
+  delete_confirmation_question: 'Etes vous sûr(e) de supprimer?'
+  yes: 'Oui'
+  no: 'Non'
+  menu:
+    loans: 'Prêts'
+    borrowers: 'Emprunteurs'
+    log_out: 'Déconnexion'
+

@@ -21,3 +21,29 @@
 
 en:
   hello: "Hello world"
+  successful_update: ' was successfully updated.'
+  error_update: 'There was a problem during the update, please contact the support team'
+  successful_deletion: ' was successfully removed from the system.'
+  error_deletion: 'There was a problem during the deletion, please contact the support team'
+  submit: 'Submit'
+  delete: 'Delete'
+  add: 'Add'
+  edit: 'Edit'
+  borrower:
+    name: 'Name'
+    first_name: 'First name'
+    birth_date: 'Birth date'
+    project_description: 'Project description'
+    amount: 'amount'
+    company_name: 'Company Name'
+    works_in: 'Works in'
+    created_on: 'Joined since'
+    years_old: 'years old'
+  delete_confirmation_question: 'Are you sure that you want to delete it?'
+  yes: 'Yes'
+  no: 'No'
+  menu:
+    loans: 'Loans'
+    borrowers: 'Borrowers'
+    log_out: 'Log Out'
+

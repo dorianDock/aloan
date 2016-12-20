@@ -1,6 +1,6 @@
 <% # encoding: utf-8   %>
 
-<%= form_for @new_borrower, method: 'post', html: {:multipart => true, class: 'ui form'} do |f| %>
+<%= form_for @new_borrower, method: 'post', html: {:multipart => true, class: 'ui form light_form' } do |f| %>
     <% string_id=@new_borrower.id.to_s %>
     <h1>Create new borrower</h1>
     <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">

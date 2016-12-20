@@ -25,11 +25,12 @@ class BorrowersController < ApplicationController
 
   def update
     @borrower = Borrower.find_by id: (params[:borrower][:id])
-    unless(@borrower.nil?)
+    unless @borrower.nil?
       borrower_name = @borrower.full_name
       permitted_params = permitted_parameters(params[:borrower])
       @borrower.update(permitted_params)
-      flash[:info] = borrower_name+' was successfully updated.'
+
+      flash[:info] = borrower_name+I18n.t('successful_update')
     end
     redirect_to edit_borrower_path
   end
@@ -39,7 +40,7 @@ class BorrowersController < ApplicationController
     borrower_name = @borrower.full_name
     unless @borrower.nil?
       @borrower.destroy
-      flash[:info] = borrower_name+' was successfully removed from the system.'
+      flash[:info] = borrower_name+I18n.t('successful_deletion')
       redirect_to borrowers_path
     end
   end
@@ -47,19 +48,22 @@ class BorrowersController < ApplicationController
   def destroy_by_popup
     borrower_id = params[:objectid]
     borrower = Borrower.find_by(id: borrower_id)
+    borrower_name = ''
     unless borrower.nil?
+      borrower_name = borrower.full_name
       borrower.destroy
     end
     response_message=''
-
     if (borrower.destroyed?)
-      response_message='The borrower has been successfully removed';
+      response_message = borrower_name+I18n.t('successful_deletion')
     else
-      response_message='There was a problem during the update';
+      response_message=I18n.t('error_deletion')
     end
+
+    flash[:info] = response_message
     respond_to do |format|
       format.json {
-        render json: {:isError => !(borrower.destroyed?), :responseMessage => response_message }
+        render json: {:isError => !(borrower.destroyed?), :responseMessage => response_message, :redirection => borrowers_path }
       }
     end
   end
