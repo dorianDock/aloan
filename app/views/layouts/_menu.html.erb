@@ -1,11 +1,11 @@
-<div class="ui menu">
-  <a class="item" href="<%= root_path %>">
+<div class="ui menu darkMenu">
+  <a class="item contrastMenuElement" href="<%= root_path %>">
     <%= image_tag('u1.png') %>
   </a>
-  <a class="item">
+  <a class="item lightMenuElement">
     <%= t('menu.loans') %>
   </a>
-  <a class="item" href="<%=	borrowers_path %>">
+  <a class="item lightMenuElement" href="<%=	borrowers_path %>">
     <%= t('menu.borrowers') %>
   </a>
 
@@ -13,8 +13,8 @@
   <div class="right menu">
 
       <%-	if user_signed_in? %>
-          <%= link_to current_user.email, edit_user_registration_path, class: 'ui item' %>
-          <%= link_to t('menu.log_out'), destroy_user_session_path, method: 'delete', class: 'ui item' %>
+          <%= link_to current_user.email, edit_user_registration_path, class: 'ui item lightMenuElement' %>
+          <%= link_to t('menu.log_out'), destroy_user_session_path, method: 'delete', class: 'ui item lightMenuElement' %>
       <%- end %>
     
   </div>

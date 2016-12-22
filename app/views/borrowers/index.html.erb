@@ -1,7 +1,7 @@
 <% # encoding: utf-8   %>
 <h1 class="centeredTitle"><%= t('menu.borrowers') %></h1>
 
-<div class=" ui grid">
+<div class="ui grid">
   <div class="seven wide column"></div>
   <div class="independentElement nine wide column">
     <a class="ui button teal" href="<%= new_borrower_path %>"><i class="ui icon add"></i> <%= t('add') %> </a>
@@ -17,7 +17,7 @@
 <%- @borrowers.each do |borrower| %>
       <div class="card">
         <div class="content">
-          <div class="header"><%= borrower.full_name %></div>
+          <div class="header"><a href="<%= borrower_path(borrower) %>"><%= borrower.full_name %></a> </div>
           <div class="meta"><%= t('borrower.works_in') %> <%= borrower.company_name %></div>
           <div class="meta"><%= t('borrower.created_on') %> <%= borrower.created_at.strftime('%d/%m/%Y') %></div>
           <div class="meta"><%= borrower.display_birth_date %> (<%= borrower.age %> <%= t('borrower.years_old') %>)</div>

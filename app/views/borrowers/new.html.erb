@@ -1,5 +1,9 @@
 <% # encoding: utf-8   %>
 
+<%= validation_error_messages!(@new_borrower) %>
+
+
+
 <%= form_for @new_borrower, method: 'post', html: {:multipart => true, class: 'ui form light_form' } do |f| %>
     <% string_id=@new_borrower.id.to_s %>
     <h1>Create new borrower</h1>

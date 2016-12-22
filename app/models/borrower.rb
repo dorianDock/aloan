@@ -18,6 +18,9 @@ class Borrower < ApplicationRecord
 
   has_many :loans
 
+  validates :name, presence: { message: "must be given please" }, :length   => { :maximum => 100 }
+  validates :first_name, presence: true, :length   => { :maximum => 100 }
+
   def full_name
     name = ''
     unless (self.first_name.nil? || self.first_name.empty?) && (self.name.nil? || self.name.empty?)

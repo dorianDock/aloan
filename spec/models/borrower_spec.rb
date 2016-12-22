@@ -23,10 +23,33 @@ RSpec.describe Borrower, type: :model do
     end
   end
 
+  describe 'Validations' do
+    it 'should always have a name' do
+      a_borrower = FactoryGirl.build(:borrower, :name => nil)
+      expect(a_borrower).to_not be_valid
+    end
+
+    it 'should always have a first name' do
+      a_borrower = FactoryGirl.build(:borrower, :first_name => nil)
+      expect(a_borrower).to_not be_valid
+    end
+
+    it 'cannot have a blank name' do
+      a_borrower = FactoryGirl.build(:borrower, :name => '')
+      expect(a_borrower).to_not be_valid
+    end
+
+    it 'cannot have a first_name longer than 100 characters' do
+      very_long_first_name = 'i'*101
+      a_borrower = FactoryGirl.build(:borrower, :first_name => very_long_first_name)
+      expect(a_borrower).to_not be_valid
+    end
+  end
+
   describe 'Extensions' do
     before(:each) do
       @borrower= FactoryGirl.create(:borrower)
-      @borrower.save!
+
     end
 
     it 'birthday when correct' do

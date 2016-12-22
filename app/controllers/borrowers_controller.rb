@@ -6,9 +6,14 @@ class BorrowersController < ApplicationController
 
   def create
     permitted_params = permitted_parameters(params[:borrower])
-    borrower = Borrower.new(permitted_params)
-    borrower.save!
-    redirect_to borrowers_path
+    @new_borrower = Borrower.new(permitted_params)
+    if @new_borrower.valid?
+      @new_borrower.save!
+      redirect_to borrowers_path
+    else
+      render 'new'
+    end
+
   end
 
   def new
@@ -20,7 +25,7 @@ class BorrowersController < ApplicationController
   end
 
   def show
-
+    @borrower = Borrower.find_by id: params[:id]
   end
 
   def update
@@ -49,21 +54,23 @@ class BorrowersController < ApplicationController
     borrower_id = params[:objectid]
     borrower = Borrower.find_by(id: borrower_id)
     borrower_name = ''
+    response_message=''
+    is_destroyed=false
     unless borrower.nil?
       borrower_name = borrower.full_name
       borrower.destroy
-    end
-    response_message=''
-    if (borrower.destroyed?)
-      response_message = borrower_name+I18n.t('successful_deletion')
-    else
+      is_destroyed = borrower.destroyed?
+      if (is_destroyed)
+        response_message = borrower_name+I18n.t('successful_deletion')
+      else
       response_message=I18n.t('error_deletion')
+      end
     end
 
     flash[:info] = response_message
     respond_to do |format|
       format.json {
-        render json: {:isError => !(borrower.destroyed?), :responseMessage => response_message, :redirection => borrowers_path }
+        render json: {:isError => !(is_destroyed), :responseMessage => response_message, :redirection => borrowers_path }
       }
     end
   end

@@ -21,6 +21,7 @@
 
 $grey: #DADADA;
 $dark_purple: #342936;
+$very_dark_purple: #100729;
 $gold: gold;
 $light: white;
 
@@ -34,9 +35,16 @@ $light: white;
 }
 
 .normalContainer{
-  background-color: $dark_purple !important;
+  background-color: $very_dark_purple !important;
 }
 
+.darkMenu{
+  background-color: $very_dark_purple !important;
+}
+
+.contrastMenuElement{
+  background-color: $gold !important;
+}
 
 .centeredTitle{
   text-align: center;
@@ -46,6 +54,10 @@ $light: white;
 
 .independentElement{
   margin-bottom: 1%;
+}
+
+.lightMenuElement{
+  color: $light !important;
 }
 
 .light_form{

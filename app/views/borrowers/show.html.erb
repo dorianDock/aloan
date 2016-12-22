@@ -1,0 +1,65 @@
+
+<div class="ui two column grid">
+  <div class="column">
+    <div class="ui segment">
+      <a class="ui red ribbon label">Overview</a>
+      <span class="ui header">Account Summary <a href="<%= edit_borrower_path(@borrower) %>"><i class="ui icon edit"></i></a></span>
+      <p></p>
+      <div class="ui grid">
+        <div class="four wide column">
+          <div class="ui image">
+            <%= image_tag 'u1.png', height: '120px', :width => '120px', :class => 'linkPicture' %>
+          </div>
+        </div>
+
+        <div class="twelve wide column">
+          <div class="ui text">
+            <h2 class="ui header"><%= @borrower.full_name %></h2>
+            <p class=""><span class="ui horizontal label">Company</span> <%= @borrower.company_name %></p>
+            <p class=""><%= t('borrower.created_on') %> <%= @borrower.created_at.strftime('%d/%m/%Y') %></p>
+            <p class=""><%= @borrower.display_birth_date %> (<%= @borrower.age %> <%= t('borrower.years_old') %>)</p>
+            <p class=""><span class="ui horizontal label">Project</span><%= @borrower.project_description %></p>
+            <p class=""><span class="ui horizontal label">Amount</span><%= @borrower.amount_wished %> MGA</p>
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+    <div class="ui segment">
+      <a class="ui blue ribbon label">Loans</a>
+      <span class="ui header">Activity</span>
+      <p></p>
+      <p class="">No info yet.</p>
+
+    </div>
+
+  </div>
+
+  <div class="column">
+
+    <div class="ui segment">
+      <a class="ui orange right ribbon label">History</a>
+      <span class="ui header">Past Actions</span>
+      <p></p>
+      <p class="">No info yet.</p>
+
+    </div>
+
+    <div class="ui segment">
+      <a class="ui teal right ribbon label">Side Notes</a>
+      <span class="ui header">Comments</span>
+      <p></p>
+      <p class="">No info yet.</p>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
