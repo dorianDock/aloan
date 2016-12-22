@@ -6,6 +6,10 @@ fr:
   error_update: "Il y a eu un problème durant la mise à jour, merci de contacter l'équipe support"
   successful_deletion: ' a bien été effacé du système.'
   error_deletion: "Il y a eu un problème durant la suppression, merci de contacter l'équipe support"
+  error_creation: "Il y a eu un problème durant la création, merci de contacter l'équipe support"
+  error_validation_m:
+    one: "1 erreur a empêché cet %{resource} d'être pris en compte:"
+    other: "%{count} erreurs ont empêché cet %{resource} d'être pris en compte:"
   submit: 'Valider'
   delete: 'Supprimer'
   add: 'Nouveau'
@@ -20,6 +24,8 @@ fr:
     works_in: 'Travaille à'
     created_on: 'Avec nous depuis'
     years_old: 'ans'
+    not_blank: 'doit être fourni.'
+    create_new: 'Nouvel emprunteur'
   delete_confirmation_question: 'Etes vous sûr(e) de supprimer?'
   yes: 'Oui'
   no: 'Non'
@@ -27,4 +33,11 @@ fr:
     loans: 'Prêts'
     borrowers: 'Emprunteurs'
     log_out: 'Déconnexion'
+  activerecord:
+        models:
+          borrower: 'Emprunteur'
+        attributes:
+          borrower:
+            name: 'Le Nom'
+            first_name: 'Le Prénom'
 

@@ -18,8 +18,8 @@ class Borrower < ApplicationRecord
 
   has_many :loans
 
-  validates :name, presence: { message: "must be given please" }, :length   => { :maximum => 100 }
-  validates :first_name, presence: true, :length   => { :maximum => 100 }
+  validates :name, presence: { message: I18n.t('borrower.not_blank')}, :length   => { :maximum => 100 }
+  validates :first_name, presence: { message: I18n.t('borrower.not_blank')}, :length   => { :maximum => 100 }
 
   def full_name
     name = ''

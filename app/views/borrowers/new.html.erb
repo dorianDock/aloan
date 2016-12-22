@@ -6,45 +6,45 @@
 
 <%= form_for @new_borrower, method: 'post', html: {:multipart => true, class: 'ui form light_form' } do |f| %>
     <% string_id=@new_borrower.id.to_s %>
-    <h1>Create new borrower</h1>
+    <h1><%= t('borrower.create_new') %></h1>
     <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 
     <div class="fields">
       <div class="four wide field">
         <div class="field">
-          <label>Name</label>
+          <label><%= t('borrower.name') %></label>
           <%= f.text_field :name %>
         </div>
 
         <div class="field">
-          <label>First Name</label>
+          <label><%= t('borrower.first_name') %></label>
           <%= f.text_field :first_name %>
         </div>
       </div>
       <div class="four wide field">
         <div class="field">
-          <label>Birth date</label>
+          <label><%= t('borrower.birth_date') %></label>
           <%= f.text_field  :birth_date, :class => 'borrowerBirthDate' %>
         </div>
       </div>
 
       <div class="four wide field">
         <div class="field">
-          <label>Company Name</label>
+          <label><%= t('borrower.company_name') %></label>
           <%= f.text_field :company_name %>
         </div>
       </div>
 
       <div class="four wide field">
         <div class="field">
-          <label>Amount</label>
+          <label><%= t('borrower.amount') %></label>
           <%= f.text_field :amount_wished %>
         </div>
       </div>
     </div>
 
     <div class="field">
-      <label>Project Description</label>
+      <label><%= t('borrower.project_description') %></label>
       <%= f.text_area :project_description %>
     </div>
 

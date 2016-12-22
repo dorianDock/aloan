@@ -25,6 +25,10 @@ en:
   error_update: 'There was a problem during the update, please contact the support team'
   successful_deletion: ' was successfully removed from the system.'
   error_deletion: 'There was a problem during the deletion, please contact the support team'
+  error_creation: 'There was a problem during the creation, please contact the support team'
+  error_validation_m:
+    one: "1 error prohibited this %{resource} from being saved:"
+    other: "%{count} errors prohibited this %{resource} from being saved:"
   submit: 'Submit'
   delete: 'Delete'
   add: 'Add'
@@ -39,6 +43,8 @@ en:
     works_in: 'Works in'
     created_on: 'Joined since'
     years_old: 'years old'
+    not_blank: 'must be given please'
+    create_new: 'Create new borrower'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'
@@ -46,4 +52,13 @@ en:
     loans: 'Loans'
     borrowers: 'Borrowers'
     log_out: 'Log Out'
+  activerecord:
+      models:
+        borrower: 'Borrower'
+      attributes:
+        borrower:
+          name: 'Name'
+          first_name: 'First Name'
+
+
 

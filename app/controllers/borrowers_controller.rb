@@ -4,7 +4,10 @@ class BorrowersController < ApplicationController
     @borrowers = Borrower.all
   end
 
+
+
   def create
+
     permitted_params = permitted_parameters(params[:borrower])
     @new_borrower = Borrower.new(permitted_params)
     if @new_borrower.valid?
