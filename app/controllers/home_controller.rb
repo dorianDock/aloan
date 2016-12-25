@@ -9,6 +9,4 @@ class HomeController < ApplicationController
   def secured
 
   end
-
-
 end

@@ -22,6 +22,7 @@
 $grey: #DADADA;
 $dark_purple: #342936;
 $very_dark_purple: #100729;
+$light_contrast_with_dark_purple: #1F0829;
 $gold: gold;
 $light: white;
 
@@ -40,6 +41,10 @@ $light: white;
 
 .darkMenu{
   background-color: $very_dark_purple !important;
+}
+
+.darkDropDownMenu{
+  background-color: $light_contrast_with_dark_purple !important;
 }
 
 .contrastMenuElement{

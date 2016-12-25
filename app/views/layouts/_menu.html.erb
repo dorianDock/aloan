@@ -13,6 +13,29 @@
   <div class="right menu">
 
       <%-	if user_signed_in? %>
+
+
+        <div class="ui dropdown item lightMenuElement">
+          <div class="">
+            <a class="ui lightMenuElement">
+              <% if I18n.locale == :en %>
+                  <i class="gb flag"></i>
+              <% end %>
+              <% if I18n.locale == :fr %>
+                  <i class="fr flag"></i>
+              <% end %>
+            </a>
+          </div> <i class="dropdown icon"></i>
+          <div class="menu darkDropDownMenu">
+            <% unless I18n.locale == :en %>
+              <a class="ui item lightMenuElement" href="<%= url_for( :locale => 'en' ) %>"><i class="gb flag"></i></a>
+            <% end %>
+            <% unless I18n.locale == :fr %>
+              <a class="ui item lightMenuElement" href="<%= url_for( :locale => 'fr' ) %>"><i class="fr flag"></i></a>
+            <% end %>
+          </div>
+        </div>
+
           <%= link_to current_user.email, edit_user_registration_path, class: 'ui item lightMenuElement' %>
           <%= link_to t('menu.log_out'), destroy_user_session_path, method: 'delete', class: 'ui item lightMenuElement' %>
       <%- end %>
