@@ -53,6 +53,44 @@ $(document).on('turbolinks:load', function () {
 
 });
 
+// Initialize function for select lists
+function InitializeSelectList(aCssClass) {
+    var myUrl = $('.' + aCssClass).data('url');
+    var placeHolder = $('.' + aCssClass).data('placeholder');
+    if(myUrl==undefined){
+        myUrl = $('.' + aCssClass+' > select').data('url');
+    }
+    $.ajax({
+        url: myUrl,
+        data: {}
+    }).done(function (data) {
+        for (var i = 0; i < data.results.length; i++) {
+            $('.' + aCssClass + ' > select').append('<option value="' + data.results[i].value + '">' + data.results[i].name + '</option>');
+        }
+        // objectLink is the entity by which we are going to take the data already set
+        var objectLink = $('.' + aCssClass + ' > select').data('objectlinkid');
+        if (objectLink != undefined && objectLink != "") {
+            var initializeUrl = $('.' + aCssClass + ' > select').data('initializeurl');
+            var changeTheDropDown = function (data) {
+                // we change the data from [] to [""]
+                for (i = 0; i < data.length; i++) {
+                    data[i] = data[i].toString();
+                }
+                $('.' + aCssClass).dropdown('set selected', data);
+            };
+            var parameters = {objectid: objectLink};
+            AjaxRequest(initializeUrl, parameters, changeTheDropDown);
+        }
+    });
+    $('.' + aCssClass)
+        .dropdown({
+            placeholder: placeHolder,
+            apiSettings: {
+                url: myUrl + '?query={query}'
+            }
+        });
+}
+
 function AjaxRequest(targetUrl, parameters, callBackFunction) {
     $.ajax({
         url: targetUrl,

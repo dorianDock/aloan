@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'home/secured'
 
+  get 'data_source/borrowers_list'
+
 
   resources :borrowers do
     member do
@@ -13,4 +15,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :loans do
+  end
+
 end
+

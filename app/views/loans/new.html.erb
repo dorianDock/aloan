@@ -1,0 +1,56 @@
+<% # encoding: utf-8   %>
+
+<%= validation_error_messages!(@new_loan) %>
+
+
+
+<%= form_for @new_loan, method: 'post', html: {:multipart => true, class: 'ui form light_form' } do |f| %>
+
+    <h1><%= t('loan.create_new') %></h1>
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+    <div class="fields">
+      <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :start_date %></label>
+          <%= f.text_field :start_date, :class => 'loanStartDate' %>
+        </div>
+
+        <div class="field">
+          <label><%= f.label :contractual_end_date %></label>
+          <%= f.text_field :contractual_end_date, :class => 'loanContractualEndDate' %>
+        </div>
+      </div>
+      <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :amount %></label>
+          <%= f.text_field  :amount, :placeholder => t('loan.amount_example') %>
+        </div>
+      </div>
+
+      <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :rate %> <%= t('loan.rate_explanation') %></label>
+          <%= f.text_field  :rate, :placeholder => t('loan.rate_example') %>
+        </div>
+      </div>
+
+      <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :borrower_id %></label>
+          <%= select_tag('loan[borrower_id]', '',id: 'loan_borrower_id', class: 'ui dropdown search loanBorrower newLoanBorrower',
+                         data: {:url => data_source_borrowers_list_url, :placeholder => 'Choose a borrower'
+                         }) %>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label><%= f.label :loan_goal %></label>
+      <%= f.text_area :loan_goal %>
+    </div>
+
+    <%= f.submit 'Submit', class: 'ui primary button right floated' %>
+<% end %>
+

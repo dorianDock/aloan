@@ -37,6 +37,22 @@ class Borrower < ApplicationRecord
     name
   end
 
+  def reverse_full_name
+    name = ''
+    unless (self.first_name.nil? || self.first_name.empty?) && (self.name.nil? || self.name.empty?)
+      unless self.name.nil? || self.name.empty?
+        name += self.name
+      end
+      unless self.first_name.nil? || self.first_name.empty? || self.name.nil? || self.name.empty?
+        name += ' '
+      end
+      unless self.first_name.nil? || self.first_name.empty?
+        name += self.first_name
+      end
+    end
+    name
+  end
+
   def display_birth_date
     self.birth_date.nil? ? 'Birthday unknown' : (self.birth_date.strftime('%d/%m/%Y'))
   end
