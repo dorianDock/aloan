@@ -1,0 +1,24 @@
+
+
+<div class="item light_item">
+  <div class="ui image">
+    <%= image_tag 'u1.png', :class => 'medium_pictures_for_lists' %>
+  </div>
+
+  <div class="content">
+    <a class="header"><%=  %> <%= t('loan.loan_of') %> <%= loan.borrower.full_name %></a>
+    <div class="meta">
+      <span><%= t('loan.description') %></span>
+    </div>
+    <div class="description">
+      <p><%= loan.loan_goal %></p>
+      loan.order
+      t('loan.times')
+    </div>
+    <div class="extra">
+      <p><%= t('rate') %>: <%= loan.rate %></p>
+      <p><%= t('amount') %>: <%= loan.amount %></p>
+      <p><%= t('from') %> <%= loan.start_date.strftime('%d/%m/%Y') %> <%= t('to') %> <%= loan.contractual_end_date.strftime('%d/%m/%Y') %></p>
+    </div>
+  </div>
+</div>
