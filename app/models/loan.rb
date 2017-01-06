@@ -24,6 +24,7 @@ class Loan < ApplicationRecord
   validates :contractual_end_date, presence: { message: I18n.t('loan.not_blank')}
   validates :rate, presence: { message: I18n.t('loan.not_blank')}
   validates :amount, presence: { message: I18n.t('loan.not_blank')}
+  validates :borrower_id, presence: { message: I18n.t('loan.not_blank')}
 
 
   scope :natural_order, -> { order(start_date: :asc) }
