@@ -11,5 +11,25 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe LoansHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'ordinalize_with_language' do
+
+    it 'returns 1st when the count is 1' do
+      translation_to_call = ordinalize_with_language(1)
+      expect(t(translation_to_call)).to eq('st')
+    end
+    it 'returns 2nd when the count is 2' do
+      translation_to_call = ordinalize_with_language(2)
+      expect(t(translation_to_call)).to eq('nd')
+    end
+    it 'returns 3rd when the count is 3' do
+      translation_to_call = ordinalize_with_language(3)
+      expect(t(translation_to_call)).to eq('rd')
+    end
+
+    it 'returns 6th when the count is 6' do
+      translation_to_call = ordinalize_with_language(6)
+      expect(t(translation_to_call)).to eq('th')
+    end
+
+  end
 end

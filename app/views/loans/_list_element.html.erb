@@ -7,7 +7,7 @@
 
   <div class="content">
     <a class="header"><%= loan.order %> <%= t(ordinalize_with_language(loan.order)) %> <%= t('loan.loan_of') %> <%= loan.borrower.full_name %>
-     <%= link_to 'Destroy', loans_path(loan.id), method: :delete, remote: true, class: 'ui button red' %>
+     <%= link_to 'Destroy', loan_path(loan), method: :delete, class: 'ui button red' %>
     </a>
     <div class="meta">
       <span><%= t('loan.description') %></span>

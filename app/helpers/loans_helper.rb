@@ -6,11 +6,11 @@ module LoansHelper
   def ordinalize_with_language(count)
     translation_to_call='times.'
     case count
-      when count == 1
+      when 1
         translation_to_call+='one'
-      when count == 2
+      when 2
         translation_to_call+='two'
-      when count == 3
+      when 3
         translation_to_call+='three'
       else
         translation_to_call+='other'
