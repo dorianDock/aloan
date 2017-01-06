@@ -7,6 +7,13 @@ class LoansController < ApplicationController
   def create
     permitted_params = permitted_parameters(params[:loan])
     @new_loan = Loan.new(permitted_params)
+    # check the order of the last loan taken by the person
+    newer_loan = Loan.where(borrower_id: @new_loan.borrower_id).order(order: :desc).first
+    order_to_apply=1
+    unless newer_loan.nil?
+      order_to_apply = newer_loan.order + 1
+    end
+    @new_loan.order = order_to_apply
     if @new_loan.valid?
       @new_loan.save!
       redirect_to loans_path
