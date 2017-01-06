@@ -1,5 +1,10 @@
 en:
   hello: "Hello world"
+  times:
+    one: 'st'
+    two: 'nd'
+    three: 'rd'
+    other: 'th'
   successful_update: ' was successfully updated.'
   error_update: 'There was a problem during the update, please contact the support team'
   successful_deletion: ' was successfully removed from the system.'

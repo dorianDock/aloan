@@ -6,14 +6,16 @@
   </div>
 
   <div class="content">
-    <a class="header"><%=  %> <%= t('loan.loan_of') %> <%= loan.borrower.full_name %></a>
+    <a class="header"><%= loan.order %> <%= t(ordinalize_with_language(loan.order)) %> <%= t('loan.loan_of') %> <%= loan.borrower.full_name %>
+     <%= link_to 'Destroy', loans_path(loan.id), method: :delete, remote: true, class: 'ui button red' %>
+    </a>
     <div class="meta">
       <span><%= t('loan.description') %></span>
     </div>
     <div class="description">
       <p><%= loan.loan_goal %></p>
-      loan.order
-      t('loan.times')
+
+
     </div>
     <div class="extra">
       <p><%= t('rate') %>: <%= loan.rate %></p>
