@@ -11,19 +11,33 @@
 
 
 <div class="ui grid">
-  <div class="two wide column">
+  <div class="one wide column">
   </div>
-  <div class="ten wide column">
+  <div class="five wide column">
+    <h2 class="lightMenuElement"><%= t('loans.past') %> (<%= @past_loans.count %>)</h2>
     <div class="ui items">
-      <%- @loans.each do |loan| %>
+      <%- @past_loans.each do |loan| %>
           <%= render 'loans/list_element', :loan => loan %>
       <%- end %>
     </div>
   </div>
-  <div class="two wide column">
+  <div class="five wide column">
+    <h2 class="lightMenuElement"><%= t('loans.current') %> (<%= @current_loans.count %>)</h2>
+    <div class="ui items">
+      <%- @current_loans.each do |loan| %>
+          <%= render 'loans/list_element', :loan => loan %>
+      <%- end %>
+    </div>
   </div>
-  <div class="two wide column">
+  <div class="five wide column">
+    <h2 class="lightMenuElement"><%= t('loans.future') %> (<%= @future_loans.count %>)</h2>
+    <div class="ui items">
+      <%- @future_loans.each do |loan| %>
+          <%= render 'loans/list_element', :loan => loan %>
+      <%- end %>
+    </div>
   </div>
+
 </div>
 
 

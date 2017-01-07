@@ -34,6 +34,16 @@ RSpec.describe LoansController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
+    it 'loans#show is reachable' do
+      get :show, params: { id: @loan.id }
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'loans#edit is reachable' do
+      get :edit, params: { id: @loan.id }
+      expect(response).to have_http_status(:success)
+    end
+
 
     it 'creation of a loan works' do
       loans_params = FactoryGirl.attributes_for(:loan)

@@ -33,6 +33,10 @@ en:
     years_old: 'years old'
     not_blank: 'must be given please'
     create_new: 'Create new borrower'
+  loans:
+    past: 'Past Loans'
+    current: 'Current Loans'
+    future: 'Future Loans'
   loan:
     successful_deletion: 'The loan was successfully removed.'
     successful_update1: 'The loan of '

@@ -1,7 +1,15 @@
 class LoansController < ApplicationController
 
   def index
-    @loans = Loan.natural_order.all
+    @loans = Loan.includes(:borrower).natural_order.all.to_a
+    today = Date.today
+    # this would call the db each time
+    # @past_loans = @loans.where('contractual_end_date < ?', today)
+    # @current_loans = @loans.where('contractual_end_date >= ? AND start_date <= ?', today, today)
+    # @future_loans = @loans.where('start_date > ?', today)
+    @past_loans = @loans.select{ |l| l.contractual_end_date < today}
+    @current_loans = @loans.select{ |l| l.contractual_end_date >= today && l.start_date <= today}
+    @future_loans = @loans.select{ |l| l.start_date > today}
   end
 
   def create
@@ -57,7 +65,7 @@ class LoansController < ApplicationController
   protected
 
   def permitted_parameters(params)
-    params.permit(:start_date, :contractual_end_date, :end_date, :is_in_default, :amount, :rate, :borrower_id, :loan_goal)
+    params.permit(:start_date, :contractual_end_date, :end_date, :is_in_default, :amount, :rate, :borrower_id, :loan_goal, :order)
   end
 
 end
