@@ -19,6 +19,10 @@ en:
   edit: 'Edit'
   from: 'From '
   to: ' to '
+  ago_days: '%{number} days ago.'
+  future_days: 'in %{number} days.'
+  today: 'today.'
+  no_info: 'No info yet.'
   rate: 'Rate'
   amount: 'Amount'
   borrower:
@@ -33,6 +37,18 @@ en:
     years_old: 'years old'
     not_blank: 'must be given please'
     create_new: 'Create new borrower'
+    overview: 'Overview'
+    account_summary: 'Account Summary'
+    loans: 'Loans'
+    activity: 'Activity'
+    past_actions: 'Past Actions'
+    history: 'History'
+    comments: 'Comments'
+    side_notes: 'Side Notes'
+    company: 'Company'
+    project: 'Project'
+    amount: 'Amount'
+    no_info: 'No info yet.'
   loans:
     past: 'Past Loans'
     current: 'Current Loans'
@@ -48,6 +64,17 @@ en:
     rate_explanation: ' (in % on the total of the loan)'
     amount_example: 'Ex: 50000'
     rate_example: 'Ex: 5'
+    amount_targeted: 'Amount targeted in total'
+    interest_message: '(Thus %{interest} MGA of interest.)'
+    steps: "Steps"
+    step_list: "Step List"
+    past_steps: "Past Steps"
+    side_notes: "Side Notes"
+    comments: "Comments"
+    figures: "Figures"
+    loan_is_running: "The loan is currently running"
+    figures_summary: "Figures Summary"
+    duration: 'Loan Duration'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'

@@ -6,7 +6,7 @@
   </div>
 
   <div class="content">
-    <a class="header"><%= loan.order %> <%= t(ordinalize_with_language(loan.order)) %> <%= t('loan.loan_of') %> <%= loan.borrower.full_name %>
+    <a class="header" href="<%= loan_path(loan) %>"><%= loan_title(loan) %>
      <%= link_to 'Destroy', loan_path(loan), method: :delete, class: 'ui button red' %>
     </a>
     <div class="meta">

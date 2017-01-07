@@ -32,4 +32,43 @@ RSpec.describe LoansHelper, type: :helper do
     end
 
   end
+
+
+  describe 'loan_title' do
+    before(:each) do
+
+    end
+    it 'returns correct title' do
+      a_borrower= FactoryGirl.create(:borrower)
+      a_loan = FactoryGirl.create(:loan, {:borrower_id => a_borrower.id})
+      title = loan_title(a_loan)
+      expect(title).to eq('10th loan taken by John Borrows')
+    end
+
+  end
+
+  describe 'compare_with_today' do
+    it 'returns 1 day ago when the number is -1' do
+      text = compare_with_today(-1)
+      expect(text).to eq('1 days ago.')
+    end
+    it 'returns in 1 day when the number is 1' do
+      text = compare_with_today(1)
+      expect(text).to eq('in 1 days.')
+    end
+    it 'returns today when the number is 0' do
+      text = compare_with_today(0)
+      expect(text).to eq('today.')
+    end
+    it 'returns 65 days ago when the number is -65' do
+      text = compare_with_today(-65)
+      expect(text).to eq('65 days ago.')
+    end
+    it 'returns in 25 day when the number is 25' do
+      text = compare_with_today(25)
+      expect(text).to eq('in 25 days.')
+    end
+  end
+
+
 end

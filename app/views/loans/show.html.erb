@@ -1,0 +1,72 @@
+
+<div class="ui two column grid">
+  <div class="column">
+
+    <div class="ui segment">
+      <a class="ui red ribbon label"><%= t('loan.figures') %></a>
+      <span class="ui header"> <%= t('loan.figures_summary') %><a href="<%= edit_loan_path(@loan) %>"><i class="ui icon edit"></i></a></span>
+      <p></p>
+
+      <div class="ui grid">
+        <div class="four wide column">
+          <div class="ui image">
+            <%= image_tag 'loan.png', height: '120px', :width => '120px', :class => 'linkPicture' %>
+          </div>
+        </div>
+        <div class="twelve wide column">
+          <div class="ui text">
+            <h2 class="ui header"><%= loan_title(@loan) %> <span class=""> <i class="ui icon thumbs outline up isPopup" data-content="<%= t('loan.loan_is_running') %>"></i></span></h2>
+            <p class=""><span class="ui horizontal label"><%= t('borrower.company') %></span> <%= @loan.borrower.company_name %></p>
+            <p class=""><%= t('activerecord.attributes.loan.start_date') %>:
+              <%= @loan.start_date.strftime('%d/%m/%Y') %>
+              (<%= compare_with_today(@loan.beginning_difference_days) %>)
+            </p>
+            <p class=""><%= t('activerecord.attributes.loan.contractual_end_date') %>:
+              <%= @loan.contractual_end_date.strftime('%d/%m/%Y') %>
+              (<%= compare_with_today(@loan.end_difference_days) %>)
+            </p>
+            <p class=""><%= t('loan.duration') %></p>
+            <p class=""><span class="ui horizontal label"><%= t('activerecord.attributes.loan.rate') %></span><%= @loan.rate %> %</p>
+            <p class=""><span class="ui horizontal label"><%= t('activerecord.attributes.loan.amount') %></span><%= @loan.amount %> MGA
+              <%= t('loan.interest_message', :interest => @loan.interest) %>
+            </p>
+            <p class=""><span class="ui horizontal label"><%= t('borrower.project_description') %></span><%= @loan.borrower.project_description %></p>
+            <p class=""><span class="ui horizontal label"><%= t('loan.amount_targeted') %></span><%= @loan.borrower.amount_wished %> MGA</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="ui segment">
+      <a class="ui blue ribbon label"><%= t('loan.steps') %></a>
+      <span class="ui header"><%= t('loan.step_list') %></span>
+      <p></p>
+      <p class=""><%= t('no_info') %></p>
+    </div>
+
+  </div>
+
+  <div class="column">
+
+    <div class="ui segment">
+      <a class="ui orange right ribbon label"><%= t('borrower.history') %></a>
+      <span class="ui header"><%= t('loan.past_steps') %></span>
+      <p></p>
+      <p class=""><%= t('no_info') %></p>
+    </div>
+
+    <div class="ui segment">
+      <a class="ui teal right ribbon label"><%= t('loan.side_notes') %></a>
+      <span class="ui header"><%= t('loan.comments') %></span>
+      <p></p>
+      <p class=""><%= t('no_info') %></p>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+

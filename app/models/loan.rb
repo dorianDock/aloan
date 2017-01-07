@@ -31,6 +31,18 @@ class Loan < ApplicationRecord
   scope :reverse_order, -> { order(start_date: :desc) }
 
 
+  def beginning_difference_days
+    # we want days
+    (self.start_date.to_i-Time.now.to_i)/(3600*24)
+  end
 
+  def end_difference_days
+    # we want days
+    (self.contractual_end_date.to_i-Time.now.to_i)/(3600*24)
+  end
+
+  def interest
+    self.amount*(self.rate/100)
+  end
 
 end

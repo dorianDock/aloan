@@ -2,8 +2,8 @@
 <div class="ui two column grid">
   <div class="column">
     <div class="ui segment">
-      <a class="ui red ribbon label">Overview</a>
-      <span class="ui header">Account Summary <a href="<%= edit_borrower_path(@borrower) %>"><i class="ui icon edit"></i></a></span>
+      <a class="ui red ribbon label"><%= t('borrower.overview') %></a>
+      <span class="ui header"><%= t('borrower.account_summary') %><a href="<%= edit_borrower_path(@borrower) %>"><i class="ui icon edit"></i></a></span>
       <p></p>
       <div class="ui grid">
         <div class="four wide column">
@@ -15,45 +15,37 @@
         <div class="twelve wide column">
           <div class="ui text">
             <h2 class="ui header"><%= @borrower.full_name %></h2>
-            <p class=""><span class="ui horizontal label">Company</span> <%= @borrower.company_name %></p>
+            <p class=""><span class="ui horizontal label"><%= t('borrower.company') %></span> <%= @borrower.company_name %></p>
             <p class=""><%= t('borrower.created_on') %> <%= @borrower.created_at.strftime('%d/%m/%Y') %></p>
             <p class=""><%= @borrower.display_birth_date %> (<%= @borrower.age %> <%= t('borrower.years_old') %>)</p>
-            <p class=""><span class="ui horizontal label">Project</span><%= @borrower.project_description %></p>
-            <p class=""><span class="ui horizontal label">Amount</span><%= @borrower.amount_wished %> MGA</p>
-
+            <p class=""><span class="ui horizontal label"><%= t('borrower.project') %></span><%= @borrower.project_description %></p>
+            <p class=""><span class="ui horizontal label"><%= t('borrower.amount') %></span><%= @borrower.amount_wished %> MGA</p>
           </div>
         </div>
-
       </div>
-
-
-
     </div>
     <div class="ui segment">
-      <a class="ui blue ribbon label">Loans</a>
-      <span class="ui header">Activity</span>
+      <a class="ui blue ribbon label"><%= t('borrower.loans') %></a>
+      <span class="ui header"><%= t('borrower.activity') %></span>
       <p></p>
-      <p class="">No info yet.</p>
-
+      <p class=""><%= t('borrower.no_info') %></p>
     </div>
-
   </div>
 
   <div class="column">
 
     <div class="ui segment">
-      <a class="ui orange right ribbon label">History</a>
-      <span class="ui header">Past Actions</span>
+      <a class="ui orange right ribbon label"><%= t('borrower.history') %></a>
+      <span class="ui header"><%= t('borrower.past_actions') %></span>
       <p></p>
-      <p class="">No info yet.</p>
-
+      <p class=""><%= t('borrower.no_info') %></p>
     </div>
 
     <div class="ui segment">
-      <a class="ui teal right ribbon label">Side Notes</a>
-      <span class="ui header">Comments</span>
+      <a class="ui teal right ribbon label"><%= t('borrower.side_notes') %></a>
+      <span class="ui header"><%= t('borrower.comments') %></span>
       <p></p>
-      <p class="">No info yet.</p>
+      <p class=""><%= t('borrower.no_info') %></p>
     </div>
 
   </div>
