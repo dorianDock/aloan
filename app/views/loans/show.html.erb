@@ -25,7 +25,7 @@
               <%= @loan.contractual_end_date.strftime('%d/%m/%Y') %>
               (<%= compare_with_today(@loan.end_difference_days) %>)
             </p>
-            <p class=""><%= t('loan.duration') %></p>
+            <p class=""><%= t('loan.duration') %>: <%= @loan.loan_duration %> <%= t('duration.days') %></p>
             <p class=""><span class="ui horizontal label"><%= t('activerecord.attributes.loan.rate') %></span><%= @loan.rate %> %</p>
             <p class=""><span class="ui horizontal label"><%= t('activerecord.attributes.loan.amount') %></span><%= @loan.amount %> MGA
               <%= t('loan.interest_message', :interest => @loan.interest) %>

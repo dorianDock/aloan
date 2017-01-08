@@ -22,6 +22,8 @@ en:
   ago_days: '%{number} days ago.'
   future_days: 'in %{number} days.'
   today: 'today.'
+  duration:
+    days: 'days'
   no_info: 'No info yet.'
   rate: 'Rate'
   amount: 'Amount'
