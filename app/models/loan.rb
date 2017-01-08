@@ -52,8 +52,8 @@ class Loan < ApplicationRecord
 
   # takes a number of days into a number in months
   def loan_duration_in_months
-    integer_part = self.loan_duration/DAYS_IN_A_MONTH
-    rest = self.loan_duration%DAYS_IN_A_MONTH
+    integer_part = self.loan_duration / DAYS_IN_A_MONTH
+    rest = self.loan_duration % DAYS_IN_A_MONTH
     total = integer_part
     if rest > 20
       total += 1
@@ -62,5 +62,7 @@ class Loan < ApplicationRecord
     end
     total
   end
+
+
 
 end

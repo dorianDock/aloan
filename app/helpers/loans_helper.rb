@@ -38,5 +38,9 @@ module LoansHelper
     result
   end
 
+  def display_month_duration(month_duration)
+    t('loan.display_duration', :duration => month_duration)
+  end
+
 
 end
