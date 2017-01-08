@@ -47,7 +47,7 @@ class Loan < ApplicationRecord
   end
 
   def loan_duration
-    (self.contractual_end_date.to_i-self.start_date.to_i)/(3600*24)+1
+    (self.contractual_end_date.to_date-self.start_date.to_date).to_i
   end
 
   # takes a number of days into a number in months

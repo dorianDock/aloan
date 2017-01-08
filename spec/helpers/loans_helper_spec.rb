@@ -42,7 +42,7 @@ RSpec.describe LoansHelper, type: :helper do
       a_borrower= FactoryGirl.create(:borrower)
       a_loan = FactoryGirl.create(:loan, {:borrower_id => a_borrower.id})
       title = loan_title(a_loan)
-      expect(title).to eq('10th loan taken by John Borrows')
+      expect(title).to match('10th loan taken by')
     end
 
   end
@@ -67,6 +67,15 @@ RSpec.describe LoansHelper, type: :helper do
     it 'returns in 25 day when the number is 25' do
       text = compare_with_today(25)
       expect(text).to eq('in 25 days.')
+    end
+  end
+
+  describe 'Display month duration' do
+    it 'displays 3 months for 3' do
+      expect(display_month_duration(3)).to eq('3 months.')
+    end
+    it 'displays < 1 month for 0' do
+      expect(display_month_duration(0)).to eq('< 1 month.')
     end
   end
 

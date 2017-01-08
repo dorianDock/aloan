@@ -77,7 +77,8 @@ en:
     loan_is_running: "The loan is currently running"
     figures_summary: "Figures Summary"
     duration: 'Loan Duration'
-    display_duration: 'Approx. %{duration} months.'
+    display_month_duration: '%{duration} months.'
+    display_zero_month_duration: '< 1 month.'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'

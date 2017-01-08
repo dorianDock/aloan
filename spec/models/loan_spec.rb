@@ -54,6 +54,55 @@ RSpec.describe Loan, type: :model do
       @loan.rate=nil
       expect(@loan).to_not be_valid
     end
+
+  end
+
+
+  describe 'Methods' do
+    before(:each) do
+      @borrower = FactoryGirl.create(:borrower)
+      @loan= FactoryGirl.create(:loan, borrower_id: @borrower.id, start_date: '2016-12-14 00:00:00', contractual_end_date: '2016-12-24 00:00:00')
+    end
+
+    it 'loan#beginning_difference_days' do
+      now = Time.now
+      res = (@loan.start_date.to_i-now.to_i)/(3600*24)+1
+      expect(@loan.beginning_difference_days).to eq(res)
+    end
+
+    it 'loan#end_difference_days' do
+      now = Time.now
+      res = (@loan.contractual_end_date.to_i-now.to_i)/(3600*24)+1
+      expect(@loan.end_difference_days).to eq(res)
+    end
+
+    it 'loan#interest' do
+      expect(@loan.interest).to eq(25000)
+    end
+
+    it 'loan#loan_duration' do
+      expect(@loan.loan_duration).to eq(10)
+    end
+
+    it 'loan#loan_duration_in_months' do
+      expect(@loan.loan_duration_in_months).to eq(0)
+    end
+
+    it 'duration in months works for 2 months' do
+      a_loan= FactoryGirl.create(:loan, borrower_id: @borrower.id, start_date: '2016-01-14 00:00:00', contractual_end_date: '2016-03-17 00:00:00')
+      expect(a_loan.loan_duration_in_months).to eq(2)
+    end
+
+    it 'duration in months works for 1.5 months' do
+      a_loan= FactoryGirl.create(:loan, borrower_id: @borrower.id, start_date: '2017-01-01 00:00:00', contractual_end_date: '2017-02-14 00:00:00')
+      expect(a_loan.loan_duration_in_months).to eq(1.5)
+    end
+
+    it 'duration in months works for 14 months' do
+      a_loan= FactoryGirl.create(:loan, borrower_id: @borrower.id, start_date: '2017-01-11 00:00:00', contractual_end_date: '2018-03-11 00:00:00')
+      expect(a_loan.loan_duration_in_months).to eq(14)
+    end
+
   end
 
 end

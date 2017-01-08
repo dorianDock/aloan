@@ -39,7 +39,11 @@ module LoansHelper
   end
 
   def display_month_duration(month_duration)
-    t('loan.display_duration', :duration => month_duration)
+    if month_duration > 0
+      t('loan.display_month_duration', :duration => month_duration)
+    else
+      t('loan.display_zero_month_duration')
+    end
   end
 
 
