@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1edba162-25aa-4530-95a3-ba95d4be7aab" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/loans_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/loans_helper.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/loan.rb" afterPath="$PROJECT_DIR$/app/models/loan.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/locales/en.yml" afterPath="$PROJECT_DIR$/config/locales/en.yml" />
@@ -90,17 +91,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="loan.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="loan.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/loan.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="566">
-              <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+            <state relative-caret-position="346">
+              <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.html.erb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="show.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/loans/show.html.erb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
@@ -977,7 +978,7 @@
       <workItem from="1482409895377" duration="18865000" />
       <workItem from="1482601148426" duration="32612000" />
       <workItem from="1483608285302" duration="28416000" />
-      <workItem from="1483873868850" duration="8693000" />
+      <workItem from="1483873868850" duration="9293000" />
     </task>
     <servers />
   </component>
@@ -987,7 +988,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="152752000" />
+    <option name="totallyTimeSpent" value="153352000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="24" width="1920" height="1056" extended-state="6" />
@@ -1340,14 +1341,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/loan.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="566">
-          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/helpers/loans_helper.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="880">
@@ -1415,6 +1408,14 @@
             <element signature="n#t('duration.days')#0;n#!!top" expanded="true" />
             <element signature="n#t('loan.interest_message', :interest =&gt; @loan.interest)#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/loan.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
