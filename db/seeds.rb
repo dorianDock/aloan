@@ -6,9 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# cleaning everything
+Loan.delete_all
+Borrower.delete_all
 
 # Borrowers
-Borrower.delete_all
+
 Borrower.create(name: 'Msila msila', first_name: 'Niarabe', company_name: 'Ngara Corporation',
                 birth_date: DateTime.new(1989,4,23), amount_wished: 40000,
                 project_description: 'Il a besoin d une nouvelle machine a ecrire pour ecrire un top roman' )
@@ -45,3 +48,82 @@ Borrower.create(name: 'Rana', first_name: 'Antisara', company_name: 'Ecole des e
 
 
 
+# Loans
+# for 1st borrower
+Loan.create(start_date: DateTime.new(2016,10,27), contractual_end_date: DateTime.new(2016,11,27), amount: 400000,
+                rate: 2, loan_goal: 'Step of a bigger project, so the loan is just the beginning', borrower: Borrower.first)
+Loan.create(start_date: DateTime.new(2016,11,28), contractual_end_date: DateTime.new(2016,12,28), amount: 800000,
+            rate: 2, loan_goal: 'Step of a bigger project, so the loan is just the second in the story', borrower: Borrower.first, order: 2)
+Loan.create(start_date: DateTime.new(2017,12,28), contractual_end_date: DateTime.new(2017,1,28), amount: 1600000,
+            rate: 2, loan_goal: 'Step of a bigger project, so the loan is just the third in the story', borrower: Borrower.first, order: 3)
+Loan.create(start_date: DateTime.new(2017,1,28), contractual_end_date: DateTime.new(2017,2,28), amount: 300000,
+            rate: 2, loan_goal: 'Step of a bigger project, so the loan is just the fourth in the story', borrower: Borrower.first, order: 4)
+Loan.create(start_date: DateTime.new(2017,2,28), contractual_end_date: DateTime.new(2017,3,28), amount: 600000,
+            rate: 2, loan_goal: 'Step of a bigger project, so the loan is just the fourth in the story', borrower: Borrower.first, order: 5)
+Loan.create(start_date: DateTime.new(2017,3,28), contractual_end_date: DateTime.new(2017,4,28), amount: 1000000,
+            rate: 2, loan_goal: 'Step of a bigger project, so the loan is just the fourth in the story', borrower: Borrower.first, order: 6)
+
+# for 2nd borrower
+second_borrower = Borrower.find_by(name: 'Banville')
+Loan.create(start_date: DateTime.new(2016,11,10), contractual_end_date: DateTime.new(2017,1,10), amount: 400000,
+            rate: 2, loan_goal: 'He needs to get higher loans quickly', borrower: second_borrower, order: 1)
+Loan.create(start_date: DateTime.new(2017,1,10), contractual_end_date: DateTime.new(2017,3,10), amount: 800000,
+            rate: 2, loan_goal: 'He needs to get higher loans quickly', borrower: second_borrower, order: 2)
+Loan.create(start_date: DateTime.new(2017,3,10), contractual_end_date: DateTime.new(2017,5,10), amount: 1000000,
+            rate: 2, loan_goal: 'He needs to get higher loans quickly', borrower: second_borrower, order: 3)
+Loan.create(start_date: DateTime.new(2017,5,10), contractual_end_date: DateTime.new(2017,7,10), amount: 1500000,
+            rate: 2, loan_goal: 'He needs to get higher loans quickly', borrower: second_borrower, order: 4)
+
+# for third borrower
+third_borrower = Borrower.find_by(name: 'Nabe')
+Loan.create(start_date: DateTime.new(2016,9,10), contractual_end_date: DateTime.new(2016,10,10), amount: 200000,
+            rate: 2, loan_goal: 'He needs s stable loan provider', borrower: third_borrower, order: 1)
+Loan.create(start_date: DateTime.new(2016,10,10), contractual_end_date: DateTime.new(2016,11,10), amount: 400000,
+            rate: 2, loan_goal: 'He needs s stable loan provider', borrower: third_borrower, order: 2)
+Loan.create(start_date: DateTime.new(2016,11,10), contractual_end_date: DateTime.new(2016,12,10), amount: 600000,
+            rate: 2, loan_goal: 'He needs s stable loan provider', borrower: third_borrower, order: 3)
+Loan.create(start_date: DateTime.new(2016,12,10), contractual_end_date: DateTime.new(2017,1,10), amount: 800000,
+            rate: 2, loan_goal: 'He needs s stable loan provider', borrower: third_borrower, order: 4)
+Loan.create(start_date: DateTime.new(2017,1,10), contractual_end_date: DateTime.new(2017,2,10), amount: 800000,
+            rate: 2, loan_goal: 'He needs s stable loan provider', borrower: third_borrower, order: 5)
+
+# for fourth borrower
+fourth_borrower = Borrower.find_by(name: 'Sanada')
+Loan.create(start_date: DateTime.new(2016,10,2), contractual_end_date: DateTime.new(2017,2,2), amount: 400000,
+            rate: 2, loan_goal: 'A small loan to try, the rest to thrive', borrower: fourth_borrower, order: 1)
+Loan.create(start_date: DateTime.new(2017,2,2), contractual_end_date: DateTime.new(2017,4,2), amount: 800000,
+            rate: 2, loan_goal: 'A small loan to try, the rest to thrive', borrower: fourth_borrower, order: 2)
+Loan.create(start_date: DateTime.new(2017,4,2), contractual_end_date: DateTime.new(2017,6,2), amount: 200000,
+            rate: 2, loan_goal: 'A small loan to try, the rest to thrive', borrower: fourth_borrower, order: 3)
+
+# for fifth borrower
+fifth_borrower = Borrower.find_by(name: 'Kira')
+Loan.create(start_date: DateTime.new(2016,10,15), contractual_end_date: DateTime.new(2016,11,15), amount: 600000,
+            rate: 2, loan_goal: 'A big loan to try, the rest to thrive', borrower: fifth_borrower, order: 1)
+Loan.create(start_date: DateTime.new(2016,11,15), contractual_end_date: DateTime.new(2016,12,15), amount: 800000,
+            rate: 2, loan_goal: 'A big loan to try, the rest to thrive', borrower: fifth_borrower, order: 2)
+Loan.create(start_date: DateTime.new(2017,1,15), contractual_end_date: DateTime.new(2017,2,15), amount: 1000000,
+            rate: 2, loan_goal: 'A big loan to try, the rest to thrive', borrower: fifth_borrower, order: 3)
+
+
+
+# for last borrower
+sixth_borrower = Borrower.find_by(name: 'Reynald')
+Loan.create(start_date: DateTime.new(2016,8,4), contractual_end_date: DateTime.new(2016,9,4), amount: 600000,
+            rate: 2, loan_goal: 'Medium loan to make the business work', borrower: sixth_borrower, order: 1)
+Loan.create(start_date: DateTime.new(2016,9,4), contractual_end_date: DateTime.new(2016,10,4), amount: 600000,
+            rate: 2, loan_goal: 'Medium loan to make the business work', borrower: sixth_borrower, order: 2)
+Loan.create(start_date: DateTime.new(2016,10,4), contractual_end_date: DateTime.new(2016,11,4), amount: 600000,
+            rate: 2, loan_goal: 'Medium loan to make the business work', borrower: sixth_borrower, order: 3)
+Loan.create(start_date: DateTime.new(2016,11,4), contractual_end_date: DateTime.new(2016,12,4), amount: 600000,
+            rate: 2, loan_goal: 'Medium loan to make the business work', borrower: sixth_borrower, order: 4)
+Loan.create(start_date: DateTime.new(2016,12,4), contractual_end_date: DateTime.new(2017,1,4), amount: 600000,
+            rate: 2, loan_goal: 'Medium loan to make the business work', borrower: sixth_borrower, order: 5)
+Loan.create(start_date: DateTime.new(2017,1,4), contractual_end_date: DateTime.new(2017,2,4), amount: 600000,
+            rate: 2, loan_goal: 'Medium loan to make the business work', borrower: sixth_borrower, order: 6)
+Loan.create(start_date: DateTime.new(2017,2,4), contractual_end_date: DateTime.new(2017,3,4), amount: 600000,
+            rate: 2, loan_goal: 'Medium loan to make the business work', borrower: sixth_borrower, order: 7)
+Loan.create(start_date: DateTime.new(2017,3,4), contractual_end_date: DateTime.new(2017,4,4), amount: 600000,
+            rate: 2, loan_goal: 'Medium loan to make the business work', borrower: sixth_borrower, order: 8)
+Loan.create(start_date: DateTime.new(2017,4,4), contractual_end_date: DateTime.new(2017,5,4), amount: 600000,
+            rate: 2, loan_goal: 'Medium loan to make the business work', borrower: sixth_borrower, order: 9)
