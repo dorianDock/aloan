@@ -89,6 +89,7 @@ en:
   menu:
     loans: 'Loans'
     borrowers: 'Borrowers'
+    loan_templates: 'Loan Products'
     log_out: 'Log Out'
   activerecord:
     models:
