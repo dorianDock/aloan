@@ -79,6 +79,10 @@ en:
     duration: 'Loan Duration'
     display_month_duration: '%{duration} months.'
     display_zero_month_duration: '< 1 month.'
+  loan_template:
+    successful_deletion: 'The template was successfully removed.'
+    successful_update1: 'The template '
+    successful_update2: ' was successfully updated.'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'
