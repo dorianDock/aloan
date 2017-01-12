@@ -18,5 +18,8 @@ Rails.application.routes.draw do
   resources :loans do
   end
 
+  resources :loan_templates do
+  end
+
 end
 
