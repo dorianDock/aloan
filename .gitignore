@@ -24,3 +24,5 @@
 # Ignore RubyMine config
 /.idea/*
 .idea/*
+/.idea
+/.idea/*.xml
