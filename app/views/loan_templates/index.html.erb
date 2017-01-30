@@ -1,0 +1,9 @@
+
+
+<div class="ui items">
+
+  <%- @templates.each do |template| %>
+      <%= render 'loan_templates/list_element', :template => template %>
+  <%- end %>
+
+</div>
