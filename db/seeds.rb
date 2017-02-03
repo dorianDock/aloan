@@ -7,11 +7,40 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # cleaning everything
+LoanTemplate.delete_all
 Loan.delete_all
 Borrower.delete_all
 
-# About Loan Templates
+# Loan Templates
 
+# 1 month, 500 000 MGA
+LoanTemplate.create(amount: 500000, rate: 1, duration: 1, name: '1m500k')
+# 4 months, 500 000 MGA
+LoanTemplate.create(amount: 500000, rate: 5, duration: 4, name: '4m500k')
+
+
+# 1 month, 1 M MGA
+LoanTemplate.create(amount: 1000000, rate: 1, duration: 1, name: '1m1M', template_completed_before_id: LoanTemplate.find_by(name: '1m500k').id)
+# 4 months, 1 M MGA
+LoanTemplate.create(amount: 1000000, rate: 5, duration: 4, name: '4m1M', template_completed_before_id: LoanTemplate.find_by(name: '4m500k').id)
+
+
+# 1 month, 2 M MGA
+LoanTemplate.create(amount: 2000000, rate: 1, duration: 1, name: '1m2M', template_completed_before_id: LoanTemplate.find_by(name: '1m1M').id)
+# 4 months, 2 M MGA
+LoanTemplate.create(amount: 2000000, rate: 5, duration: 4, name: '4m2M', template_completed_before_id: LoanTemplate.find_by(name: '4m1M').id)
+
+
+# 1 month, 5 M MGA
+LoanTemplate.create(amount: 5000000, rate: 1, duration: 1, name: '1m5M', template_completed_before_id: LoanTemplate.find_by(name: '1m2M').id)
+# 4 months, 5 M MGA
+LoanTemplate.create(amount: 5000000, rate: 5, duration: 4, name: '4m5M', template_completed_before_id: LoanTemplate.find_by(name: '4m2M').id)
+
+
+# 1 month, 10 M MGA
+LoanTemplate.create(amount: 10000000, rate: 1, duration: 1, name: '1m10M', template_completed_before_id: LoanTemplate.find_by(name: '1m5M').id)
+# 4 months, 10 M MGA
+LoanTemplate.create(amount: 10000000, rate: 5, duration: 4, name: '4m10M', template_completed_before_id: LoanTemplate.find_by(name: '4m5M').id)
 
 
 # Borrowers
