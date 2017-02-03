@@ -14,6 +14,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  loan_goal            :text
+#  order                :integer          default("1")
 #
 
 class Loan < ApplicationRecord

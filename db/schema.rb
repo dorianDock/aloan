@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112104926) do
+ActiveRecord::Schema.define(version: 20170203155820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20170112104926) do
     t.datetime "updated_at",                       null: false
     t.text     "loan_goal"
     t.integer  "order",                default: 1
+    t.integer  "loan_template_id"
   end
 
   create_table "step_types", force: :cascade do |t|
@@ -88,6 +89,7 @@ ActiveRecord::Schema.define(version: 20170112104926) do
 
   add_foreign_key "loan_templates", "loan_templates", column: "template_completed_before_id"
   add_foreign_key "loans", "borrowers"
+  add_foreign_key "loans", "loan_templates"
   add_foreign_key "steps", "loans"
   add_foreign_key "steps", "step_types"
 end

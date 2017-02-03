@@ -10,6 +10,10 @@
 Loan.delete_all
 Borrower.delete_all
 
+# About Loan Templates
+
+
+
 # Borrowers
 
 Borrower.create(name: 'Msila msila', first_name: 'Niarabe', company_name: 'Ngara Corporation',
@@ -127,3 +131,5 @@ Loan.create(start_date: DateTime.new(2017,3,4), contractual_end_date: DateTime.n
             rate: 2, loan_goal: 'Medium loan to make the business work', borrower: sixth_borrower, order: 8)
 Loan.create(start_date: DateTime.new(2017,4,4), contractual_end_date: DateTime.new(2017,5,4), amount: 600000,
             rate: 2, loan_goal: 'Medium loan to make the business work', borrower: sixth_borrower, order: 9)
+
+
