@@ -19,6 +19,7 @@ LoanTemplate.create(amount: 500000, rate: 1, duration: 1, name: '1m500k')
 LoanTemplate.create(amount: 500000, rate: 5, duration: 4, name: '4m500k')
 
 
+
 # 1 month, 1 M MGA
 LoanTemplate.create(amount: 1000000, rate: 1, duration: 1, name: '1m1M', template_completed_before_id: LoanTemplate.find_by(name: '1m500k').id)
 # 4 months, 1 M MGA

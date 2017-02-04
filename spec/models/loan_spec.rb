@@ -15,6 +15,7 @@
 #  updated_at           :datetime         not null
 #  loan_goal            :text
 #  order                :integer          default("1")
+#  loan_template_id     :integer
 #
 
 require 'rails_helper'
