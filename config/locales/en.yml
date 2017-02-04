@@ -1,5 +1,8 @@
 en:
   hello: "Hello world"
+  months:
+    one: 'month'
+    other: 'months'
   times:
     one: 'st'
     two: 'nd'
@@ -83,6 +86,7 @@ en:
     successful_deletion: 'The template was successfully removed.'
     successful_update1: 'The template '
     successful_update2: ' was successfully updated.'
+    happens_after: 'It is used after'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'
