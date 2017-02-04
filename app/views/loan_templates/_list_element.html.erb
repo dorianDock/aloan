@@ -1,19 +1,23 @@
 
+<div class="card">
 
-<div class="item light_item">
-  <div class="ui small image">
-    <%= image_tag 'templateOfLoans.png' %>
-  </div>
   <div class="content">
     <div class="header"><%= template.name %></div>
-    <div class="meta">
-      <span class="template_amount"><%= template.amount %></span>
-      <span class="template_rate"><%= template.rate %></span>
-      <span class="template_duration"><%= template.duration %> <%= t('months', :count => template.duration) %></span>
-      <span class="template_prerequisite"><%= t('loan_template.happens_after') %> <%= template.prerequisite %></span>
-    </div>
+    <div class="meta"><%= template.amount.to_i %> MGA</div>
     <div class="description">
-      <p></p>
+      <p class="template_rate"><%= template.rate %> %</p>
+      <p class="template_duration"><%= template.duration %> <%= t('month', :count => template.duration) %></p>
+      <p class="template_prerequisite">
+        <%- unless template.prerequisite_name.nil? %>
+            <%= t('loan_template.happens_after') %> <%= template.prerequisite_name %>
+        <%- end %>
+      </p>
+    </div>
+  </div>
+  <div class="extra content">
+    <div class="">
+      <%= image_tag 'templateOfLoans.png', :class => 'very_small_pictures_for_lists' %>
     </div>
   </div>
 </div>
+

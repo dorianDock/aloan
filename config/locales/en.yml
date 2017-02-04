@@ -1,6 +1,6 @@
 en:
   hello: "Hello world"
-  months:
+  month:
     one: 'month'
     other: 'months'
   times:

@@ -17,4 +17,10 @@ class LoanTemplate < ApplicationRecord
   belongs_to :prerequisite, foreign_key: 'template_completed_before_id', class_name: 'LoanTemplate', optional: true
   has_many :following_loan_templates, :foreign_key => 'template_completed_before_id', :class_name => 'LoanTemplate'
 
+  def prerequisite_name
+    unless self.prerequisite.nil?
+      prerequisite.name
+    end
+  end
+
 end
