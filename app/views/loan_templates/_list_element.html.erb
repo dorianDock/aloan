@@ -1,12 +1,11 @@
 
 <div class="card">
-
   <div class="content">
     <div class="header"><%= template.name %></div>
     <div class="meta"><%= template.amount.to_i %> MGA</div>
+    <div class="meta"><%= template.rate %> %</div>
+    <div class="meta"><%= template.duration %> <%= t('month', :count => template.duration) %></div>
     <div class="description">
-      <p class="template_rate"><%= template.rate %> %</p>
-      <p class="template_duration"><%= template.duration %> <%= t('month', :count => template.duration) %></p>
       <p class="template_prerequisite">
         <%- unless template.prerequisite_name.nil? %>
             <%= t('loan_template.happens_after') %> <%= template.prerequisite_name %>

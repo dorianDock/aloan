@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'home/secured'
 
   get 'data_source/borrowers_list'
+  get 'data_source/loan_templates_list'
 
 
   resources :borrowers do
