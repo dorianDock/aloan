@@ -91,6 +91,7 @@ en:
     rate_explanation: ' (in % on the total of the amount)'
     amount_example: 'Ex: 500000'
     rate_example: 'Ex: 1'
+    not_blank: 'must be given please'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'
