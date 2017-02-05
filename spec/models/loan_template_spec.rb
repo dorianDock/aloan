@@ -59,4 +59,16 @@ RSpec.describe LoanTemplate, type: :model do
       expect(association.macro).to eq :belongs_to
     end
   end
+
+  describe 'Methods' do
+    it 'shows a prerequisite name when there is a prerequisite' do
+      loan_template_2 = FactoryGirl.create(:loan_template, :template_completed_before_id => @loan_template.id)
+      expect(loan_template_2.prerequisite_name).to eq('MyLoanProduct')
+    end
+
+    it 'shows an empty name when there is not a prerequisite' do
+      loan_template_2 = FactoryGirl.create(:loan_template)
+      expect(loan_template_2.prerequisite_name).to eq('')
+    end
+  end
 end
