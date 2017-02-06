@@ -22,6 +22,7 @@ class LoanTemplate < ApplicationRecord
   validates :duration, presence: { message: I18n.t('loan_template.not_blank')}
   validates :name, presence: { message: I18n.t('loan_template.not_blank')}
 
+  scope :amount_order, -> { order(amount: :asc) }
 
   def prerequisite_name
     unless self.prerequisite.nil?

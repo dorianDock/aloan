@@ -1,7 +1,7 @@
 class LoanTemplatesController < ApplicationController
 
   def index
-    @templates = LoanTemplate.all
+    @templates = LoanTemplate.all.amount_order
   end
 
   def create
