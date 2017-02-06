@@ -14,8 +14,6 @@
 #
 
 class Borrower < ApplicationRecord
-
-
   has_many :loans
 
   validates :name, presence: { message: I18n.t('borrower.not_blank')}, :length   => { :maximum => 100 }

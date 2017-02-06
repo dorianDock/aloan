@@ -89,7 +89,7 @@ RSpec.describe LoansController, type: :controller do
   end
 
 
-  describe 'Actions failing for borrowers >' do
+  describe 'Actions failing and related to borrowers >' do
     before(:each) do
       @user= FactoryGirl.create(:user)
       sign_in @user

@@ -79,10 +79,11 @@ class LoanTemplatesController < ApplicationController
 
   def prerequisite_for_template
     template_id=params[:objectid]
-
     @the_template=LoanTemplate.find_by(id: template_id)
-    prerequisite= @the_template.prerequisite.id
-
+    prerequisite = nil
+    unless @the_template.prerequisite.nil?
+      prerequisite= @the_template.prerequisite.id
+    end
     respond_to do |format|
       format.json {
         render json: prerequisite
