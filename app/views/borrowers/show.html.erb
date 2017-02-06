@@ -29,8 +29,8 @@
       <span class="ui header"><%= t('borrower.activity') %></span>
       <%- if @borrower.current_loans %>
           <%- @borrower.current_loans.each do |loan| %>
-              <div>
-                <p><a class="" href="<%= loan_path(loan) %>"><%= light_loan_title(loan) %></a></p>
+              <div class="borrower_loan_div">
+                <p><a class="borrower_loan_link" href="<%= loan_path(loan) %>"><%= light_loan_title(loan) %></a></p>
 
                 <p>(<%= loan.amount %> MGA with a <%= loan.rate %>% <%= t('rate') %>),
                   <%= t('from') %> <%= loan.start_date.strftime('%d/%m/%Y') %> <%= t('to') %>
@@ -51,8 +51,8 @@
       <span class="ui header"><%= t('borrower.past_actions') %></span>
       <%- if @borrower.past_loans %>
           <%- @borrower.past_loans.each do |loan| %>
-              <div>
-                <p><a class="" href="<%= loan_path(loan) %>"><%= light_loan_title(loan) %></a></p>
+              <div class="borrower_loan_div">
+                <p><a class="borrower_loan_link" href="<%= loan_path(loan) %>"><%= light_loan_title(loan) %></a></p>
 
                 <p>(<%= loan.amount %> MGA with a <%= loan.rate %>% <%= t('rate') %>),
                   <%= t('from') %> <%= loan.start_date.strftime('%d/%m/%Y') %> <%= t('to') %>
