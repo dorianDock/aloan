@@ -100,4 +100,32 @@ RSpec.describe LoanTemplatesController, type: :controller do
 
   end
 
+  describe 'Failing cases for loan_templates >' do
+    before(:each) do
+      @user= FactoryGirl.create(:user)
+      sign_in @user
+      @loan_template = FactoryGirl.create(:loan_template)
+    end
+
+    it 'creation fails when no rate is provided or no amount' do
+      loan_templates_params = {rate: nil, amount: nil}
+      expect {process :create, method: :post, params: { loan_template: loan_templates_params }}
+          .to change(LoanTemplate, :count).by(0)
+    end
+
+    it 'edition fails when no rate is provided or no amount' do
+      loan_templates_params = {rate: nil, amount: nil}
+      expect {process :update, method: :patch, params: { id: @loan_template.id, loan_template: loan_templates_params }}
+          .to change(LoanTemplate, :count).by(0)
+    end
+
+    it 'deletion returns an error when no id is provided' do
+      get :destroy_by_popup, params: {id: 555555, objectid: 555555}, format: :json
+      json_body= JSON.parse(response.body)
+      expect(json_body).to include('isError' => true)
+    end
+
+
+  end
+
 end
