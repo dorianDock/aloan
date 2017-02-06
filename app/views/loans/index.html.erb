@@ -15,7 +15,7 @@
   </div>
   <div class="five wide column">
     <h2 class="lightMenuElement"><%= t('loans.past') %> (<%= @past_loans.count %>)</h2>
-    <div class="ui items">
+    <div class="ui divided items">
       <%- @past_loans.each do |loan| %>
           <%= render 'loans/list_element', :loan => loan %>
       <%- end %>
@@ -23,7 +23,7 @@
   </div>
   <div class="five wide column">
     <h2 class="lightMenuElement"><%= t('loans.current') %> (<%= @current_loans.count %>)</h2>
-    <div class="ui items">
+    <div class="ui divided items">
       <%- @current_loans.each do |loan| %>
           <%= render 'loans/list_element', :loan => loan %>
       <%- end %>
@@ -31,7 +31,7 @@
   </div>
   <div class="five wide column">
     <h2 class="lightMenuElement"><%= t('loans.future') %> (<%= @future_loans.count %>)</h2>
-    <div class="ui items">
+    <div class="ui divided items">
       <%- @future_loans.each do |loan| %>
           <%= render 'loans/list_element', :loan => loan %>
       <%- end %>
