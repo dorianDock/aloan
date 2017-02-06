@@ -32,6 +32,11 @@ RSpec.describe Loan, type: :model do
       expect(@loan).to be_valid
     end
 
+    it 'should be valid without a template (template is optional)' do
+      @loan.loan_template_id = nil
+      expect(@loan).to be_valid
+    end
+
     it 'should not be valid if the borrower is missing' do
       @loan.borrower_id=nil
       expect(@loan).to_not be_valid
@@ -57,6 +62,18 @@ RSpec.describe Loan, type: :model do
       expect(@loan).to_not be_valid
     end
 
+  end
+
+  describe 'Interactions' do
+    it 'belongs_to a borrower' do
+      association=described_class.reflect_on_association(:borrower)
+      expect(association.macro).to eq :belongs_to
+    end
+
+    it 'belongs_to a template' do
+      association=described_class.reflect_on_association(:loan_template)
+      expect(association.macro).to eq :belongs_to
+    end
   end
 
 
