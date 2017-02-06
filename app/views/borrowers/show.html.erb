@@ -11,7 +11,6 @@
             <%= image_tag 'u1.png', height: '120px', :width => '120px', :class => 'linkPicture' %>
           </div>
         </div>
-
         <div class="twelve wide column">
           <div class="ui text">
             <h2 class="ui header"><%= @borrower.full_name %></h2>
@@ -29,14 +28,7 @@
       <span class="ui header"><%= t('borrower.activity') %></span>
       <%- if @borrower.current_loans %>
           <%- @borrower.current_loans.each do |loan| %>
-              <div class="borrower_loan_div">
-                <p><a class="borrower_loan_link" href="<%= loan_path(loan) %>"><%= light_loan_title(loan) %></a></p>
-
-                <p>(<%= loan.amount %> MGA with a <%= loan.rate %>% <%= t('rate') %>),
-                  <%= t('from') %> <%= loan.start_date.strftime('%d/%m/%Y') %> <%= t('to') %>
-                  <%= loan.contractual_end_date.strftime('%d/%m/%Y') %>
-                </p>
-              </div>
+              <%= render 'borrowers/borrowers_current_loans', :loan => loan %>
           <%- end %>
       <%- else %>
           <p class=""><%= t('borrower.no_info') %></p>
@@ -45,33 +37,23 @@
   </div>
 
   <div class="column">
-
     <div class="ui segment">
       <a class="ui orange right ribbon label"><%= t('borrower.history') %></a>
       <span class="ui header"><%= t('borrower.past_actions') %></span>
       <%- if @borrower.past_loans %>
           <%- @borrower.past_loans.each do |loan| %>
-              <div class="borrower_loan_div">
-                <p><a class="borrower_loan_link" href="<%= loan_path(loan) %>"><%= light_loan_title(loan) %></a></p>
-
-                <p>(<%= loan.amount %> MGA with a <%= loan.rate %>% <%= t('rate') %>),
-                  <%= t('from') %> <%= loan.start_date.strftime('%d/%m/%Y') %> <%= t('to') %>
-                  <%= loan.contractual_end_date.strftime('%d/%m/%Y') %>
-                </p>
-              </div>
+              <%= render 'borrowers/borrowers_past_loans', :loan => loan %>
           <%- end %>
       <%- else %>
           <p class=""><%= t('borrower.no_info') %></p>
       <%- end %>
     </div>
-
     <div class="ui segment">
       <a class="ui teal right ribbon label"><%= t('borrower.side_notes') %></a>
       <span class="ui header"><%= t('borrower.comments') %></span>
       <p></p>
       <p class=""><%= t('borrower.no_info') %></p>
     </div>
-
   </div>
 
 </div>

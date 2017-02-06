@@ -1,0 +1,8 @@
+<div class="borrower_loan_div">
+  <p><a class="borrower_loan_link" href="<%= loan_path(loan) %>"><%= light_loan_title(loan) %></a></p>
+
+  <p>(<%= loan.amount %> MGA with a <%= loan.rate %>% <%= t('rate') %>),
+    <%= t('from') %> <%= loan.start_date.strftime('%d/%m/%Y') %> <%= t('to') %>
+    <%= loan.contractual_end_date.strftime('%d/%m/%Y') %>
+  </p>
+</div>
