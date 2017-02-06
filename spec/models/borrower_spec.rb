@@ -49,8 +49,48 @@ RSpec.describe Borrower, type: :model do
   describe 'Extensions' do
     before(:each) do
       @borrower= FactoryGirl.create(:borrower)
-
     end
+
+    it 'has current loans when a loan is created around today (1month before, 1 after)' do
+      today = Date.today
+      current_loan= FactoryGirl.create(:loan,:start_date => today-1.month,:contractual_end_date => today+1.month, :borrower_id => @borrower.id)
+      @borrower.reload
+      expect(@borrower.current_loans.count).to eq(1)
+    end
+
+    it 'has no current loans when a loan is created and ended 2 months before today' do
+      today = Date.today
+      current_loan= FactoryGirl.create(:loan,:start_date => today-4.month,:contractual_end_date => today-2.month, :borrower_id => @borrower.id)
+      @borrower.reload
+      expect(@borrower.current_loans.count).to eq(0)
+    end
+
+    it 'has no current loans when a loan is created in the future, 4monthd after today' do
+      today = Date.today
+      current_loan= FactoryGirl.create(:loan,:start_date => today+4.month,:contractual_end_date => today+6.month, :borrower_id => @borrower.id)
+      @borrower.reload
+      expect(@borrower.current_loans.count).to eq(0)
+    end
+
+    it 'has 2 past loans' do
+      today = Date.today
+      past_loan1= FactoryGirl.create(:loan,:start_date => today-8.month,:contractual_end_date => today-6.month, :borrower_id => @borrower.id)
+      past_loan2= FactoryGirl.create(:loan,:start_date => today-4.month,:contractual_end_date => today-3.month, :borrower_id => @borrower.id)
+      current_loan= FactoryGirl.create(:loan,:start_date => today-1.month,:contractual_end_date => today+6.month, :borrower_id => @borrower.id)
+      @borrower.reload
+      expect(@borrower.past_loans.count).to eq(2)
+    end
+
+    it 'has 4 related loans' do
+      today = Date.today
+      past_loan1= FactoryGirl.create(:loan,:start_date => today-8.month,:contractual_end_date => today-6.month, :borrower_id => @borrower.id)
+      past_loan2= FactoryGirl.create(:loan,:start_date => today-4.month,:contractual_end_date => today-3.month, :borrower_id => @borrower.id)
+      current_loan1= FactoryGirl.create(:loan,:start_date => today-1.month,:contractual_end_date => today+6.month, :borrower_id => @borrower.id)
+      future_loan1= FactoryGirl.create(:loan,:start_date => today+6.month,:contractual_end_date => today+8.month, :borrower_id => @borrower.id)
+      @borrower.reload
+      expect(@borrower.related_loans.count).to eq(4)
+    end
+
 
     it 'birthday when correct' do
       expect(@borrower.display_birth_date).to eq '10/03/1992'
