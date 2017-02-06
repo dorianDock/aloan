@@ -51,12 +51,20 @@ class LoanTemplatesController < ApplicationController
     loan_template_id = params[:objectid]
     loan_template = LoanTemplate.find_by(id: loan_template_id)
     response_message=''
+    name=''
     is_destroyed=false
     unless loan_template.nil?
+      name = loan_template.name
+      # find all templates where this template was a prerequisite, and break the link
+      following_templates = LoanTemplate.where(:template_completed_before_id => loan_template_id)
+      following_templates.each do |template|
+        template.template_completed_before_id = nil
+        template.save
+      end
       loan_template.destroy
       is_destroyed = loan_template.destroyed?
       if (is_destroyed)
-        response_message = I18n.t('successful_deletion')
+        response_message = name+I18n.t('successful_deletion')
       else
         response_message = I18n.t('error_deletion')
       end
