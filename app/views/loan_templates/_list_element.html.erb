@@ -1,7 +1,7 @@
 
 <div class="card">
   <div class="content">
-    <div class="header"><%= template.name %></div>
+    <div class="header"><%= template.name %> <a href="<%= edit_loan_template_path(template) %>"><i class="ui icon edit"></i></a> </div>
     <div class="meta"><%= template.amount.to_i %> MGA</div>
     <div class="meta"><%= template.rate %> %</div>
     <div class="meta"><%= template.duration %> <%= t('month', :count => template.duration) %></div>

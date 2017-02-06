@@ -47,6 +47,42 @@ class LoanTemplatesController < ApplicationController
     end
   end
 
+  def destroy_by_popup
+    loan_template_id = params[:objectid]
+    loan_template = LoanTemplate.find_by(id: loan_template_id)
+    response_message=''
+    is_destroyed=false
+    unless loan_template.nil?
+      loan_template.destroy
+      is_destroyed = loan_template.destroyed?
+      if (is_destroyed)
+        response_message = I18n.t('successful_deletion')
+      else
+        response_message = I18n.t('error_deletion')
+      end
+    end
+    flash[:info] = response_message
+    respond_to do |format|
+      format.json {
+        render json: {:isError => !(is_destroyed), :responseMessage => response_message, :redirection => loan_templates_path}
+      }
+    end
+  end
+
+  def prerequisite_for_template
+    template_id=params[:objectid]
+
+    @the_template=LoanTemplate.find_by(id: template_id)
+    prerequisite= @the_template.prerequisite.id
+
+    respond_to do |format|
+      format.json {
+        render json: prerequisite
+      }
+    end
+  end
+
+
   protected
 
   def permitted_parameters(params)

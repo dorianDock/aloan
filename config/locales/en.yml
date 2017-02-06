@@ -92,6 +92,7 @@ en:
     amount_example: 'Ex: 500000'
     rate_example: 'Ex: 1'
     not_blank: 'must be given please'
+    edit: 'Edit Loan Product'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'
