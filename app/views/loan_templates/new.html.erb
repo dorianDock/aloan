@@ -33,8 +33,7 @@
         <div class="field">
           <label><%= f.label :template_completed_before_id %></label>
           <%= select_tag('loan_template[template_completed_before_id]', '',id: 'loan_template_template_completed_before_id', class: 'ui dropdown search loanTemplatePrerequisite newLoanTemplate',
-                         data: {:url => data_source_loan_templates_list_url, :placeholder => 'Choose a loan product'
-                         }) %>
+                         data: {:url => data_source_loan_templates_list_url, :placeholder => 'Choose a loan product'}, include_blank: t('loan_template.none')) %>
         </div>
       </div>
     </div>

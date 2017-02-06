@@ -94,6 +94,7 @@ en:
     not_blank: 'must be given please'
     edit: 'Edit Loan Product'
     object_name: 'The Loan Product'
+    none: 'None'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'
@@ -106,6 +107,7 @@ en:
     models:
       borrower: 'Borrower'
       loan: 'Loan'
+      loan_template: 'Loan Template'
     attributes:
       borrower:
         name: 'Name'
@@ -119,3 +121,5 @@ en:
         end_date: 'End Date'
         is_late: 'Is Late?'
         is_in_default: 'Is in default?'
+      loan_template:
+        template_completed_before_id: 'Prerequisite template'
