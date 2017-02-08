@@ -126,3 +126,12 @@ $light: white;
 .very_small_pictures_for_lists{
   width: 10% !important;
 }
+
+/* a label that lets other content on the same line */
+.friendly_label{
+  display: inline !important;
+}
+
+.space_block{
+  height: 10px;
+}

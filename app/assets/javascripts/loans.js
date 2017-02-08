@@ -43,6 +43,13 @@ $(document).on('turbolinks:load', function(){
 
     if($('.loanLoanTemplate').length!==0){
         InitializeSelectList('newLoanLoanTemplate',onChangeNewLoanLoanTemplate);
+        $('.dropdown_clear_button')
+            .on('click', function() {
+                $('.newLoanLoanTemplate')
+                    .dropdown('clear')
+                ;
+            })
+        ;
     }
 
 

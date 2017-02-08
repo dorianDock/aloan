@@ -24,10 +24,16 @@
       <div class="four wide field">
         <p>Want to go faster? Choose a template and prefill the rate, the end date and the amount!</p>
         <div class="field">
-          <label><%= f.label :loan_template_id %></label>
+          <label class="friendly_label"><%= f.label :loan_template_id %></label>
+          <span class="ui mini compact icon button dropdown_clear_button">
+            <i class="ban icon"></i>
+          </span>
+          <div class="space_block"></div>
+
           <%= select_tag('loan[loan_template_id]', '',id: 'loan_loan_template_id', class: 'ui dropdown search loanLoanTemplate newLoanLoanTemplate',
-                         data: {:url => data_source_loan_templates_list_url, :singleObjectUrl => loan_templates_json_for_template_path, :placeholder => 'Choose a loan product'}, include_blank: t('loan_template.none')) %>
+                         data: {:url => data_source_loan_templates_list_url, :singleObjectUrl => loan_templates_json_for_template_path, :placeholder => 'Choose a loan product'}) %>
         </div>
+
       </div>
 
       <div class="four wide field">

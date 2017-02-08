@@ -32,7 +32,11 @@
       </div>
       <div class="four wide field">
         <div class="field">
-          <label><%= f.label :template_completed_before_id %></label>
+          <label class="friendly_label"><%= f.label :template_completed_before_id %></label>
+          <span class="ui mini compact icon button dropdown_clear_button">
+            <i class="ban icon"></i>
+          </span>
+          <div class="space_block"></div>
           <%= select_tag('loan_template[template_completed_before_id]', '',id: 'loan_template_template_completed_before_id', class: 'ui dropdown search loanTemplatePrerequisite newLoanTemplate',
                          data: {:url => data_source_loan_templates_list_url, :initializeurl => prerequisite_for_template_loan_template_path,
                                 :objectlinkid => @template.id, :placeholder => 'Choose a loan product'
