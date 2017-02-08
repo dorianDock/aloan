@@ -27,11 +27,8 @@ $(document).on('turbolinks:load', function(){
         if(dateParsed != undefined){
             var result = dateParsed.add(data.duration, 'months');
             contractualEndDatePicker.setDate(result.format('YYYY-MM-DD'));
-            // $("#loan_contractual_end_date").val();
         }
-        // console.log(data.name);
-        // console.log(data.rate);
-        // console.log(data.amount);
+
     }
 
     function onChangeNewLoanLoanTemplate(value, text, $choice){

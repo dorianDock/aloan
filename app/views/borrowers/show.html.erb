@@ -26,7 +26,7 @@
     <div class="ui segment">
       <a class="ui blue ribbon label"><%= t('borrower.loans') %></a>
       <span class="ui header"><%= t('borrower.activity') %></span>
-      <%- if @borrower.current_loans %>
+      <%- if @borrower.current_loans && !@borrower.current_loans.empty?%>
           <%- @borrower.current_loans.each do |loan| %>
               <%= render 'borrowers/borrowers_current_loans', :loan => loan %>
           <%- end %>
@@ -40,7 +40,7 @@
     <div class="ui segment">
       <a class="ui orange right ribbon label"><%= t('borrower.history') %></a>
       <span class="ui header"><%= t('borrower.past_actions') %></span>
-      <%- if @borrower.past_loans %>
+      <%- if @borrower.past_loans && !@borrower.past_loans.empty? %>
           <%- @borrower.past_loans.each do |loan| %>
               <%= render 'borrowers/borrowers_past_loans', :loan => loan %>
           <%- end %>
