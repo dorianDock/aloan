@@ -21,9 +21,13 @@ module LoansHelper
 
   def loan_title(loan)
     content_tag(:i)+loan.order.to_s+t(ordinalize_with_language(loan.order))+t('loan.loan_of')+
-    content_tag(:a, loan.borrower.full_name, :href => borrower_path(loan.borrower)).html_safe
+    content_tag(:a, loan.borrower.full_name, :href => borrower_path(loan.borrower), :class => 'left_space').html_safe
   end
 
+  def light_loan_title(loan)
+    content_tag(:i)+loan.order.to_s+t(ordinalize_with_language(loan.order))+t('loan.loan_of')+
+        content_tag(:span, loan.borrower.full_name).html_safe
+  end
 
 
   def compare_with_today(day_number)

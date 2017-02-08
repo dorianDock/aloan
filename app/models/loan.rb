@@ -14,12 +14,15 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  loan_goal            :text
+#  order                :integer          default("1")
+#  loan_template_id     :integer
 #
 
 class Loan < ApplicationRecord
 
   DAYS_IN_A_MONTH = 30
   belongs_to :borrower
+  belongs_to :loan_template, optional: true
 
   validates :start_date, presence: { message: I18n.t('loan.not_blank')}
   validates :contractual_end_date, presence: { message: I18n.t('loan.not_blank')}

@@ -1,5 +1,9 @@
 en:
+  during: 'During'
   hello: "Hello world"
+  month:
+    one: 'month'
+    other: 'months'
   times:
     one: 'st'
     two: 'nd'
@@ -79,17 +83,35 @@ en:
     duration: 'Loan Duration'
     display_month_duration: '%{duration} months.'
     display_zero_month_duration: '< 1 month.'
+    display_based_on1: 'Based on the '
+    display_based_on2: ' template.'
+    interest_rate: 'with %{rate}% of interest'
+  loan_template:
+    successful_deletion: 'The template was successfully removed.'
+    successful_update1: 'The template '
+    successful_update2: ' was successfully updated.'
+    happens_after: 'It is used after'
+    create_new: 'Create new loan product'
+    rate_explanation: ' (in % on the total of the amount)'
+    amount_example: 'Ex: 500000'
+    rate_example: 'Ex: 1'
+    not_blank: 'must be given please'
+    edit: 'Edit Loan Product'
+    object_name: 'The Loan Product'
+    none: 'None'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'
   menu:
     loans: 'Loans'
     borrowers: 'Borrowers'
+    loan_templates: 'Loan Products'
     log_out: 'Log Out'
   activerecord:
     models:
       borrower: 'Borrower'
       loan: 'Loan'
+      loan_template: 'Loan Template'
     attributes:
       borrower:
         name: 'Name'
@@ -103,3 +125,6 @@ en:
         end_date: 'End Date'
         is_late: 'Is Late?'
         is_in_default: 'Is in default?'
+        loan_template_id: 'Template linked'
+      loan_template:
+        template_completed_before_id: 'Prerequisite template'

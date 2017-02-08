@@ -65,7 +65,8 @@ class LoansController < ApplicationController
   protected
 
   def permitted_parameters(params)
-    params.permit(:start_date, :contractual_end_date, :end_date, :is_in_default, :amount, :rate, :borrower_id, :loan_goal, :order)
+    params.permit(:start_date, :contractual_end_date, :end_date, :is_in_default,
+                  :amount, :rate, :borrower_id, :loan_goal, :order, :loan_template_id)
   end
 
 end

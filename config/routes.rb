@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'home/secured'
 
   get 'data_source/borrowers_list'
+  get 'data_source/loan_templates_list'
 
 
   resources :borrowers do
@@ -16,6 +17,16 @@ Rails.application.routes.draw do
   end
 
   resources :loans do
+  end
+
+  get 'loan_templates/json_for_template'
+
+  resources :loan_templates do
+    member do
+      get 'destroy_by_popup'
+      get 'prerequisite_for_template'
+    end
+
   end
 
 end

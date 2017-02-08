@@ -1,0 +1,47 @@
+<% # encoding: utf-8   %>
+
+<%= validation_error_messages!(@new_loan_template) %>
+
+<%= form_for @new_loan_template, method: 'post', html: {:multipart => true, class: 'ui form light_form' } do |f| %>
+    <h1><%= t('loan_template.create_new') %></h1>
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+    <div class="fields">
+      <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :name %></label>
+          <%= f.text_field  :name %>
+        </div>
+      </div>
+      <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :duration %></label>
+          <%= f.text_field  :duration %> (<%= t('month', :count => 2) %>)
+        </div>
+      </div>
+      <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :amount %></label>
+          <%= f.text_field :amount, :placeholder => t('loan_template.amount_example') %>
+        </div>
+        <div class="field">
+          <label><%= f.label :rate %></label>
+          <%= f.text_field :rate, :placeholder => t('loan_template.rate_example') %> <%= t('loan_template.rate_explanation') %>
+        </div>
+      </div>
+      <div class="four wide field">
+        <div class="field">
+          <label class="friendly_label"><%= f.label :template_completed_before_id %></label>
+           <span class="ui mini compact icon button dropdown_clear_button">
+            <i class="ban icon"></i>
+          </span>
+          <div class="space_block"></div>
+          <%= select_tag('loan_template[template_completed_before_id]', '',id: 'loan_template_template_completed_before_id', class: 'ui dropdown search loanTemplatePrerequisite newLoanTemplate',
+                         data: {:url => data_source_loan_templates_list_url, :placeholder => 'Choose a loan product'}, include_blank: t('loan_template.none')) %>
+        </div>
+      </div>
+    </div>
+
+    <%= f.submit t('submit'), class: 'ui primary button right floated' %>
+<% end %>
+

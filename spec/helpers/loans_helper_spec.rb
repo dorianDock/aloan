@@ -45,6 +45,15 @@ RSpec.describe LoansHelper, type: :helper do
       expect(title).to match('10th loan taken by')
     end
 
+    it 'returns correct light title' do
+      a_borrower= FactoryGirl.create(:borrower)
+      a_loan = FactoryGirl.create(:loan, {:borrower_id => a_borrower.id})
+      title = light_loan_title(a_loan)
+      expect(title).to match('<i></i>10th loan taken by <span>John Borrows</span>')
+    end
+
+
+
   end
 
   describe 'compare_with_today' do

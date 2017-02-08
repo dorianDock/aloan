@@ -1,0 +1,18 @@
+<% # encoding: utf-8   %>
+
+
+<div class="ui grid">
+  <div class="seven wide column"></div>
+  <div class="independentElement nine wide column">
+    <h1 class="customTitle"><%= t('menu.loan_templates') %></h1>
+    <a class="ui button teal" href="<%= new_loan_template_path %>"><i class="ui icon add"></i> <%= t('add') %> </a>
+  </div>
+</div>
+
+<div class="ui cards">
+
+  <%- @templates.each do |template| %>
+      <%= render 'loan_templates/list_element', :template => template %>
+  <%- end %>
+
+</div>

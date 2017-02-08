@@ -21,6 +21,7 @@
 
 $grey: #DADADA;
 $dark_purple: #342936;
+$slight_dark_grey: rgba(56, 57, 59, 0.6);
 $very_dark_purple: #100729;
 $light_contrast_with_dark_purple: #1F0829;
 $gold: gold;
@@ -51,6 +52,10 @@ $light: white;
   background-color: $gold !important;
 }
 
+.left_space{
+  margin-left: 5px;
+}
+
 .customTitle{
   margin-bottom: 1%;
   color: $gold;
@@ -69,6 +74,13 @@ $light: white;
 .lightMenuElement{
   color: $light !important;
 }
+
+.ui.divided.items > .item {
+  border-top: 1px solid $slight_dark_grey;
+  margin: 0em;
+  padding: 1em 0em;
+}
+
 
 .light_form{
   color: $light !important;
@@ -103,7 +115,23 @@ $light: white;
   color: $light !important;
 }
 
+.separated_item{
+  margin-bottom: 10% !important;
+}
 
 .small_pictures_for_lists{
   width: 25% !important;
+}
+
+.very_small_pictures_for_lists{
+  width: 10% !important;
+}
+
+/* a label that lets other content on the same line */
+.friendly_label{
+  display: inline !important;
+}
+
+.space_block{
+  height: 10px;
 }

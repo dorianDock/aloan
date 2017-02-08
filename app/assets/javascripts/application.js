@@ -18,14 +18,16 @@
 
 //= require flatpickr/dist/flatpickr
 //= require semantic-ui
+//= require moment
+
 //= require_tree .
 
 
 $(document).on('turbolinks:load', function () {
-    $('.ui.dropdown')
-        .dropdown()
-    ;
-
+    // $('.ui.dropdown')
+    //     .dropdown();
+    // ;
+    //console.log(100);
 
     $('.message > .close')
         .on('click', function () {
@@ -54,7 +56,7 @@ $(document).on('turbolinks:load', function () {
 });
 
 // Initialize function for select lists
-function InitializeSelectList(aCssClass) {
+function InitializeSelectList(aCssClass, callBackOnChange) {
     var myUrl = $('.' + aCssClass).data('url');
     var placeHolder = $('.' + aCssClass).data('placeholder');
     if(myUrl==undefined){
@@ -82,12 +84,14 @@ function InitializeSelectList(aCssClass) {
             AjaxRequest(initializeUrl, parameters, changeTheDropDown);
         }
     });
+    console.log(4000);
     $('.' + aCssClass)
         .dropdown({
             placeholder: placeHolder,
             apiSettings: {
-                url: myUrl + '?query={query}'
-            }
+                url: myUrl + '&query={query}'
+            },
+            onChange: callBackOnChange
         });
 }
 

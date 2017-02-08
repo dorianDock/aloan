@@ -14,6 +14,8 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  loan_goal            :text
+#  order                :integer          default("1")
+#  loan_template_id     :integer
 #
 
 require 'rails_helper'
@@ -27,6 +29,11 @@ RSpec.describe Loan, type: :model do
     end
 
     it 'should be valid with a borrower, a start_date, a contractual_end_date, an amount and a rate' do
+      expect(@loan).to be_valid
+    end
+
+    it 'should be valid without a template (template is optional)' do
+      @loan.loan_template_id = nil
       expect(@loan).to be_valid
     end
 
@@ -55,6 +62,18 @@ RSpec.describe Loan, type: :model do
       expect(@loan).to_not be_valid
     end
 
+  end
+
+  describe 'Interactions' do
+    it 'belongs_to a borrower' do
+      association=described_class.reflect_on_association(:borrower)
+      expect(association.macro).to eq :belongs_to
+    end
+
+    it 'belongs_to a template' do
+      association=described_class.reflect_on_association(:loan_template)
+      expect(association.macro).to eq :belongs_to
+    end
   end
 
 
@@ -102,6 +121,43 @@ RSpec.describe Loan, type: :model do
       a_loan= FactoryGirl.create(:loan, borrower_id: @borrower.id, start_date: '2017-01-11 00:00:00', contractual_end_date: '2018-03-11 00:00:00')
       expect(a_loan.loan_duration_in_months).to eq(14)
     end
+
+  end
+
+  describe 'Scopes' do
+    before(:each) do
+      borrower = FactoryGirl.create(:borrower)
+      @loan1= FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: '2016-01-14 13:47:13', contractual_end_date: '2016-12-14 13:47:13',
+                                amount: 1000, rate: 5, loan_goal: 'Have some money to organize trips to make new deals')
+      @loan2= FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: '2016-02-14 13:47:13', contractual_end_date: '2016-12-14 13:47:13',
+                                amount: 1000, rate: 5, loan_goal: 'Have some money to organize trips to make new deals')
+      @loan3= FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: '2016-03-14 13:47:13', contractual_end_date: '2016-12-14 13:47:13',
+                                amount: 1000, rate: 5, loan_goal: 'Have some money to organize trips to make new deals')
+      @loan4= FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: '2016-04-14 13:47:13', contractual_end_date: '2016-12-14 13:47:13',
+                                amount: 1000, rate: 5, loan_goal: 'Have some money to organize trips to make new deals')
+      @loan5= FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: '2016-05-14 13:47:13', contractual_end_date: '2016-12-14 13:47:13',
+                                amount: 1000, rate: 5, loan_goal: 'Have some money to organize trips to make new deals')
+      @loan6= FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: '2016-06-14 13:47:13', contractual_end_date: '2016-12-14 13:47:13',
+                                amount: 1000, rate: 5, loan_goal: 'Have some money to organize trips to make new deals')
+      @loan7= FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: '2016-12-14 13:47:13', contractual_end_date: '2016-12-14 13:47:13',
+                                amount: 1000, rate: 5, loan_goal: 'Have some money to organize trips to make new deals')
+    end
+
+    it 'should be ordered via start_date asc when natural order' do
+      expect(Loan.natural_order.count).to eq(7)
+      expect(Loan.natural_order.first).to eq(@loan1)
+      expect(Loan.natural_order.second).to eq(@loan2)
+      expect(Loan.natural_order.last).to eq(@loan7)
+    end
+
+    it 'should be ordered via start_date desc when reverse order' do
+      expect(Loan.reverse_order.count).to eq(7)
+      expect(Loan.reverse_order.first).to eq(@loan7)
+      expect(Loan.reverse_order.second).to eq(@loan6)
+      expect(Loan.reverse_order.last).to eq(@loan1)
+    end
+
+
 
   end
 

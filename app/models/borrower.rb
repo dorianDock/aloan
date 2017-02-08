@@ -14,12 +14,24 @@
 #
 
 class Borrower < ApplicationRecord
-
-
   has_many :loans
 
   validates :name, presence: { message: I18n.t('borrower.not_blank')}, :length   => { :maximum => 100 }
   validates :first_name, presence: { message: I18n.t('borrower.not_blank')}, :length   => { :maximum => 100 }
+
+  def related_loans
+    self.loans.to_a
+  end
+
+  def current_loans
+    today = Date.today
+    related_loans.select{ |l| l.contractual_end_date >= today && l.start_date <= today}
+  end
+
+  def past_loans
+    today = Date.today
+    related_loans.select{ |l| l.contractual_end_date < today}
+  end
 
   def full_name
     name = ''

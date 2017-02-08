@@ -27,11 +27,11 @@
             </p>
             <p class=""><%= t('loan.duration') %>: <%= @loan.loan_duration %> <%= t('duration.days') %> (<%= display_month_duration(@loan.loan_duration_in_months) %>)</p>
             <p class=""><span class="ui horizontal label"><%= t('activerecord.attributes.loan.rate') %></span><%= @loan.rate %> %</p>
-            <p class=""><span class="ui horizontal label"><%= t('activerecord.attributes.loan.amount') %></span><%= @loan.amount %> MGA
-              <%= t('loan.interest_message', :interest => @loan.interest) %>
+            <p class=""><span class="ui horizontal label"><%= t('activerecord.attributes.loan.amount') %></span><%= @loan.amount.to_i %> MGA
+              <%= t('loan.interest_message', :interest => @loan.interest.to_i) %>
             </p>
             <p class=""><span class="ui horizontal label"><%= t('borrower.project_description') %></span><%= @loan.borrower.project_description %></p>
-            <p class=""><span class="ui horizontal label"><%= t('loan.amount_targeted') %></span><%= @loan.borrower.amount_wished %> MGA</p>
+            <p class=""><span class="ui horizontal label"><%= t('loan.amount_targeted') %></span><%= @loan.borrower.amount_wished.to_i %> MGA</p>
           </div>
         </div>
       </div>
@@ -60,7 +60,11 @@
       <a class="ui teal right ribbon label"><%= t('loan.side_notes') %></a>
       <span class="ui header"><%= t('loan.comments') %></span>
       <p></p>
-      <p class=""><%= t('no_info') %></p>
+      <%- if @loan.loan_template %>
+          <%= render 'loans/linked_loan_template', :loan_template => @loan.loan_template %>
+      <%- else %>
+          <p class=""><%= t('borrower.no_info') %></p>
+      <%- end %>
     </div>
 
   </div>
