@@ -22,9 +22,9 @@ $(document).on('turbolinks:load', function(){
         $("input[name='loan[amount]']").val(data.amount);
         $("input[name='loan[rate]']").val(data.rate);
         var startDate = $('#loan_start_date').val();
-        var dateParsed = moment(startDate, "YYYY-MM-DD");
         // if a value is set, we change the value of contractual end date also
-        if(dateParsed != undefined){
+        if(startDate != undefined && startDate != ''){
+            var dateParsed = moment(startDate, "YYYY-MM-DD");
             var result = dateParsed.add(data.duration, 'months');
             contractualEndDatePicker.setDate(result.format('YYYY-MM-DD'));
         }
