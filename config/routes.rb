@@ -19,11 +19,14 @@ Rails.application.routes.draw do
   resources :loans do
   end
 
+  get 'loan_templates/json_for_template'
+
   resources :loan_templates do
     member do
       get 'destroy_by_popup'
       get 'prerequisite_for_template'
     end
+
   end
 
 end

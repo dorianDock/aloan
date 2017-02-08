@@ -91,6 +91,17 @@ class LoanTemplatesController < ApplicationController
     end
   end
 
+  def json_for_template
+    template_id=params[:objectid]
+    @the_template=LoanTemplate.find_by(id: template_id)
+    respond_to do |format|
+      format.json {
+        render json: @the_template
+      }
+    end
+  end
+
+
 
   protected
 

@@ -121,5 +121,6 @@ en:
         end_date: 'End Date'
         is_late: 'Is Late?'
         is_in_default: 'Is in default?'
+        loan_template_id: 'Template linked'
       loan_template:
         template_completed_before_id: 'Prerequisite template'

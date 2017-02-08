@@ -23,7 +23,7 @@ class DataSourceController < ApplicationController
 
   # render the list of loan templates in the db according to a query passed to the action
   def loan_templates_list
-    query=params[:query]
+    query=params[:query]||''
     string_query=query.to_s
     if string_query.nil? || string_query.empty?
       the_list=LoanTemplate.all().order(:name)

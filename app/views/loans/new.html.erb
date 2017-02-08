@@ -16,26 +16,25 @@
           <%= f.text_field :start_date, :class => 'loanStartDate' %>
         </div>
 
-        <!--<p>Want to go quicker? Choose a template!</p>-->
-        <!--<div class="field">-->
-          <!--<label><%= f.label :template_completed_before_id %></label>-->
-          <%= select_tag('loan_template[template_completed_before_id]', '',id: 'loan_template_template_completed_before_id', class: 'ui dropdown search loanTemplatePrerequisite newLoanTemplate',
-                         data: {:url => data_source_loan_templates_list_url, :placeholder => 'Choose a loan product'}, include_blank: t('loan_template.none')) %>
-        <!--</div>-->
-
         <div class="field">
           <label><%= f.label :contractual_end_date %></label>
           <%= f.text_field :contractual_end_date, :class => 'loanContractualEndDate' %>
         </div>
       </div>
       <div class="four wide field">
+        <p>Want to go faster? Choose a template and prefill the rate, the end date and the amount!</p>
         <div class="field">
-          <label><%= f.label :amount %></label>
-          <%= f.text_field  :amount, :placeholder => t('loan.amount_example') %>
+          <label><%= f.label :loan_template_id %></label>
+          <%= select_tag('loan[loan_template_id]', '',id: 'loan_loan_template_id', class: 'ui dropdown search loanLoanTemplate newLoanLoanTemplate',
+                         data: {:url => data_source_loan_templates_list_url, :singleObjectUrl => loan_templates_json_for_template_path, :placeholder => 'Choose a loan product'}, include_blank: t('loan_template.none')) %>
         </div>
       </div>
 
       <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :amount %></label>
+          <%= f.text_field  :amount, :placeholder => t('loan.amount_example') %>
+        </div>
         <div class="field">
           <label><%= f.label :rate %> <%= t('loan.rate_explanation') %></label>
           <%= f.text_field  :rate, :placeholder => t('loan.rate_example') %>
