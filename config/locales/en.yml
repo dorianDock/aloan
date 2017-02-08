@@ -106,6 +106,7 @@ en:
     loans: 'Loans'
     borrowers: 'Borrowers'
     loan_templates: 'Loan Products'
+    statistics: 'Statistics'
     log_out: 'Log Out'
   activerecord:
     models:
