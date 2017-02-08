@@ -1,4 +1,13 @@
 
-<h2 class="lightMenuElement">
-  Here are the statistics
-</h2>
+<div class="ui grid">
+  <div class="seven wide column"></div>
+  <div class="independentElement nine wide column">
+    <h1 class="customTitle"><%= t('menu.statistics') %></h1>
+  </div>
+</div>
+
+<div class="ui cards">
+  <%- @stats.each do |statistics| %>
+      <%= render 'statistics/list_element', :statistics => statistics %>
+  <%- end %>
+</div>
