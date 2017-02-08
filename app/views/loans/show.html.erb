@@ -27,11 +27,11 @@
             </p>
             <p class=""><%= t('loan.duration') %>: <%= @loan.loan_duration %> <%= t('duration.days') %> (<%= display_month_duration(@loan.loan_duration_in_months) %>)</p>
             <p class=""><span class="ui horizontal label"><%= t('activerecord.attributes.loan.rate') %></span><%= @loan.rate %> %</p>
-            <p class=""><span class="ui horizontal label"><%= t('activerecord.attributes.loan.amount') %></span><%= @loan.amount %> MGA
-              <%= t('loan.interest_message', :interest => @loan.interest) %>
+            <p class=""><span class="ui horizontal label"><%= t('activerecord.attributes.loan.amount') %></span><%= @loan.amount.to_i %> MGA
+              <%= t('loan.interest_message', :interest => @loan.interest.to_i) %>
             </p>
             <p class=""><span class="ui horizontal label"><%= t('borrower.project_description') %></span><%= @loan.borrower.project_description %></p>
-            <p class=""><span class="ui horizontal label"><%= t('loan.amount_targeted') %></span><%= @loan.borrower.amount_wished %> MGA</p>
+            <p class=""><span class="ui horizontal label"><%= t('loan.amount_targeted') %></span><%= @loan.borrower.amount_wished.to_i %> MGA</p>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
 
 <p class=""><%= t('loan.display_based_on1') %> <%= loan_template.name %> <%= t('loan.display_based_on2') %></p>
-<p class="">(<%= loan_template.amount.to_i %> <%= t('during') %> <%= loan_template.duration %>
+<p class="">(<%= loan_template.amount.to_i %> MGA <%= t('during') %> <%= loan_template.duration %>
   <%= t('month', :count => loan_template.duration) %>, <%= t('loan.interest_rate', :rate => loan_template.rate) %>)</p>
