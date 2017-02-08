@@ -60,7 +60,11 @@
       <a class="ui teal right ribbon label"><%= t('loan.side_notes') %></a>
       <span class="ui header"><%= t('loan.comments') %></span>
       <p></p>
-      <p class=""><%= t('no_info') %></p>
+      <%- if @loan.loan_template %>
+          <%= render 'loans/linked_loan_template', :loan_template => @loan.loan_template %>
+      <%- else %>
+          <p class=""><%= t('borrower.no_info') %></p>
+      <%- end %>
     </div>
 
   </div>
