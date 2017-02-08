@@ -74,4 +74,26 @@ RSpec.describe LoanTemplate, type: :model do
       expect(loan_template_2.prerequisite_name).to eq(nil)
     end
   end
+
+
+  describe 'Scopes' do
+    before(:each) do
+      @loan_template1 = FactoryGirl.create(:loan_template, :amount => 100000)
+      @loan_template2 = FactoryGirl.create(:loan_template, :amount => 200000)
+      @loan_template3 = FactoryGirl.create(:loan_template, :amount => 300000)
+      @loan_template4 = FactoryGirl.create(:loan_template, :amount => 400000)
+      @loan_template5 = FactoryGirl.create(:loan_template, :amount => 500000)
+      @loan_template6 = FactoryGirl.create(:loan_template, :amount => 600000)
+      @loan_template7 = FactoryGirl.create(:loan_template, :amount => 700000)
+    end
+
+    it 'should be ordered via amount asc when amount_order' do
+      expect(LoanTemplate.amount_order.count).to eq(7)
+      expect(LoanTemplate.amount_order.first).to eq(@loan_template1)
+      expect(LoanTemplate.amount_order.second).to eq(@loan_template2)
+      expect(LoanTemplate.amount_order.last).to eq(@loan_template7)
+    end
+
+
+  end
 end
