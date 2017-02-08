@@ -45,6 +45,11 @@ RSpec.describe LoanTemplatesController, type: :controller do
       expect(response.body).to eq(@loan_template.id.to_s)
     end
 
+    it 'loan_templates#json_for_template works' do
+      get :json_for_template, params: { objectid: @loan_template.id }, format: :json
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['name']).to eq(@loan_template.name)
+    end
 
   end
 
