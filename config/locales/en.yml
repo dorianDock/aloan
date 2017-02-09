@@ -99,6 +99,9 @@ en:
     edit: 'Edit Loan Product'
     object_name: 'The Loan Product'
     none: 'None'
+  stats:
+    lent_money_title: 'Lent Money'
+    lent_money_description: 'All the money currently being lent in micro loans'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'
