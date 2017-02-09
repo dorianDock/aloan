@@ -21,7 +21,6 @@
 class Loan < ApplicationRecord
 
   class << self
-
     def lambda_past
       lambda { |l| l.contractual_end_date < Date.today }
     end
