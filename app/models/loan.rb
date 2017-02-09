@@ -20,6 +20,19 @@
 
 class Loan < ApplicationRecord
 
+  class << self
+
+    def lambda_past
+      lambda { |l| l.contractual_end_date < Date.today }
+    end
+    def lambda_current
+      lambda { |l| l.contractual_end_date >= Date.today && l.start_date <= Date.today }
+    end
+    def lambda_future
+      lambda { |l| l.start_date > Date.today }
+    end
+  end
+
   DAYS_IN_A_MONTH = 30
   belongs_to :borrower
   belongs_to :loan_template, optional: true
@@ -29,6 +42,8 @@ class Loan < ApplicationRecord
   validates :rate, presence: { message: I18n.t('loan.not_blank')}
   validates :amount, presence: { message: I18n.t('loan.not_blank')}
   validates :borrower_id, presence: { message: I18n.t('loan.not_blank')}
+
+
 
 
   scope :natural_order, -> { order(start_date: :asc) }

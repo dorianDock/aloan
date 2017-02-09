@@ -2,14 +2,15 @@ class LoansController < ApplicationController
 
   def index
     @loans = Loan.includes(:borrower).natural_order.all.to_a
-    today = Date.today
+
     # this would call the db each time
     # @past_loans = @loans.where('contractual_end_date < ?', today)
     # @current_loans = @loans.where('contractual_end_date >= ? AND start_date <= ?', today, today)
     # @future_loans = @loans.where('start_date > ?', today)
-    @past_loans = @loans.select{ |l| l.contractual_end_date < today}
-    @current_loans = @loans.select{ |l| l.contractual_end_date >= today && l.start_date <= today}
-    @future_loans = @loans.select{ |l| l.start_date > today}
+
+    @past_loans = @loans.select(&Loan.lambda_past)
+    @current_loans = @loans.select(&Loan.lambda_current)
+    @future_loans = @loans.select(&Loan.lambda_future)
   end
 
   def create

@@ -12,4 +12,9 @@ class Statistics
     self.description = description
   end
 
+  # all the money currently being lent
+  def calculate_money_outside
+    # we take all the loans currently running
+
+  end
 end
