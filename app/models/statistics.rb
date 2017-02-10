@@ -1,11 +1,15 @@
 #  figure            :float
+#  display_figure    :text
 #  name              :text
 #  description       :text
 
 class Statistics
   attr_accessor :figure
+  attr_accessor :display_figure
   attr_accessor :name
   attr_accessor :description
+
+  MEDIUM_LOAN_SIZE = 5000000
 
   def initialize(name, description)
     self.name = name
@@ -19,7 +23,8 @@ class Statistics
     Loan.active_loans.each do |active_loan|
       total_money += active_loan.amount
     end
-    self.figure = (total_money/1000000).to_i
+    self.figure = (total_money/1000000)
+    self.display_figure = ' Millions MGA'
   end
 
   # all the money that we need when the current wave is finished
@@ -36,6 +41,26 @@ class Statistics
         end
       end
     end
-    self.figure = (total_money/1000000).to_i
+    self.figure = (total_money/1000000)
+    self.display_figure = ' Millions MGA'
   end
+
+  # finds the proportion of small loans (below 5M MGA) in the amount of loans we have
+  def calculate_rate_medium_loans
+    # we take all the loans currently running
+    total_of_medium_loans = 0
+    total_money = 0
+    active_loans = Loan.active_loans
+    active_loans.each do |active_loan|
+      total_money += active_loan.amount
+      if active_loan.amount < MEDIUM_LOAN_SIZE
+        total_of_medium_loans += active_loan.amount
+      end
+    end
+    self.figure = ((total_of_medium_loans.to_f/total_money.to_f).round(3))*100
+    self.display_figure = ' %'
+  end
+
+
+
 end
