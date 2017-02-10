@@ -19,7 +19,7 @@ class Statistics
     Loan.active_loans.each do |active_loan|
       total_money += active_loan.amount
     end
-    self.figure = total_money.to_i
+    self.figure = (total_money/1000000).to_i
   end
 
   # all the money that we need when the current wave is finished
@@ -36,6 +36,6 @@ class Statistics
         end
       end
     end
-    self.figure = total_money.to_i
+    self.figure = (total_money/1000000).to_i
   end
 end
