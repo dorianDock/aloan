@@ -30,6 +30,20 @@ class Loan < ApplicationRecord
     def lambda_future
       lambda { |l| l.start_date > Date.today }
     end
+
+    def active_loans
+      today = Date.today
+      tomorrow = today+1.day
+      a_month_ago = today-1.month
+      Loan.where('contractual_end_date >= ? AND start_date < ?', a_month_ago, tomorrow).to_a
+    end
+
+    def active_loans_with_templates
+      today = Date.today
+      tomorrow = today+1.day
+      a_month_ago = today-1.month
+      Loan.includes(loan_template: [:following_loan_templates]).where('contractual_end_date >= ? AND start_date < ?', a_month_ago, tomorrow).to_a
+    end
   end
 
   DAYS_IN_A_MONTH = 30
@@ -42,11 +56,12 @@ class Loan < ApplicationRecord
   validates :amount, presence: { message: I18n.t('loan.not_blank')}
   validates :borrower_id, presence: { message: I18n.t('loan.not_blank')}
 
-
-
-
   scope :natural_order, -> { order(start_date: :asc) }
   scope :reverse_order, -> { order(start_date: :desc) }
+
+
+
+
 
 
   def beginning_difference_days
