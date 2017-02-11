@@ -15,7 +15,7 @@
         </div>
         <div class="twelve wide column">
           <div class="ui text">
-            <h2 class="ui header"><%= loan_title(@loan) %> <span class=""> <i class="ui icon thumbs outline up isPopup" data-content="<%= t('loan.loan_is_running') %>"></i></span></h2>
+            <h2 class="ui header"><%= loan_title(@loan) %> <span class=""> <i class="ui icon hourglass half isPopup" data-content="<%= t('loan.loan_is_running') %>"></i></span></h2>
             <p class=""><span class="ui horizontal label"><%= t('borrower.company') %></span> <%= @loan.borrower.company_name %></p>
             <p class=""><%= t('activerecord.attributes.loan.start_date') %>:
               <%= @loan.start_date.strftime('%d/%m/%Y') %>

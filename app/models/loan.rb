@@ -98,6 +98,22 @@ class Loan < ApplicationRecord
   end
 
 
+  def loan_status
+    #:active, :planned, :late, :finished
+    today = Date.today
+    tomorrow = today+1.day
+    a_month_ago = today-1.month
+
+    if self.start_date > today
+      :planned
+    elsif (self.contractual_end_date >= today && self.start_date < tomorrow) || (self.contractual_end_date >= a_month_ago && self.start_date < tomorrow && self.end_date.nil?)
+      :active
+    elsif self.contractual_end_date < a_month_ago && self.end_date.nil?
+      :late
+    else
+      :finished
+    end
+  end
 
   private
 
