@@ -31,23 +31,31 @@ class Loan < ApplicationRecord
       lambda { |l| l.start_date > Date.today }
     end
 
+    def finished_loans
+      today = Date.today
+      Loan.where('end_date IS NOT NULL AND contractual_end_date <= ?', today).to_a
+    end
+
+    def finished_loans_in_the_year
+      today = Date.today
+      first_day_of_year = DateTime.new(today.year,1,1)
+      Loan.where('end_date IS NOT NULL AND contractual_end_date <= ? AND contractual_end_date >= ?', today, first_day_of_year).to_a
+    end
+
     def active_loans
       today = Date.today
       tomorrow = today+1.day
       a_month_ago = today-1.month
       Loan.where('(contractual_end_date >= ? AND start_date < ?)
-      OR (contractual_end_date >= ? AND start_date < ? AND end_date IS NULL)',
-                 today, tomorrow, a_month_ago, tomorrow).to_a
+      OR (contractual_end_date >= ? AND start_date < ? AND end_date IS NULL)', today, tomorrow, a_month_ago, tomorrow).to_a
     end
 
     def active_loans_with_templates
       today = Date.today
       tomorrow = today+1.day
       a_month_ago = today-1.month
-      Loan.includes(loan_template: [:following_loan_templates], borrower: [:loans])
-          .where('(contractual_end_date >= ? AND start_date < ?)
-        OR (contractual_end_date >= ? AND start_date < ? AND end_date IS NULL)',
-                 today, tomorrow, a_month_ago, tomorrow).to_a
+      Loan.includes(loan_template: [:following_loan_templates], borrower: [:loans]).where('(contractual_end_date >= ? AND start_date < ?)
+      OR (contractual_end_date >= ? AND start_date < ? AND end_date IS NULL)', today, tomorrow, a_month_ago, tomorrow).to_a
     end
   end
 

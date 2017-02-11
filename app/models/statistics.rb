@@ -86,6 +86,18 @@ class Statistics
     self.display_figure = ' %'
   end
 
+  def calculate_cumulative_interests
+    total_money = 0
+    finished_loans = Loan.finished_loans
+    finished_loans.each do |finished_loan|
+      total_money += ((finished_loan.amount*finished_loan.rate)/100.0)
+    end
+    self.figure = (total_money/1000.0)
+    self.display_figure = ' Thousands MGA'
+  end
+
+
+
 
 
 
