@@ -253,6 +253,13 @@ RSpec.describe Loan, type: :model do
     end
 
 
+    it 'statistcs#calculate_money_outside when removing a current loan' do
+      @current_loan2.delete
+      @a_stat.calculate_money_outside
+      # calculated in Millions
+      expect(@a_stat.figure).to eq(6.0)
+    end
+
 
     it 'statistcs#calculate_money_on_next_wave' do
       @a_stat.calculate_money_on_next_wave
@@ -272,6 +279,14 @@ RSpec.describe Loan, type: :model do
       expect(@a_stat.figure).to eq(25.0)
     end
 
+    it 'statistcs#calculate_money_on_next_wave when removing an existing loan' do
+      @current_loan2.delete
+      @future_loan1.delete
+      @a_stat.calculate_money_on_next_wave
+      # calculated in Millions
+      expect(@a_stat.figure).to eq(14.0)
+    end
+
     it 'statistcs#calculate_rate_medium_loans' do
       @a_stat.calculate_rate_medium_loans
       # calculated in %
@@ -289,6 +304,21 @@ RSpec.describe Loan, type: :model do
       # calculated in %
       expect(@a_stat.figure).to eq(58.3)
     end
+
+    it 'statistcs#calculate_rate_medium_loans is correct when removing a current loan and adding a 5M one' do
+      @current_loan2.delete
+      borrower = FactoryGirl.create(:borrower)
+      in_one_week = Date.today+1.week
+      three_weeks_ago = Date.today-3.week
+      @current_loan_added= FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: three_weeks_ago, contractual_end_date: in_one_week,
+                                              amount: 5000000, rate: 1, loan_goal: '@current_loan_added',
+                                              loan_template_id: LoanTemplate.find_by(name: '1m5M').id)
+
+      @a_stat.calculate_rate_medium_loans
+      # calculated in %
+      expect(@a_stat.figure.round(1)).to eq(54.5)
+    end
+
 
 
   end
