@@ -165,7 +165,7 @@ RSpec.describe Loan, type: :model do
       # borrower 4 took 500k
       # borrower 5 took 500k
       # borrower 6 took 1M
-      @past_loan1= FactoryGirl.create(:loan, borrower_id: borrower1.id, start_date: eight_months_ago, contractual_end_date: four_months_ago, end_date: four_months_ago,
+      @past_loan1= FactoryGirl.create(:loan, borrower_id: borrower1.id, start_date: eight_months_ago, contractual_end_date: four_months_ago,
                                  amount: 500000, rate: 1, loan_goal: '@past_loan1',
                                       loan_template_id: LoanTemplate.find_by(name: '1m500k').id)
       @past_loan11= FactoryGirl.create(:loan, borrower_id: borrower2.id, start_date: eight_months_ago, contractual_end_date: four_months_ago, end_date: four_months_ago,
@@ -212,6 +212,25 @@ RSpec.describe Loan, type: :model do
       @a_stat = Statistics.new('','')
 
     end
+
+    it 'loan#loan_status for a running loan' do
+
+      expect(@past_loan3.loan_status).to eq(:active)
+      expect(@current_loan2.loan_status).to eq(:active)
+    end
+
+    it 'loan#loan_status for a late loan' do
+      expect(@past_loan1.loan_status).to eq(:late)
+    end
+
+    it 'loan#loan_status for a finished loan' do
+      expect(@past_loan11.loan_status).to eq(:finished)
+    end
+
+    it 'loan#loan_status for a planned loan' do
+      expect(@future_loan1.loan_status).to eq(:planned)
+    end
+
 
     it 'active loans count is correct' do
       # 1 past loan not paid + 5 current loans
