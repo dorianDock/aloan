@@ -35,14 +35,19 @@ class Loan < ApplicationRecord
       today = Date.today
       tomorrow = today+1.day
       a_month_ago = today-1.month
-      Loan.where('contractual_end_date >= ? AND start_date < ?', a_month_ago, tomorrow).to_a
+      Loan.where('(contractual_end_date >= ? AND start_date < ?)
+      OR (contractual_end_date >= ? AND start_date < ? AND end_date IS NULL)',
+                 today, tomorrow, a_month_ago, tomorrow).to_a
     end
 
     def active_loans_with_templates
       today = Date.today
       tomorrow = today+1.day
       a_month_ago = today-1.month
-      Loan.includes(loan_template: [:following_loan_templates]).where('contractual_end_date >= ? AND start_date < ?', a_month_ago, tomorrow).to_a
+      Loan.includes(loan_template: [:following_loan_templates])
+          .where('(contractual_end_date >= ? AND start_date < ?)
+        OR (contractual_end_date >= ? AND start_date < ? AND end_date IS NULL)',
+                 today, tomorrow, a_month_ago, tomorrow).to_a
     end
   end
 
@@ -58,10 +63,6 @@ class Loan < ApplicationRecord
 
   scope :natural_order, -> { order(start_date: :asc) }
   scope :reverse_order, -> { order(start_date: :desc) }
-
-
-
-
 
 
   def beginning_difference_days

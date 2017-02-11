@@ -124,6 +124,176 @@ RSpec.describe Loan, type: :model do
 
   end
 
+  describe 'Current loans and stats on loans' do
+    before(:each) do
+
+      FactoryGirl.create(:loan_template,amount: 500000, rate: 1, duration: 1, name: '1m500k')
+      FactoryGirl.create(:loan_template,amount: 500000, rate: 5, duration: 4, name: '4m500k')
+      FactoryGirl.create(:loan_template,amount: 1000000, rate: 1, duration: 1, name: '1m1M', template_completed_before_id: LoanTemplate.find_by(name: '1m500k').id)
+      FactoryGirl.create(:loan_template,amount: 1000000, rate: 5, duration: 4, name: '4m1M', template_completed_before_id: LoanTemplate.find_by(name: '4m500k').id)
+      FactoryGirl.create(:loan_template,amount: 2000000, rate: 1, duration: 1, name: '1m2M', template_completed_before_id: LoanTemplate.find_by(name: '1m1M').id)
+      FactoryGirl.create(:loan_template,amount: 2000000, rate: 5, duration: 4, name: '4m2M', template_completed_before_id: LoanTemplate.find_by(name: '4m1M').id)
+      FactoryGirl.create(:loan_template,amount: 5000000, rate: 1, duration: 1, name: '1m5M', template_completed_before_id: LoanTemplate.find_by(name: '1m2M').id)
+      FactoryGirl.create(:loan_template,amount: 5000000, rate: 5, duration: 4, name: '4m5M', template_completed_before_id: LoanTemplate.find_by(name: '4m2M').id)
+      FactoryGirl.create(:loan_template,amount: 10000000, rate: 1, duration: 1, name: '1m10M', template_completed_before_id: LoanTemplate.find_by(name: '1m5M').id)
+      FactoryGirl.create(:loan_template,amount: 10000000, rate: 5, duration: 4, name: '4m10M', template_completed_before_id: LoanTemplate.find_by(name: '4m5M').id)
+
+      borrower1 = FactoryGirl.create(:borrower)
+      borrower2 = FactoryGirl.create(:borrower)
+      borrower3 = FactoryGirl.create(:borrower)
+      borrower4 = FactoryGirl.create(:borrower)
+      borrower5 = FactoryGirl.create(:borrower)
+      borrower6 = FactoryGirl.create(:borrower)
+
+      today = Date.today
+      yesterday = Date.today-1.day
+      tomorrow = Date.today+1.day
+      in_one_week = Date.today+1.week
+      in_two_weeks = Date.today+2.week
+      in_three_weeks = Date.today+3.week
+      one_week_ago = Date.today-1.week
+      two_weeks_ago = Date.today-2.week
+      three_weeks_ago = Date.today-3.week
+      in_one_month = Date.today+1.month
+      in_two_months = Date.today+2.month
+      four_months_ago = Date.today-4.month
+      eight_months_ago = Date.today-8.month
+
+      # borrower 1 took 500k, then 1M, then 2M
+      # borrower 2 took 1M, then 1M
+      # borrower 3 took 2M, then 5M
+      # borrower 4 took 500k
+      # borrower 5 took 500k
+      # borrower 6 took 1M
+      @past_loan1= FactoryGirl.create(:loan, borrower_id: borrower1.id, start_date: eight_months_ago, contractual_end_date: four_months_ago, end_date: four_months_ago,
+                                 amount: 500000, rate: 1, loan_goal: '@past_loan1',
+                                      loan_template_id: LoanTemplate.find_by(name: '1m500k').id)
+      @past_loan11= FactoryGirl.create(:loan, borrower_id: borrower2.id, start_date: eight_months_ago, contractual_end_date: four_months_ago, end_date: four_months_ago,
+                                      amount: 1000000, rate: 1, loan_goal: '@past_loan11',
+                                      loan_template_id: LoanTemplate.find_by(name: '1m1M').id)
+      @past_loan2= FactoryGirl.create(:loan, borrower_id: borrower1.id, start_date: four_months_ago, contractual_end_date: yesterday, end_date: yesterday,
+                                      amount: 1000000, rate: 1, loan_goal: '@past_loan2',
+                                      loan_template_id: LoanTemplate.find_by(name: '1m1M').id)
+      # No end date and in the past, so this one is late
+      @past_loan3= FactoryGirl.create(:loan, borrower_id: borrower6.id, start_date: four_months_ago, contractual_end_date: one_week_ago,
+                                      amount: 1000000, rate: 1, loan_goal: '@past_loan3',
+                                      loan_template_id: LoanTemplate.find_by(name: '4m1M').id)
+
+
+      @current_loan1= FactoryGirl.create(:loan, borrower_id: borrower1.id, start_date: today, contractual_end_date: in_one_month,
+                                         amount: 2000000, rate: 1, loan_goal: '@current_loan1',
+                                         loan_template_id: LoanTemplate.find_by(name: '1m2M').id)
+
+      @current_loan2= FactoryGirl.create(:loan, borrower_id: borrower2.id, start_date: one_week_ago, contractual_end_date: tomorrow,
+                                         amount: 1000000, rate: 1, loan_goal: '@current_loan2',
+                                         loan_template_id: LoanTemplate.find_by(name: '1m1M').id)
+
+      @current_loan3= FactoryGirl.create(:loan, borrower_id: borrower3.id, start_date: one_week_ago, contractual_end_date: in_three_weeks,
+                                         amount: 2000000, rate: 1, loan_goal: '@current_loan3',
+                                         loan_template_id: LoanTemplate.find_by(name: '1m2M').id)
+
+      @current_loan4= FactoryGirl.create(:loan, borrower_id: borrower4.id, start_date: two_weeks_ago, contractual_end_date: in_two_weeks,
+                                         amount: 500000, rate: 1, loan_goal: '@current_loan4',
+                                         loan_template_id: LoanTemplate.find_by(name: '1m500k').id)
+
+      @current_loan5= FactoryGirl.create(:loan, borrower_id: borrower5.id, start_date: three_weeks_ago, contractual_end_date: in_one_week,
+                                         amount: 500000, rate: 1, loan_goal: '@current_loan5',
+                                         loan_template_id: LoanTemplate.find_by(name: '1m500k').id)
+
+
+      @future_loan1= FactoryGirl.create(:loan, borrower_id: borrower2.id, start_date: in_one_month, contractual_end_date: in_two_months,
+                                        amount: 1000000, rate: 1, loan_goal: '@future_loan1',
+                                        loan_template_id: LoanTemplate.find_by(name: '1m1M').id)
+      @future_loan2= FactoryGirl.create(:loan, borrower_id: borrower3.id, start_date: in_three_weeks, contractual_end_date: in_two_months,
+                                         amount: 5000000, rate: 1, loan_goal: '@future_loan2',
+                                        loan_template_id: LoanTemplate.find_by(name: '1m5M').id)
+
+      # preparing the test of stats
+      @a_stat = Statistics.new('','')
+
+    end
+
+    it 'active loans count is correct' do
+      # 1 past loan not paid + 5 current loans
+      expect(Loan.active_loans.count).to eq(6)
+    end
+
+    it 'active loans array is correct' do
+      expect(Loan.active_loans).to eq([@past_loan3,@current_loan1,@current_loan2,@current_loan3,@current_loan4,@current_loan5])
+    end
+
+    it 'active loans count is correct' do
+      # 1 past loan not paid + 5 current loans
+      expect(Loan.active_loans_with_templates.count).to eq(6)
+    end
+
+    it 'active loans array is correct' do
+      expect(Loan.active_loans_with_templates).to eq([@past_loan3,@current_loan1,@current_loan2,@current_loan3,@current_loan4,@current_loan5])
+    end
+
+
+
+    it 'statistcs#calculate_money_outside' do
+      @a_stat.calculate_money_outside
+      # calculated in Millions
+      expect(@a_stat.figure).to eq(7.0)
+    end
+
+    it 'statistcs#calculate_money_outside when adding a new loan' do
+      borrower = FactoryGirl.create(:borrower)
+      in_one_week = Date.today+1.week
+      three_weeks_ago = Date.today-3.week
+      @current_loan_added= FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: three_weeks_ago, contractual_end_date: in_one_week,
+                                              amount: 5000000, rate: 1, loan_goal: '@current_loan_added',
+                                              loan_template_id: LoanTemplate.find_by(name: '1m5M').id)
+
+      @a_stat.calculate_money_outside
+      # calculated in Millions
+      expect(@a_stat.figure).to eq(12.0)
+    end
+
+
+
+    it 'statistcs#calculate_money_on_next_wave' do
+      @a_stat.calculate_money_on_next_wave
+      # calculated in Millions
+      expect(@a_stat.figure).to eq(15.0)
+    end
+
+    it 'statistcs#calculate_money_on_next_wave when adding a new loan' do
+      borrower = FactoryGirl.create(:borrower)
+      in_one_week = Date.today+1.week
+      three_weeks_ago = Date.today-3.week
+      @current_loan_added= FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: three_weeks_ago, contractual_end_date: in_one_week,
+                                              amount: 5000000, rate: 1, loan_goal: '@current_loan_added',
+                                              loan_template_id: LoanTemplate.find_by(name: '1m5M').id)
+      @a_stat.calculate_money_on_next_wave
+      # calculated in Millions
+      expect(@a_stat.figure).to eq(25.0)
+    end
+
+    it 'statistcs#calculate_rate_medium_loans' do
+      @a_stat.calculate_rate_medium_loans
+      # calculated in %
+      expect(@a_stat.figure).to eq(100.0)
+    end
+
+    it 'statistcs#calculate_rate_medium_loans is correct when adding one loan of 5M' do
+      borrower = FactoryGirl.create(:borrower)
+      in_one_week = Date.today+1.week
+      three_weeks_ago = Date.today-3.week
+      @current_loan_added= FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: three_weeks_ago, contractual_end_date: in_one_week,
+                                         amount: 5000000, rate: 1, loan_goal: '@current_loan_added',
+                                         loan_template_id: LoanTemplate.find_by(name: '1m5M').id)
+      @a_stat.calculate_rate_medium_loans
+      # calculated in %
+      expect(@a_stat.figure).to eq(58.3)
+    end
+
+
+  end
+
+
   describe 'Scopes' do
     before(:each) do
       borrower = FactoryGirl.create(:borrower)
@@ -156,9 +326,6 @@ RSpec.describe Loan, type: :model do
       expect(Loan.reverse_order.second).to eq(@loan6)
       expect(Loan.reverse_order.last).to eq(@loan1)
     end
-
-
-
   end
 
 end
