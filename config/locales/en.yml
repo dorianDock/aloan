@@ -106,7 +106,9 @@ en:
     next_wave_description: 'For each loan with a template, we take the amount of the next template. If there is no template,
     we take the amount of the current loan. If the two last loans had the same amount, we take this amount (no matter is the loans we linked to a template or not)'
     rate_medium_loans_title: 'Percentage of medium loans'
-    rate_medium_loans_description: 'According to the law, we should be at least at 30% at any time'
+    rate_medium_loans_description: 'According to the law, we should be at least at 30% at any time (amount of medium loans on the total of money lent)'
+    rate_very_big_loans_title: 'Percentage of very big loans'
+    rate_very_big_loans_description: 'According to the law, we should be below 10% at any time (amount of very big loans on the total of money lent)'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'

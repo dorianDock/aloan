@@ -10,6 +10,7 @@ class Statistics
   attr_accessor :description
 
   MEDIUM_LOAN_SIZE = 5000000
+  UPPER_LIMIT_LOAN_SIZE = 15000000
 
   def initialize(name, description)
     self.name = name
@@ -45,6 +46,8 @@ class Statistics
         else
           total_money += active_loan.loan_template.amount
         end
+      else
+        total_money += active_loan.amount
       end
     end
     self.figure = (total_money/1000000)
@@ -66,6 +69,23 @@ class Statistics
     self.figure = ((total_of_medium_loans.to_f/total_money.to_f).round(3))*100
     self.display_figure = ' %'
   end
+
+  # finds the proportion of very big loans (superior to 15M MGA) in the amount of loans we have
+  def calculate_rate_very_big_loans
+    # we take all the loans currently running
+    total_of_very_big_loans = 0
+    total_money = 0
+    active_loans = Loan.active_loans
+    active_loans.each do |active_loan|
+      total_money += active_loan.amount
+      if active_loan.amount >= UPPER_LIMIT_LOAN_SIZE
+        total_of_very_big_loans += active_loan.amount
+      end
+    end
+    self.figure = ((total_of_very_big_loans.to_f/total_money.to_f).round(3))*100
+    self.display_figure = ' %'
+  end
+
 
 
 

@@ -319,6 +319,31 @@ RSpec.describe Loan, type: :model do
       expect(@a_stat.figure.round(1)).to eq(54.5)
     end
 
+    it 'statistcs#calculate_rate_very_big_loans' do
+      borrower = FactoryGirl.create(:borrower)
+      in_one_week = Date.today+1.week
+      three_weeks_ago = Date.today-3.week
+      @a_stat.calculate_rate_very_big_loans
+      # calculated in %
+      expect(@a_stat.figure.round(1)).to eq(0.0)
+    end
+
+    it 'statistcs#calculate_rate_very_big_loans is correct adding a 15M loan and a 20M one' do
+      borrower = FactoryGirl.create(:borrower)
+      in_one_week = Date.today+1.week
+      three_weeks_ago = Date.today-3.week
+      @current_loan_added= FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: three_weeks_ago, contractual_end_date: in_one_week,
+                                              amount: 15000000, rate: 1, loan_goal: '@current_loan_added',
+                                              loan_template_id: LoanTemplate.find_by(name: '1m5M').id)
+      @current_loan_added2= FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: three_weeks_ago, contractual_end_date: in_one_week,
+                                              amount: 20000000, rate: 1, loan_goal: '@current_loan_added',
+                                              loan_template_id: LoanTemplate.find_by(name: '1m5M').id)
+
+      @a_stat.calculate_rate_very_big_loans
+      # calculated in %
+      expect(@a_stat.figure.round(1)).to eq(83.3)
+    end
+
 
 
   end
