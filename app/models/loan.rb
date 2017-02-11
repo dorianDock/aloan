@@ -44,7 +44,7 @@ class Loan < ApplicationRecord
       today = Date.today
       tomorrow = today+1.day
       a_month_ago = today-1.month
-      Loan.includes(loan_template: [:following_loan_templates])
+      Loan.includes(loan_template: [:following_loan_templates], borrower: [:loans])
           .where('(contractual_end_date >= ? AND start_date < ?)
         OR (contractual_end_date >= ? AND start_date < ? AND end_date IS NULL)',
                  today, tomorrow, a_month_ago, tomorrow).to_a

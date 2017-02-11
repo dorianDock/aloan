@@ -34,7 +34,7 @@ class Statistics
     total_money = 0
     active_loans = Loan.active_loans_with_templates
     active_loans.each do |active_loan|
-      past_loans_of_borrower = active_loan.borrower.loans.order(start_date: :asc).to_a
+      past_loans_of_borrower = active_loan.borrower.loans.to_a.sort! { |a,b| a.start_date <=> b.start_date }
       past_loans_number = past_loans_of_borrower.count
       if past_loans_number > 1 && (past_loans_of_borrower[past_loans_number-1].amount == past_loans_of_borrower[past_loans_number-2].amount)
         total_money += past_loans_of_borrower[past_loans_number-1].amount
