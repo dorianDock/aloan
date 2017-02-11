@@ -60,6 +60,7 @@ class Loan < ApplicationRecord
   validates :rate, presence: { message: I18n.t('loan.not_blank')}
   validates :amount, presence: { message: I18n.t('loan.not_blank')}
   validates :borrower_id, presence: { message: I18n.t('loan.not_blank')}
+  # validate :end_date_is_after_start_date
 
   scope :natural_order, -> { order(start_date: :asc) }
   scope :reverse_order, -> { order(start_date: :desc) }
@@ -96,6 +97,17 @@ class Loan < ApplicationRecord
     total
   end
 
+
+
+  private
+
+  # def end_date_is_after_start_date
+  #   return if self.end_date.blank? || self.start_date.blank?
+  #
+  #   if self.end_date < self.start_date
+  #     errors.add(:end_date, "cannot be before the start time")
+  #   end
+  # end
 
 
 end
