@@ -27,7 +27,6 @@ $(document).on('turbolinks:load', function () {
     // $('.ui.dropdown')
     //     .dropdown();
     // ;
-    //console.log(100);
 
     $('.message > .close')
         .on('click', function () {
@@ -84,7 +83,6 @@ function InitializeSelectList(aCssClass, callBackOnChange) {
             AjaxRequest(initializeUrl, parameters, changeTheDropDown);
         }
     });
-    console.log(4000);
     $('.' + aCssClass)
         .dropdown({
             placeholder: placeHolder,

@@ -16,9 +16,13 @@ $(document).on('turbolinks:load', function(){
     if($('.loanBorrower').length!==0){
         InitializeSelectList('newLoanBorrower');
     }
+    if($('.loanBorrowerEdition').length!==0){
+        InitializeSelectList('editLoanBorrower');
+    }
+
+
 
     function displaySingleLoanTemplate(data){
-        console.log(data);
         $("input[name='loan[amount]']").val(data.amount);
         $("input[name='loan[rate]']").val(data.rate);
         var startDate = $('#loan_start_date').val();
@@ -35,9 +39,12 @@ $(document).on('turbolinks:load', function(){
         var retrieveInfoOnALoanTemplate = $('.loanLoanTemplate' + ' > select').data('singleobjecturl');
         var parameters = {objectid: value};
         AjaxRequest(retrieveInfoOnALoanTemplate, parameters, displaySingleLoanTemplate);
-        console.log(value);
-        console.log(text);
-        console.log($choice);
+    }
+
+    function onChangeLoanLoanTemplateEdition(value, text, $choice){
+        var retrieveInfoOnALoanTemplate = $('.editLoanLoanTemplate' + ' > select').data('singleobjecturl');
+        var parameters = {objectid: value};
+        AjaxRequest(retrieveInfoOnALoanTemplate, parameters, displaySingleLoanTemplate);
     }
 
 
@@ -51,6 +58,20 @@ $(document).on('turbolinks:load', function(){
             })
         ;
     }
+
+    if($('.loanLoanTemplateEdition').length!==0){
+        InitializeSelectList('editLoanLoanTemplate',onChangeLoanLoanTemplateEdition);
+        //InitializeSelectList('editLoanLoanTemplate');
+        $('.dropdown_clear_button')
+            .on('click', function() {
+                $('.editLoanLoanTemplate')
+                    .dropdown('clear')
+                ;
+            })
+        ;
+    }
+
+
 
 
 

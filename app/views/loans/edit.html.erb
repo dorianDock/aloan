@@ -1,0 +1,68 @@
+<% # encoding: utf-8   %>
+
+<%= validation_error_messages!(@loan) %>
+
+<%= form_for @loan, html: {:multipart => true, class: 'ui form light_form' } do |f| %>
+
+    <h1><%= t('loan.edit') %></h1>
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+    <div class="fields">
+      <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :start_date %></label>
+          <%= f.text_field :start_date, :class => 'loanStartDate' %>
+        </div>
+
+        <div class="field">
+          <label><%= f.label :contractual_end_date %></label>
+          <%= f.text_field :contractual_end_date, :class => 'loanContractualEndDate' %>
+        </div>
+      </div>
+      <div class="four wide field">
+        <p>Want to go faster? Choose a template and prefill the rate, the end date and the amount!</p>
+        <div class="field">
+          <label class="friendly_label"><%= f.label :loan_template_id %></label>
+          <span class="ui mini compact icon button dropdown_clear_button">
+            <i class="ban icon"></i>
+          </span>
+          <div class="space_block"></div>
+
+          <%= select_tag('loan[loan_template_id]', '',id: 'loan_loan_template_id', class: 'ui dropdown search loanLoanTemplateEdition editLoanLoanTemplate',
+                         data: {:url => data_source_loan_templates_list_url, :initializeurl => template_for_loan_loan_path,
+                                :objectlinkid => @loan.id, :singleObjectUrl => loan_templates_json_for_template_path, :placeholder => 'Choose a loan product'}, include_blank: t('loan_template.none')) %>
+        </div>
+
+      </div>
+
+      <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :amount %></label>
+          <%= f.text_field  :amount, :placeholder => t('loan.amount_example') %>
+        </div>
+        <div class="field">
+          <label><%= f.label :rate %> <%= t('loan.rate_explanation') %></label>
+          <%= f.text_field  :rate, :placeholder => t('loan.rate_example') %>
+        </div>
+      </div>
+
+      <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :borrower_id %></label>
+          <%= select_tag('loan[borrower_id]', '',id: 'loan_borrower_id', class: 'ui dropdown search loanBorrowerEdition editLoanBorrower',
+                         data: {:url => data_source_borrowers_list_url, :initializeurl => borrower_for_loan_loan_path,
+                                :objectlinkid => @loan.id, :placeholder => 'Choose a borrower'
+                         }) %>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label><%= f.label :loan_goal %></label>
+      <%= f.text_area :loan_goal %>
+    </div>
+
+    <%= f.submit 'Submit', class: 'ui primary button right floated' %>
+<% end %>
+

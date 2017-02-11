@@ -44,14 +44,17 @@ class LoansController < ApplicationController
   end
 
   def update
-    @loan = Loan.find_by id: (params[:loan][:id])
+    @loan = Loan.find_by id: (params[:id])
     unless @loan.nil?
       borrower_name = @loan.borrower.full_name
       permitted_params = permitted_parameters(params[:loan])
-      @loan.update(permitted_params)
-      flash[:info] = I18n.t('loan.successful_update1')+borrower_name+I18n.t('loan.successful_update2')
+      if @loan.update(permitted_params)
+        flash[:info] = I18n.t('loan.successful_update1')+borrower_name+I18n.t('loan.successful_update2')
+        redirect_to edit_loan_path(@loan)
+      else
+        render 'edit'
+      end
     end
-    redirect_to edit_loan_path
   end
 
   def destroy
@@ -60,6 +63,34 @@ class LoansController < ApplicationController
       @loan.destroy
       flash[:info] = I18n.t('loan.successful_deletion')
       redirect_to loans_path
+    end
+  end
+
+  def borrower_for_loan
+    loan_id=params[:objectid]
+    @the_loan=Loan.find_by(id: loan_id)
+    borrower = nil
+    unless @the_loan.borrower.nil?
+      borrower= @the_loan.borrower.id
+    end
+    respond_to do |format|
+      format.json {
+        render json: borrower
+      }
+    end
+  end
+
+  def template_for_loan
+    loan_id=params[:objectid]
+    @the_loan=Loan.find_by(id: loan_id)
+    template = nil
+    unless @the_loan.loan_template.nil?
+      template= @the_loan.loan_template.id
+    end
+    respond_to do |format|
+      format.json {
+        render json: template
+      }
     end
   end
 

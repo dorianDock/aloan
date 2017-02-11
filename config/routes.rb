@@ -22,6 +22,10 @@ Rails.application.routes.draw do
 
   # loans
   resources :loans do
+    member do
+      get 'borrower_for_loan'
+      get 'template_for_loan'
+    end
   end
 
   # loan_templates

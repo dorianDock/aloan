@@ -67,6 +67,7 @@ en:
     loan_of: ' loan taken by '
     description: 'Description'
     create_new: 'Create new loan'
+    edit: 'Edit loan'
     rate_explanation: ' (in % on the total of the loan)'
     amount_example: 'Ex: 50000'
     rate_example: 'Ex: 5'
