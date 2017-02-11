@@ -45,6 +45,25 @@ $(document).on('turbolinks:load', function(){
         var retrieveInfoOnALoanTemplate = $('.editLoanLoanTemplate' + ' > select').data('singleobjecturl');
         var parameters = {objectid: value};
         AjaxRequest(retrieveInfoOnALoanTemplate, parameters, displaySingleLoanTemplate);
+        toggleFieldsIfLoanTemplatePresent();
+    }
+
+    function toggleFieldsIfLoanTemplatePresent(){
+        var selectList = $('.editLoanLoanTemplate > select');
+        var objectLink = selectList.data('objectlinkid');
+        if (!selectList.data('blockfields') && objectLink != undefined && objectLink != "") {
+            // we disable the amount, the rate, the contractual end date
+            $("input[name='loan[amount]']").parent('.field').addClass('disabled');
+            $("input[name='loan[rate]']").parent('.field').addClass('disabled');
+            $("input[name='loan[contractual_end_date]']").parent('.field').addClass('disabled');
+            selectList.data('blockfields',true);
+        } else {
+            // we enable again the amount, the rate, the contractual end date
+            $("input[name='loan[amount]']").parent('.field').removeClass('disabled');
+            $("input[name='loan[rate]']").parent('.field').removeClass('disabled');
+            $("input[name='loan[contractual_end_date]']").parent('.field').removeClass('disabled');
+            selectList.data('blockfields',false);
+        }
     }
 
 
@@ -61,12 +80,14 @@ $(document).on('turbolinks:load', function(){
 
     if($('.loanLoanTemplateEdition').length!==0){
         InitializeSelectList('editLoanLoanTemplate',onChangeLoanLoanTemplateEdition);
+        //toggleFieldsIfLoanTemplatePresent();
         //InitializeSelectList('editLoanLoanTemplate');
         $('.dropdown_clear_button')
             .on('click', function() {
                 $('.editLoanLoanTemplate')
                     .dropdown('clear')
                 ;
+                //toggleFieldsIfLoanTemplatePresent();
             })
         ;
     }
