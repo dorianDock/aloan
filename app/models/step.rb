@@ -22,6 +22,7 @@ class Step < ApplicationRecord
 
   validates :amount, presence: { message: I18n.t('step.not_blank')}
   validates :expected_date, presence: { message: I18n.t('step.not_blank')}
+  validates :is_done, inclusion: { in: [ true, false ] }
 
   validate :loan_or_loan_template
   validate :not_loan_and_loan_template

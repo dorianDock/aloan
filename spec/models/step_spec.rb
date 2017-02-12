@@ -59,6 +59,26 @@ RSpec.describe Step, type: :model do
     end
 
 
+    it 'expected date should be present' do
+      @step_done.expected_date = nil
+      expect(@step_done).to_not be_valid
+    end
+
+    it 'amount should be present' do
+      @step_done.amount = ''
+      expect(@step_done).to_not be_valid
+    end
+
+    it 'is_done should always be either true or false #1' do
+      @step_done.is_done = 'eeee'
+      expect(@step_done.is_done).to eq(true)
+    end
+
+    it 'is_done should always be either true or false #2' do
+      @step_done.is_done = false
+      expect(@step_done.is_done).to eq(false)
+    end
+
 
   end
 end
