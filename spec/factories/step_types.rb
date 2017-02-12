@@ -11,7 +11,7 @@
 
 FactoryGirl.define do
   factory :step_type do
-    label "MyString"
-    description "MyText"
+    label 'Freeing Money'
+    description 'We give to the customer the money corresponding to the loan'
   end
 end

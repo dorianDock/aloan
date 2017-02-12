@@ -32,16 +32,14 @@ class Step < ApplicationRecord
   private
 
   def loan_or_loan_template
-    if loan_id.nil? && loan_id == '' && loan_template_id.nil? && loan_template_id == ''
+    if (loan_id.nil? || loan_id == '') && (loan_template_id.nil? || loan_template_id == '')
       errors.add(:loan_id, I18n.t('step.at_least_loan_or_template'))
-      errors.add(:loan_template_id, I18n.t('step.at_least_loan_or_template'))
     end
   end
 
   def not_loan_and_loan_template
     if !loan_id.nil? && loan_id != '' && !loan_template_id.nil? && loan_template_id != ''
       errors.add(:loan_id, I18n.t('step.not_loan_and_loan_template'))
-      errors.add(:loan_template_id, I18n.t('step.not_loan_and_loan_template'))
     end
   end
 

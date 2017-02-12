@@ -21,6 +21,6 @@ FactoryGirl.define do
     expected_date "2016-12-14 14:51:58"
     date_done "2016-12-14 14:51:58"
     is_done false
-    amount 1.5
+    amount 70000
   end
 end
