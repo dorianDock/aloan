@@ -62,6 +62,7 @@ class Loan < ApplicationRecord
   DAYS_IN_A_MONTH = 30
   belongs_to :borrower
   belongs_to :loan_template, optional: true
+  has_many :steps
 
   validates :start_date, presence: { message: I18n.t('loan.not_blank')}
   validates :contractual_end_date, presence: { message: I18n.t('loan.not_blank')}

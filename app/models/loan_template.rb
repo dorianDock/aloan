@@ -16,6 +16,8 @@ class LoanTemplate < ApplicationRecord
   has_many :loans
   belongs_to :prerequisite, foreign_key: 'template_completed_before_id', class_name: 'LoanTemplate', optional: true
   has_many :following_loan_templates, :foreign_key => 'template_completed_before_id', :class_name => 'LoanTemplate'
+  has_many :steps
+
 
   validates :amount, presence: { message: I18n.t('loan_template.not_blank')}
   validates :rate, presence: { message: I18n.t('loan_template.not_blank')}

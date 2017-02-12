@@ -20,6 +20,9 @@ class Step < ApplicationRecord
   belongs_to :loan_template, optional: true
   belongs_to :step_type, required: true
 
+  validates :amount, presence: { message: I18n.t('step.not_blank')}
+  validates :expected_date, presence: { message: I18n.t('step.not_blank')}
+
   validate :loan_or_loan_template
   validate :not_loan_and_loan_template
 
