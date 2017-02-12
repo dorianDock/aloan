@@ -80,6 +80,9 @@ en:
     comments: "Comments"
     figures: "Figures"
     loan_is_running: "The loan is currently running"
+    loan_is_planned: 'The loan is planned'
+    loan_is_late: 'The loan is late'
+    loan_is_finished: 'The loan is finished'
     figures_summary: "Figures Summary"
     duration: 'Loan Duration'
     display_month_duration: '%{duration} months.'

@@ -1,0 +1,12 @@
+
+<%- if loan.loan_status == :planned %>
+    <span class=""> <i class="ui icon hourglass start isPopup" data-content="<%= t('loan.loan_is_planned') %>"></i></span>
+<%- elsif loan.loan_status == :active %>
+    <span class=""> <i class="ui icon hourglass half isPopup" data-content="<%= t('loan.loan_is_running') %>"></i></span>
+<%- elsif loan.loan_status == :late %>
+    <span class=""> <i class="ui icon warning isPopup" data-content="<%= t('loan.loan_is_late') %>"></i></span>
+<%- elsif loan.loan_status == :finished %>
+    <span class=""> <i class="ui icon hourglass end isPopup" data-content="<%= t('loan.loan_is_finished') %>"></i></span>
+<%- end %>
+
+
