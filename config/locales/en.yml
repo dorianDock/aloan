@@ -115,6 +115,10 @@ en:
     rate_very_big_loans_description: 'According to the law, we should be below 10% at any time (amount of very big loans on the total of money lent)'
     cumulative_interests_on_loans_title: 'Cumulative interests'
     cumulative_interests_on_loans_description: 'Cumulative interests since the beginning of the year.'
+  step:
+    not_blank: 'must be given please'
+    at_least_loan_or_template: 'You should at least provide a loan or a template'
+    not_loan_and_loan_template: 'You cannot provide both a loan and a template'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'
