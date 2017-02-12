@@ -144,6 +144,7 @@ RSpec.describe Loan, type: :model do
       borrower4 = FactoryGirl.create(:borrower)
       borrower5 = FactoryGirl.create(:borrower)
       borrower6 = FactoryGirl.create(:borrower)
+      borrower7 = FactoryGirl.create(:borrower)
 
       today = Date.today
       yesterday = Date.today-1.day
@@ -158,6 +159,7 @@ RSpec.describe Loan, type: :model do
       in_two_months = Date.today+2.month
       four_months_ago = Date.today-4.month
       eight_months_ago = Date.today-8.month
+      one_month_and_a_half_ago = Date.today-1.month-2.week
 
       # borrower 1 took 500k, then 1M, then 2M
       # borrower 2 took 1M, then 1M
@@ -165,6 +167,13 @@ RSpec.describe Loan, type: :model do
       # borrower 4 took 500k
       # borrower 5 took 500k
       # borrower 6 took 1M
+      @past_loan0= FactoryGirl.create(:loan, borrower_id: borrower7.id, start_date: eight_months_ago, contractual_end_date: one_week_ago, end_date: one_week_ago,
+                                      amount: 1400000, rate: 1, loan_goal: '@past_loan0')
+      @past_loan00= FactoryGirl.create(:loan, borrower_id: borrower7.id, start_date: eight_months_ago, contractual_end_date: one_week_ago, end_date: one_week_ago,
+                                      amount: 1100000, rate: 1, loan_goal: '@past_loan00')
+      @past_loan000= FactoryGirl.create(:loan, borrower_id: borrower7.id, start_date: eight_months_ago, contractual_end_date: one_week_ago, end_date: one_week_ago,
+                                      amount: 4500000, rate: 1, loan_goal: '@past_loan000')
+
       @past_loan1= FactoryGirl.create(:loan, borrower_id: borrower1.id, start_date: eight_months_ago, contractual_end_date: four_months_ago,
                                  amount: 500000, rate: 1, loan_goal: '@past_loan1',
                                       loan_template_id: LoanTemplate.find_by(name: '1m500k').id)
@@ -250,6 +259,40 @@ RSpec.describe Loan, type: :model do
       expect(Loan.active_loans_with_templates).to eq([@past_loan3,@current_loan1,@current_loan2,@current_loan3,@current_loan4,@current_loan5])
     end
 
+
+    it 'finished loans count is correct' do
+      expect(Loan.finished_loans.count).to eq(5)
+    end
+
+    it 'finished loans in the year count is correct' do
+      expect(Loan.finished_loans_in_the_year.count).to eq(4)
+    end
+
+
+    it 'statistcs#calculate_cumulative_interests' do
+      @a_stat.calculate_cumulative_interests
+      # calculated in Thousands
+      expect(@a_stat.figure).to eq(90.0)
+    end
+
+    it 'statistcs#calculate_cumulative_interests when removing a loan' do
+      @past_loan0.delete
+      @a_stat.calculate_cumulative_interests
+      # calculated in Thousands
+      expect(@a_stat.figure).to eq(76.0)
+    end
+
+    it 'statistcs#calculate_cumulative_interests when adding a loan' do
+      borrower7 = FactoryGirl.create(:borrower)
+
+      eight_months_ago = Date.today-8.month
+      one_month_and_a_half_ago = Date.today-1.month-2.week
+      @past_loan000= FactoryGirl.create(:loan, borrower_id: borrower7.id, start_date: eight_months_ago, contractual_end_date: one_month_and_a_half_ago, end_date: one_month_and_a_half_ago,
+                                        amount: 4500000, rate: 1, loan_goal: '@past_loan000')
+      @a_stat.calculate_cumulative_interests
+      # calculated in Thousands
+      expect(@a_stat.figure).to eq(135.0)
+    end
 
 
     it 'statistcs#calculate_money_outside' do
@@ -339,9 +382,6 @@ RSpec.describe Loan, type: :model do
     end
 
     it 'statistcs#calculate_rate_very_big_loans' do
-      borrower = FactoryGirl.create(:borrower)
-      in_one_week = Date.today+1.week
-      three_weeks_ago = Date.today-3.week
       @a_stat.calculate_rate_very_big_loans
       # calculated in %
       expect(@a_stat.figure.round(1)).to eq(0.0)
