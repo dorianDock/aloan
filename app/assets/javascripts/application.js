@@ -58,21 +58,42 @@ $(document).on('turbolinks:load', function () {
 function InitializeSelectList(aCssClass, callBackOnChange) {
     var myUrl = $('.' + aCssClass).data('url');
     var placeHolder = $('.' + aCssClass).data('placeholder');
+    var preselect = $('.' + aCssClass).data('preselect');
     if(myUrl==undefined){
         myUrl = $('.' + aCssClass+' > select').data('url');
+    }
+    if(callBackOnChange==undefined){
+        callBackOnChange = function(){};
     }
     $.ajax({
         url: myUrl,
         data: {}
     }).done(function (data) {
+        var firstValue=0;
         for (var i = 0; i < data.results.length; i++) {
+            firstValue = data.results[i].value;
             $('.' + aCssClass + ' > select').append('<option value="' + data.results[i].value + '">' + data.results[i].name + '</option>');
         }
+        $('.' + aCssClass)
+            .dropdown({
+                placeholder: placeHolder,
+                apiSettings: {
+                    url: myUrl + '&query={query}'
+                },
+                onChange: callBackOnChange
+            });
+        if(preselect == 'true'){
+            $('.' + aCssClass).dropdown('set selected', firstValue);
+        }
+
         // objectLink is the entity by which we are going to take the data already set
         var objectLink = $('.' + aCssClass + ' > select').data('objectlinkid');
         if (objectLink != undefined && objectLink != "") {
             var initializeUrl = $('.' + aCssClass + ' > select').data('initializeurl');
             var changeTheDropDown = function (data) {
+                if(data == null){
+                    return;
+                }
                 // we change the data from [] to [""]
                 for (i = 0; i < data.length; i++) {
                     data[i] = data[i].toString();
@@ -83,14 +104,7 @@ function InitializeSelectList(aCssClass, callBackOnChange) {
             AjaxRequest(initializeUrl, parameters, changeTheDropDown);
         }
     });
-    $('.' + aCssClass)
-        .dropdown({
-            placeholder: placeHolder,
-            apiSettings: {
-                url: myUrl + '&query={query}'
-            },
-            onChange: callBackOnChange
-        });
+
 }
 
 function AjaxRequest(targetUrl, parameters, callBackFunction) {

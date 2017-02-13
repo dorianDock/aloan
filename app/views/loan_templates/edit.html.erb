@@ -46,16 +46,17 @@
       </div>
     </div>
 
-    <div class="fields">
+    <h4 class="ui horizontal divider header">
+      <%= t('loan_template.steps') %>
+    </h4>
 
+    <div class="fields">
       <div class="eight wide field">
         <div class="field stepsField">
-          <label>Steps</label>
           <span class="ui teal button addAStep" data-url="<%= steps_new_path %>"
                 data-loantemplateid="<%= @template.id %>"><i class="ui icon plus"></i> Add a step</span>
         </div>
       </div>
-
     </div>
 
     <%= f.submit t('submit'), class: 'ui primary button right floated' %>

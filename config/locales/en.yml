@@ -101,6 +101,7 @@ en:
     rate_example: 'Ex: 1'
     not_blank: 'must be given please'
     edit: 'Edit Loan Product'
+    steps: 'Loan Product Steps'
     object_name: 'The Loan Product'
     none: 'None'
   stats:
