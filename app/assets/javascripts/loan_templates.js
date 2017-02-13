@@ -28,6 +28,9 @@ $(document).on('turbolinks:load', function() {
     // When the call is executed to add a step
     function callNewStepTemplate(data){
         $('.stepsField').append(data.partial_view);
+        if ($('.stepType').length !== 0) {
+            InitializeSelectList('newStepType');
+        }
     }
 
     $('.addAStep').click(function(){

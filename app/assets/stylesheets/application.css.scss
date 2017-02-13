@@ -26,6 +26,7 @@ $very_dark_purple: #100729;
 $light_contrast_with_dark_purple: #1F0829;
 $gold: gold;
 $light: white;
+$variation: teal;
 
 
 .dark_purple{
@@ -94,10 +95,26 @@ $light: white;
 .light_form > .fields > .field > label{
   color: $light !important;
 }
-
 .light_form > .fields > .field > .field > label{
   color: $light !important;
 }
+
+
+.variation_form{
+  color: $variation !important;
+}
+
+.variation_form > .field > label{
+  color: $variation !important;
+}
+.variation_form > .fields > .field > label{
+  color: $variation !important;
+}
+.variation_form > .fields > .field > .field > label{
+  color: $variation !important;
+}
+
+
 
 .light_item > .content > .header{
   color: $light !important;
