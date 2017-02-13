@@ -42,5 +42,19 @@ class DataSourceController < ApplicationController
     end
   end
 
+  def step_types_list
+    the_list=StepType.all
+    final_list= Array.new
+    the_list.each do |step_type|
+      temp_hash= {:name => step_type.label, :value => step_type.id}
+      final_list.push(temp_hash)
+    end
+    respond_to do |format|
+      format.json {
+        render json: {:success => true, :results => final_list }
+      }
+    end
+  end
+
 
 end

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # data_source
   get 'data_source/borrowers_list'
   get 'data_source/loan_templates_list'
+  get 'data_source/step_types_list'
 
   # statistics
   get 'statistics/index'

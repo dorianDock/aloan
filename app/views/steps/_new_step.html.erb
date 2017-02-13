@@ -31,7 +31,7 @@
         <div class="field">
           <label><%= f.label :step_type_id %></label>
           <%= select_tag('step[step_type_id]', '',id: 'step_step_type_id', class: 'ui dropdown search stepType newStepType',
-                         data: {:url => data_source_step_types_url, :placeholder => 'Choose a step Type'
+                         data: {:url => data_source_step_types_list_url, :placeholder => 'Choose a step Type'
                          }) %>
         </div>
       </div>
