@@ -1,0 +1,43 @@
+<% # encoding: utf-8   %>
+
+<%= validation_error_messages!(@new_step) %>
+
+
+
+<%= form_for @new_step, remote: true, html: {:multipart => true, class: 'ui form light_form' } do |f| %>
+
+    <h1><%= t('step.create_new') %></h1>
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+    <%= f.hidden_field :loan_id %>
+    <%= f.hidden_field :loan_template_id %>
+
+    <div class="fields">
+      <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :expected_date %></label>
+          <%= f.text_field :expected_date, :class => 'stepExpectedtDate' %>
+        </div>
+      </div>
+
+      <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :amount %></label>
+          <%= f.text_field  :amount, :placeholder => t('loan.amount_example') %>
+        </div>
+      </div>
+
+      <div class="four wide field">
+        <div class="field">
+          <label><%= f.label :step_type_id %></label>
+          <%= select_tag('step[step_type_id]', '',id: 'step_step_type_id', class: 'ui dropdown search stepType newStepType',
+                         data: {:url => data_source_step_types_url, :placeholder => 'Choose a step Type'
+                         }) %>
+        </div>
+      </div>
+    </div>
+
+
+    <%= f.submit 'Submit', class: 'ui primary button right floated' %>
+<% end %>
+

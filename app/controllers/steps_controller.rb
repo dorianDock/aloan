@@ -2,7 +2,15 @@ class StepsController < ApplicationController
 
 
   def new
+    loan_id = params[:loan_id]
+    loan_template_id = params[:loan_template_id]
     @new_step = Step.new
+    if loan_id
+      @new_step.loan_id = loan_id
+    elsif loan_template_id
+      @new_step.loan_template_id = loan_template_id
+    end
+
     my_html=render_to_string('steps/_new_step', :formats => [:html], :layout => false, :locals => {:step => @new_step})
     respond_to do |format|
       format.json {

@@ -119,6 +119,8 @@ en:
     not_blank: 'must be given please'
     at_least_loan_or_template: 'You should at least provide a loan or a template'
     not_loan_and_loan_template: 'You cannot provide both a loan and a template'
+    create_new: 'Create New Step'
+    edit: 'Edit Step'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'
