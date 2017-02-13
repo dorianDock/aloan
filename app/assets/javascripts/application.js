@@ -98,7 +98,7 @@ function InitializeSelectList(aCssClass, callBackOnChange) {
                 $('.' + aCssClass).dropdown('set selected', '2');
             },1);
         }
-        
+
         // objectLink is the entity by which we are going to take the data already set
         var objectLink = $('.' + aCssClass + ' > select').data('objectlinkid');
         if (objectLink != undefined && objectLink != "") {

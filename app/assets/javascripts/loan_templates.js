@@ -31,6 +31,7 @@ $(document).on('turbolinks:load', function() {
         if ($('.stepType').length !== 0) {
             InitializeSelectList('newStepType');
         }
+        $('.addAStep').hide();
     }
 
     $('.addAStep').click(function(){
