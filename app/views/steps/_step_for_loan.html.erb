@@ -1,0 +1,7 @@
+<div>
+  <p><%= step.amount %> MGA</p>
+  <p><%= step.step_type.label %></p>
+  <p><%= step.amount %></p>
+  <p><%= step.expected_date.strftime('%d/%m/%Y') %></p>
+  <p>Belongs to loan, taken by: <%= step.loan.borrower.name %></p>
+</div>
