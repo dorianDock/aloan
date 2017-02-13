@@ -56,9 +56,11 @@ $(document).on('turbolinks:load', function () {
 
 // Initialize function for select lists
 function InitializeSelectList(aCssClass, callBackOnChange) {
-    var myUrl = $('.' + aCssClass).data('url');
-    var placeHolder = $('.' + aCssClass).data('placeholder');
-    var preselect = $('.' + aCssClass).data('preselect');
+    var myElement = $('.' + aCssClass);
+    var myUrl = myElement.data('url');
+    var placeHolder = myElement.data('placeholder');
+    var withoutSearch = myElement.data('withoutsearch');
+    var preselect = myElement.data('preselect');
     if(myUrl==undefined){
         myUrl = $('.' + aCssClass+' > select').data('url');
     }
@@ -74,17 +76,7 @@ function InitializeSelectList(aCssClass, callBackOnChange) {
             firstValue = data.results[i].value;
             $('.' + aCssClass + ' > select').append('<option value="' + data.results[i].value + '">' + data.results[i].name + '</option>');
         }
-        $('.' + aCssClass)
-            .dropdown({
-                placeholder: placeHolder,
-                apiSettings: {
-                    url: myUrl + '&query={query}'
-                },
-                onChange: callBackOnChange
-            });
-        if(preselect == 'true'){
-            $('.' + aCssClass).dropdown('set selected', firstValue);
-        }
+
 
         // objectLink is the entity by which we are going to take the data already set
         var objectLink = $('.' + aCssClass + ' > select').data('objectlinkid');
@@ -104,6 +96,26 @@ function InitializeSelectList(aCssClass, callBackOnChange) {
             AjaxRequest(initializeUrl, parameters, changeTheDropDown);
         }
     });
+    if(withoutSearch){
+        myElement
+            .dropdown({
+                onChange: callBackOnChange
+            });
+    } else {
+        myElement
+            .dropdown({
+                placeholder: placeHolder,
+                apiSettings: {
+                    url: myUrl + '&query={query}'
+                },
+                onChange: callBackOnChange
+            });
+    }
+
+
+    // if(preselect == 'true'){
+    //     $('.' + aCssClass).dropdown('set selected', firstValue);
+    // }
 
 }
 
