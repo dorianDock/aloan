@@ -19,7 +19,7 @@
 
 
   <body class="<%= class_for_background %>">
-  <%=	if !user_signed_in?
+  <%=	if user_signed_in?
          render 'layouts/menu'
        else
          render 'layouts/welcome_menu'

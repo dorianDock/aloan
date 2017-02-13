@@ -11,6 +11,13 @@
 Loan.delete_all
 LoanTemplate.delete_all
 Borrower.delete_all
+StepType.delete_all
+
+
+# Step Types
+StepType.create(label: 'Release of fund', description: 'We give the amount or a fraction of the amount of the loan to the customer')
+StepType.create(label: 'Receipt', description: 'The customer gives us a portion of the loan back')
+
 
 # Loan Templates
 
