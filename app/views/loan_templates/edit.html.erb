@@ -19,6 +19,11 @@
           <label><%= f.label :duration %></label>
           <%= f.text_field  :duration %> (<%= t('month', :count => 2) %>)
         </div>
+        <div class="field stepsField">
+          <label>Steps</label>
+          <span class="ui teal button fluid addAStep" data-url="<%= steps_new_path %>"
+                data-loantemplateid="<%= @template.id %>"><i class="ui icon plus"></i> Add a step</span>
+        </div>
       </div>
       <div class="four wide field">
         <div class="field">

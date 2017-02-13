@@ -11,7 +11,7 @@ class StepsController < ApplicationController
       @new_step.loan_template_id = loan_template_id
     end
 
-    my_html=render_to_string('steps/_new_step', :formats => [:html], :layout => false, :locals => {:step => @new_step})
+    my_html=render_to_string('steps/_new_step', :formats => [:html], :layout => false, :locals => {:new_step => @new_step})
     respond_to do |format|
       format.json {
         render json: {:partial_view => my_html }

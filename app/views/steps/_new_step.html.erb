@@ -1,10 +1,10 @@
 <% # encoding: utf-8   %>
 
-<%= validation_error_messages!(@new_step) %>
+<%= validation_error_messages!(new_step) %>
 
 
 
-<%= form_for @new_step, remote: true, html: {:multipart => true, class: 'ui form light_form' } do |f| %>
+<%= form_for new_step,url: { action: 'create' }, remote: true, html: {:multipart => true, class: 'ui form light_form' } do |f| %>
 
     <h1><%= t('step.create_new') %></h1>
     <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">

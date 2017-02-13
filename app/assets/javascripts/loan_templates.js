@@ -24,4 +24,16 @@ $(document).on('turbolinks:load', function() {
 
         DisplayConfirmationPopup(linkDeletionUrl,objectId,afterAction);
     });
+
+    // When the call is executed to add a step
+    function callNewStepTemplate(data){
+        $('.stepsField').append(data.partial_view);
+    }
+
+    $('.addAStep').click(function(){
+        var url = $(this).data('url');
+        var loan_template_id = $(this).data('loantemplateid');
+        AjaxRequest(url, {loan_template_id: loan_template_id}, callNewStepTemplate)
+    });
+
 });

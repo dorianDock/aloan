@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
   # steps
   get 'steps/new'
+  post 'steps/create'
 
 end
 
