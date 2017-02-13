@@ -72,12 +72,33 @@ function InitializeSelectList(aCssClass, callBackOnChange) {
         data: {}
     }).done(function (data) {
         var firstValue=0;
+        if(withoutSearch){
+            myElement
+                .dropdown({
+                    onChange: callBackOnChange
+                });
+        } else {
+            myElement
+                .dropdown({
+                    placeholder: placeHolder,
+                    apiSettings: {
+                        url: myUrl + '&query={query}'
+                    },
+                    onChange: callBackOnChange
+                });
+        }
+
         for (var i = 0; i < data.results.length; i++) {
             firstValue = data.results[i].value;
             $('.' + aCssClass + ' > select').append('<option value="' + data.results[i].value + '">' + data.results[i].name + '</option>');
         }
 
-
+        if(preselect == true){
+            setTimeout(function(){
+                $('.' + aCssClass).dropdown('set selected', '2');
+            },1);
+        }
+        
         // objectLink is the entity by which we are going to take the data already set
         var objectLink = $('.' + aCssClass + ' > select').data('objectlinkid');
         if (objectLink != undefined && objectLink != "") {
@@ -95,27 +116,13 @@ function InitializeSelectList(aCssClass, callBackOnChange) {
             var parameters = {objectid: objectLink};
             AjaxRequest(initializeUrl, parameters, changeTheDropDown);
         }
+
+
     });
-    if(withoutSearch){
-        myElement
-            .dropdown({
-                onChange: callBackOnChange
-            });
-    } else {
-        myElement
-            .dropdown({
-                placeholder: placeHolder,
-                apiSettings: {
-                    url: myUrl + '&query={query}'
-                },
-                onChange: callBackOnChange
-            });
-    }
 
 
-    // if(preselect == 'true'){
-    //     $('.' + aCssClass).dropdown('set selected', firstValue);
-    // }
+
+
 
 }
 
