@@ -41,8 +41,10 @@ Rails.application.routes.draw do
   end
 
   # steps
-  get 'steps/new'
-  post 'steps/create'
+  resources :steps
+  # get 'steps/new'
+  # post 'steps/create'
+  #:defaults => { :format => 'json' }
 
 end
 

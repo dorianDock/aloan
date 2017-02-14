@@ -56,8 +56,16 @@
     <div class="fields">
       <div class="twelve wide field">
         <div class="field stepsField">
-          <span class="ui teal button addAStep" data-url="<%= steps_new_path %>"
-                data-loantemplateid="<%= @template.id %>"><i class="ui icon plus"></i> Add a step</span>
+
+
+
+
+          <span class="ui teal button addAStep" data-url="<%= new_step_path %>" data-loantemplateid="<%= @template.id %>">
+          <i class="ui icon plus"></i> Add a step</span>
+          <div id="new_step_container">
+
+          </div>
+
         </div>
       </div>
     </div>

@@ -27,11 +27,29 @@ $(document).on('turbolinks:load', function() {
 
     // When the call is executed to add a step
     function callNewStepTemplate(data){
-        $('.stepsField').append(data.partial_view);
+        $('#new_step_container').append(data.partial_view);
         if ($('.stepType').length !== 0) {
             InitializeSelectList('newStepType');
         }
         $('.addAStep').hide();
+
+        $('#new_step').submit(function() {
+            var valuesToSubmit = $(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'), // submits it to the given url of the form
+                data: valuesToSubmit,
+                dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
+            }).success(function(data){
+                $('#new_step_container').html('');
+                $('#new_step_container').append(data.partial_view);
+                if ($('.stepType').length !== 0) {
+                    InitializeSelectList('newStepType');
+                }
+
+            });
+            return false; // prevents normal behaviour
+        });
     }
 
     $('.addAStep').click(function(){
@@ -39,5 +57,16 @@ $(document).on('turbolinks:load', function() {
         var loan_template_id = $(this).data('loantemplateid');
         AjaxRequest(url, {loan_template_id: loan_template_id}, callNewStepTemplate)
     });
+
+    // We we post a new step
+
+    
+    
+    // $('.newStepSubmit').on("ajax:success", function(e, data, status, xhr){
+    //        
+    // });
+        
+        
+
 
 });
