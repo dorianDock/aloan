@@ -95,7 +95,7 @@ function InitializeSelectList(aCssClass, callBackOnChange) {
 
         if(preselect == true){
             setTimeout(function(){
-                $('.' + aCssClass).dropdown('set selected', '2');
+                $('.' + aCssClass).dropdown('set selected', firstValue);
             },1);
         }
 
