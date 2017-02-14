@@ -32,9 +32,11 @@ RSpec.describe Step, type: :model do
                                  loan_template_id: @loan_template.id)
       @step_type = FactoryGirl.create(:step_type)
       @step_done = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_type.id, :expected_date => three_weeks_ago,
-                                 :date_done => three_weeks_ago, :is_done => true, :amount => @loan.amount, :loan_template_id => nil)
+                                 :date_done => three_weeks_ago, :is_done => true, :amount => @loan.amount, :loan_template_id => nil,
+                                      :days_after_previous_milestone => nil, :months_after_previous_milestone => 10)
       @step_not_done = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type.id, :expected_date => in_one_week,
-                                          :is_done => false, :amount => @loan.amount, :loan_template_id => @loan_template.id)
+                                          :is_done => false, :amount => @loan.amount, :loan_template_id => @loan_template.id,
+                                          :days_after_previous_milestone => 15, :months_after_previous_milestone => nil)
 
     end
 
@@ -59,6 +61,30 @@ RSpec.describe Step, type: :model do
       @step_not_done.save
       expect(@step_not_done.errors.messages[:loan_id]).to eq([I18n.t('step.at_least_loan_or_template')])
     end
+
+
+    it 'should not be valid if there is both a number of days AND a number of months' do
+      @step_done.days_after_previous_milestone = 14
+      expect(@step_done).to_not be_valid
+    end
+
+    it 'should have the right message when there is both a number of days AND a number of months' do
+      @step_done.days_after_previous_milestone = 14
+      @step_done.save
+      expect(@step_done.errors.messages[:days_after_previous_milestone]).to eq([I18n.t('step.not_days_and_months_after_prev')])
+    end
+
+    it 'should not be valid if there is no number of days nor number of months' do
+      @step_not_done.days_after_previous_milestone = nil
+      expect(@step_not_done).to_not be_valid
+    end
+
+    it 'should have the right message when there no loan AND no loan template' do
+      @step_not_done.days_after_previous_milestone = nil
+      @step_not_done.save
+      expect(@step_not_done.errors.messages[:days_after_previous_milestone]).to eq([I18n.t('step.at_least_days_or_months_after_prev')])
+    end
+
 
 
     it 'expected date should be present' do

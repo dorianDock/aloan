@@ -43,8 +43,8 @@ class Step < ApplicationRecord
   end
 
   def not_days_and_months_after_previous
-    if (days_after_previous_milestone.nil? || days_after_previous_milestone == '') && (months_after_previous_milestone.nil? || months_after_previous_milestone == '')
-      errors.add(:loan_id, I18n.t('step.not_days_and_months_after_prev'))
+    if !days_after_previous_milestone.nil? && days_after_previous_milestone != '' && !months_after_previous_milestone.nil? && months_after_previous_milestone != ''
+      errors.add(:days_after_previous_milestone, I18n.t('step.not_days_and_months_after_prev'))
     end
   end
 
