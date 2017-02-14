@@ -86,6 +86,29 @@ RSpec.describe Step, type: :model do
     end
 
 
+    it 'days_after_previous_milestone is a number' do
+      @step_not_done.days_after_previous_milestone = 'lalala'
+      expect(@step_not_done).to_not be_valid
+    end
+
+    it 'days_after_previous_milestone has the right error message when is not a number' do
+      @step_not_done.days_after_previous_milestone = 'lalala'
+      @step_not_done.save
+      expect(@step_not_done.errors.messages[:days_after_previous_milestone]).to eq([I18n.t('error.should_be_number')])
+    end
+
+    it 'months_after_previous_milestone is a number' do
+      @step_not_done.months_after_previous_milestone = 'lalala'
+      expect(@step_not_done).to_not be_valid
+    end
+
+    it 'months_after_previous_milestone has the right error message when is not a number' do
+      @step_not_done.months_after_previous_milestone = 'lalala'
+      @step_not_done.save
+      expect(@step_not_done.errors.messages[:months_after_previous_milestone]).to eq([I18n.t('error.should_be_number')])
+    end
+
+
 
     it 'expected date should be present' do
       @step_done.expected_date = nil

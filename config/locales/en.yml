@@ -31,6 +31,8 @@ en:
   no_info: 'No info yet.'
   rate: 'Rate'
   amount: 'Amount'
+  error:
+    should_be_number: 'should be a number.'
   borrower:
     name: 'Name'
     first_name: 'First name'
