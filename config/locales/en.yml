@@ -124,6 +124,7 @@ en:
     not_days_and_months_after_prev: 'You cannot provide both the number of days and the number of months after the previous milestone'
     create_new: 'Create New Step'
     edit: 'Edit Step'
+    months_after_prev_milestone_explanation: 'How many months is there after the last milestone? Ex: 1 month after beginning the loan'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'

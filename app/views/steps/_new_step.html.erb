@@ -14,10 +14,18 @@
 
     <div class="fields">
       <div class="five wide field">
-        <div class="field">
-          <label><%= f.label :expected_date %></label>
-          <%= f.text_field :expected_date, :class => 'stepExpectedtDate' %>
-        </div>
+        <%- if new_step.loan_id %>
+            <div class="field">
+              <label><%= f.label :expected_date %></label>
+              <%= f.text_field :expected_date, :class => 'stepExpectedtDate' %>
+            </div>
+        <%- elsif new_step.loan_template_id%>
+            <div class="field">
+              <label><%= t('step.months_after_prev_milestone_explanation') %></label>
+              <%= f.text_field :months_after_previous_milestone %>
+            </div>
+        <%- end %>
+
       </div>
       <div class="five wide field">
         <div class="field">
