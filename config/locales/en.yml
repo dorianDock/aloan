@@ -120,6 +120,8 @@ en:
     not_blank: 'must be given please'
     at_least_loan_or_template: 'You should at least provide a loan or a template'
     not_loan_and_loan_template: 'You cannot provide both a loan and a template'
+    at_least_days_or_months_after_prev: 'You should at least provide the number of days or months after the previous milestone'
+    not_days_and_months_after_prev: 'You cannot provide both the number of days and the number of months after the previous milestone'
     create_new: 'Create New Step'
     edit: 'Edit Step'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
