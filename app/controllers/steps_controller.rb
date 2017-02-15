@@ -31,10 +31,10 @@ class StepsController < ApplicationController
         loan_id = permitted_params[:loan_id]
         loan_template_id = permitted_params[:loan_template_id]
         my_html = ''
-        if loan_id
+        unless loan_id.blank?
           my_html=render_to_string('steps/_step_for_loan', :formats => [:html], :layout => false, :locals => {:step => @new_step})
         end
-        if loan_template_id
+        unless loan_template_id.blank?
           my_html=render_to_string('steps/_step_for_loan_template', :formats => [:html], :layout => false, :locals => {:step => @new_step})
         end
         format.json { render json: {:partial_view => my_html, :step_id => @new_step.id, :success => true} }

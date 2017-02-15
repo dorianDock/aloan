@@ -1,7 +1,7 @@
-<div>
+<div class="loan_template_step<%= step.id %>">
   <p><%= step.amount %> MGA</p>
   <p><%= step.step_type.label %></p>
   <p><%= step.amount %></p>
-  <p><%= step.expected_date.strftime('%d/%m/%Y') %></p>
+  <p><%= step.months_after_previous_milestone %></p>
   <p>Belongs to template: <%= step.loan_template.name %></p>
 </div>

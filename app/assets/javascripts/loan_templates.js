@@ -38,6 +38,11 @@ $(document).on('turbolinks:load', function() {
         }
     }
 
+    // show step
+    function initShowStep(data){
+        $('#current_steps_container').append(data.partial_view);
+    }
+
 
 
     // bind the form submit event
@@ -51,9 +56,13 @@ $(document).on('turbolinks:load', function() {
                 dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
             }).success(function(data){
                 $('#new_step_container').html('');
-                initNewStepForm(data);
-                bindFormSubmitEvent();
-
+                if(data.success){
+                    initShowStep(data);
+                } else{
+                    // we display the new form again
+                    initNewStepForm(data);
+                    bindFormSubmitEvent();
+                }
             });
             return false; // prevents normal behaviour
         });
