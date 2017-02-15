@@ -120,6 +120,8 @@ en:
     cumulative_interests_on_loans_description: 'Cumulative interests since the beginning of the year.'
   step:
     not_blank: 'must be given please'
+    at_least_date_or_delay_value: 'The expected date or the months or the days after the last milestone should be present.'
+    not_date_and_delay_value: 'We cannot have both the expected date and the months or the days after the last milestone a the same time.'
     at_least_loan_or_template: 'You should at least provide a loan or a template'
     not_loan_and_loan_template: 'You cannot provide both a loan and a template'
     at_least_days_or_months_after_prev: 'You should at least provide the number of days or months after the previous milestone'

@@ -28,6 +28,8 @@ class Step < ApplicationRecord
   validates :days_after_previous_milestone, allow_nil: true, numericality: { message: I18n.t('error.should_be_number')}
   validates :months_after_previous_milestone, allow_nil: true, numericality: { message: I18n.t('error.should_be_number')}
 
+  validate :date_or_delay_value
+  validate :not_date_and_delay_value
   validate :loan_or_loan_template
   validate :not_loan_and_loan_template
   validate :days_or_months_after_previous
@@ -37,6 +39,21 @@ class Step < ApplicationRecord
 
 
   private
+
+  # we should always have either a date value or a delay value for a step
+  def date_or_delay_value
+    if (expected_date.blank?) && (days_after_previous_milestone.blank?) && (months_after_previous_milestone.blank?)
+      errors.add(:expected_date, I18n.t('step.at_least_date_or_delay_value'))
+    end
+  end
+
+  def not_date_and_delay_value
+    if !expected_date.blank? && (!days_after_previous_milestone.blank? || !months_after_previous_milestone.blank?)
+      errors.add(:expected_date, I18n.t('step.not_date_and_delay_value'))
+    end
+  end
+
+
 
   def days_or_months_after_previous
     if (days_after_previous_milestone.blank?) && (months_after_previous_milestone.blank?)
