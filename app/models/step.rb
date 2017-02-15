@@ -39,26 +39,26 @@ class Step < ApplicationRecord
   private
 
   def days_or_months_after_previous
-    if (days_after_previous_milestone.nil? || days_after_previous_milestone == '') && (months_after_previous_milestone.nil? || months_after_previous_milestone == '')
+    if (days_after_previous_milestone.blank?) && (months_after_previous_milestone.blank?)
       errors.add(:days_after_previous_milestone, I18n.t('step.at_least_days_or_months_after_prev'))
     end
   end
 
   def not_days_and_months_after_previous
-    if !days_after_previous_milestone.nil? && days_after_previous_milestone != '' && !months_after_previous_milestone.nil? && months_after_previous_milestone != ''
+    if !days_after_previous_milestone.blank? && !months_after_previous_milestone.blank?
       errors.add(:days_after_previous_milestone, I18n.t('step.not_days_and_months_after_prev'))
     end
   end
 
 
   def loan_or_loan_template
-    if (loan_id.nil? || loan_id == '') && (loan_template_id.nil? || loan_template_id == '')
+    if (loan_id.blank?) && (loan_template_id.blank?)
       errors.add(:loan_id, I18n.t('step.at_least_loan_or_template'))
     end
   end
 
   def not_loan_and_loan_template
-    if !loan_id.nil? && loan_id != '' && !loan_template_id.nil? && loan_template_id != ''
+    if !loan_id.blank? && !loan_template_id.blank?
       errors.add(:loan_id, I18n.t('step.not_loan_and_loan_template'))
     end
   end
