@@ -56,16 +56,18 @@
     <div class="fields">
       <div class="twelve wide field">
         <div class="field stepsField">
-
-
-
-
-          <span class="ui teal button addAStep" data-url="<%= new_step_path %>" data-loantemplateid="<%= @template.id %>">
-          <i class="ui icon plus"></i> Add a step</span>
-          <div id="new_step_container">
-
+          <div id="current_steps_container">
+            <%- if @template.steps.any? %>
+                <%- @template.steps.each do |step| %>
+                    <p><%= step.amout %> MGA with type: <%= step.step_type.label %></p>
+                <%- end %>
+            <%- else %>
+                <p><%= t('no_steps') %></p>
+            <%- end %>
           </div>
-
+          <span class="ui teal button addAStep" data-url="<%= new_step_path %>" data-loantemplateid="<%= @template.id %>"><i class="ui icon plus"></i> Add a step</span>
+          <div id="new_step_container">
+          </div>
         </div>
       </div>
     </div>

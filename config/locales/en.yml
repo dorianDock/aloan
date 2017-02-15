@@ -29,6 +29,7 @@ en:
   duration:
     days: 'days'
   no_info: 'No info yet.'
+  no_steps: 'There are no steps for the moment'
   rate: 'Rate'
   amount: 'Amount'
   error:
