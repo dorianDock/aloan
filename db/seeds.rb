@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # cleaning everything
-
+Step.delete_all
 Loan.delete_all
 LoanTemplate.delete_all
 Borrower.delete_all

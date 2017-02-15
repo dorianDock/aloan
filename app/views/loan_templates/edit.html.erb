@@ -58,9 +58,7 @@
         <div class="field stepsField">
           <div id="current_steps_container">
             <%- if @template.steps.any? %>
-                <%- @template.steps.each do |step| %>
-                    <p><%= step.amout %> MGA with type: <%= step.step_type.label %></p>
-                <%- end %>
+                <%= render 'steps/step_list', :steps => @template.steps %>
             <%- else %>
                 <p><%= t('no_steps') %></p>
             <%- end %>

@@ -1,0 +1,5 @@
+<div class="ui ordered horizontal list stepList">
+  <%- steps.each do |step| %>
+      <%= render 'steps/step_for_loan_template', :step => step %>
+  <%- end %>
+</div>

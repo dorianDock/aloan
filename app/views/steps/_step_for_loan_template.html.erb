@@ -1,7 +1,9 @@
-<div class="loan_template_step<%= step.id %>">
-  <p><%= step.amount %> MGA</p>
-  <p><%= step.step_type.label %></p>
-  <p><%= step.amount %></p>
-  <p><%= step.months_after_previous_milestone %></p>
-  <p>Belongs to template: <%= step.loan_template.name %></p>
+
+<div class="item loan_template_step<%= step.id %>">
+
+  <!--<img class="ui avatar image" src="/images/avatar/small/tom.jpg">-->
+  <div class="content">
+    <div class="header"><%= step.step_type.label %> of <%= step.amount %></div>
+    (after <%= step.months_after_previous_milestone %> month)
+  </div>
 </div>
