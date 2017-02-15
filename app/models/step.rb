@@ -35,7 +35,23 @@ class Step < ApplicationRecord
   validate :days_or_months_after_previous
   validate :not_days_and_months_after_previous
 
+  module StepTypeEnum
+    RELEASE = 'Release of fund'
+    RECEIPT = 'Receipt'
+  end
 
+
+  def type
+    the_type= self.step_type
+    name_to_return = ''
+    if the_type.label == StepTypeEnum::RELEASE
+      name_to_return = StepTypeEnum::RELEASE
+    end
+    if the_type.label == StepTypeEnum::RECEIPT
+      name_to_return = StepTypeEnum::RECEIPT
+    end
+    name_to_return
+  end
 
 
   private
