@@ -24,6 +24,7 @@ class StepsController < ApplicationController
   def create
     permitted_params = permitted_params(params[:step])
     @new_step = Step.new(permitted_params)
+    @new_step.is_done = false
     respond_to do |format|
       if @new_step.valid?
         @new_step.save!
@@ -49,7 +50,7 @@ class StepsController < ApplicationController
   protected
 
   def permitted_params(params)
-    params.permit(:loan_id, :step_type_id, :expected_date, :date_done, :amount, :loan_template_id)
+    params.permit(:loan_id, :step_type_id, :expected_date, :date_done, :amount, :loan_template_id, :days_after_previous_milestone, :months_after_previous_milestone)
   end
 
 end
