@@ -25,14 +25,23 @@ $(document).on('turbolinks:load', function() {
         DisplayConfirmationPopup(linkDeletionUrl,objectId,afterAction);
     });
 
-    // When the call is executed to add a step
-    function callNewStepTemplate(data){
+
+
+
+
+
+    // init new step form
+    function initNewStepForm(data){
         $('#new_step_container').append(data.partial_view);
         if ($('.stepType').length !== 0) {
             InitializeSelectList('newStepType');
         }
-        $('.addAStep').hide();
+    }
 
+
+
+    // bind the form submit event
+    function bindFormSubmitEvent(){
         $('#new_step').submit(function() {
             var valuesToSubmit = $(this).serialize();
             $.ajax({
@@ -42,14 +51,20 @@ $(document).on('turbolinks:load', function() {
                 dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
             }).success(function(data){
                 $('#new_step_container').html('');
-                $('#new_step_container').append(data.partial_view);
-                if ($('.stepType').length !== 0) {
-                    InitializeSelectList('newStepType');
-                }
+                initNewStepForm(data);
+                bindFormSubmitEvent();
 
             });
             return false; // prevents normal behaviour
         });
+    }
+
+    // When the call is executed to add a step
+    function callNewStepTemplate(data){
+        initNewStepForm(data);
+        $('.addAStep').hide();
+        bindFormSubmitEvent();
+
     }
 
     $('.addAStep').click(function(){
