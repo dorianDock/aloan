@@ -23,7 +23,7 @@ class Step < ApplicationRecord
   belongs_to :step_type, required: true
 
   validates :amount, presence: { message: I18n.t('step.not_blank')}
-  validates :expected_date, presence: { message: I18n.t('step.not_blank')}
+
   validates :is_done, inclusion: { in: [ true, false ] }
   validates :days_after_previous_milestone, allow_nil: true, numericality: { message: I18n.t('error.should_be_number')}
   validates :months_after_previous_milestone, allow_nil: true, numericality: { message: I18n.t('error.should_be_number')}

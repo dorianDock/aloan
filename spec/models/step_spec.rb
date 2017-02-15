@@ -23,22 +23,57 @@ RSpec.describe Step, type: :model do
   describe 'Validation' do
     before(:each) do
       today = Date.today
-      three_weeks_ago = today-3.week
+      @three_weeks_ago = today-3.week
       in_one_week = today+1.week
       borrower = FactoryGirl.create(:borrower)
       @loan_template = FactoryGirl.create(:loan_template,amount: 500000, rate: 1, duration: 1, name: '1m500k')
-      @loan = FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: three_weeks_ago, contractual_end_date: in_one_week,
+      @loan = FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: @three_weeks_ago, contractual_end_date: in_one_week,
                                 amount: 500000, rate: 1, loan_goal: 'Have some money to organize trips to make new deals',
                                  loan_template_id: @loan_template.id)
       @step_type = FactoryGirl.create(:step_type)
-      @step_done = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_type.id, :expected_date => three_weeks_ago,
-                                 :date_done => three_weeks_ago, :is_done => true, :amount => @loan.amount, :loan_template_id => nil,
+      @step_done = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_type.id, :expected_date => nil,
+                                 :date_done => @three_weeks_ago, :is_done => true, :amount => @loan.amount, :loan_template_id => nil,
                                       :days_after_previous_milestone => nil, :months_after_previous_milestone => 10)
-      @step_not_done = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type.id, :expected_date => in_one_week,
+      @step_not_done = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type.id, :expected_date => nil,
                                           :is_done => false, :amount => @loan.amount, :loan_template_id => @loan_template.id,
                                           :days_after_previous_milestone => 15, :months_after_previous_milestone => nil)
 
     end
+
+    it 'should not be valid if there is both an expected date and a days_after_previous_milestone' do
+      @step_not_done.expected_date = @three_weeks_ago
+      expect(@step_not_done).to_not be_valid
+    end
+
+    it 'should have the right message when there is both an expected date and a days_after_previous_milestone' do
+      @step_not_done.expected_date = @three_weeks_ago
+      @step_not_done.save
+      expect(@step_not_done.errors.messages[:expected_date]).to eq([I18n.t('step.not_date_and_delay_value')])
+    end
+
+    it 'should not be valid if there is both an expected date and a months_after_previous_milestone' do
+      @step_done.expected_date = @three_weeks_ago
+      expect(@step_done).to_not be_valid
+    end
+
+    it 'should have the right message when there is both an expected date and a months_after_previous_milestone' do
+      @step_done.expected_date = @three_weeks_ago
+      @step_done.save
+      expect(@step_done.errors.messages[:expected_date]).to eq([I18n.t('step.not_date_and_delay_value')])
+    end
+
+    it 'should not be valid if there is no expected date and no months_after_previous_milestone and no days_after_previous' do
+      @step_done.months_after_previous_milestone = nil
+      expect(@step_done).to_not be_valid
+    end
+
+    it 'should have the right message when there is no expected date and no months_after_previous_milestone and no days_after_previous' do
+      @step_done.months_after_previous_milestone = nil
+      @step_done.save
+      expect(@step_done.errors.messages[:expected_date]).to eq([I18n.t('step.at_least_date_or_delay_value')])
+    end
+
+
 
     it 'should not be valid if there is both a loan AND a loan template' do
       @step_done.loan_template_id = @loan_template.id
@@ -108,12 +143,6 @@ RSpec.describe Step, type: :model do
       expect(@step_not_done.errors.messages[:months_after_previous_milestone]).to eq([I18n.t('error.should_be_number')])
     end
 
-
-
-    it 'expected date should be present' do
-      @step_done.expected_date = nil
-      expect(@step_done).to_not be_valid
-    end
 
     it 'amount should be present' do
       @step_done.amount = ''
