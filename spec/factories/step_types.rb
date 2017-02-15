@@ -11,7 +11,7 @@
 
 FactoryGirl.define do
   factory :step_type do
-    label 'Freeing Money'
+    label 'Release of fund'
     description 'We give to the customer the money corresponding to the loan'
   end
 end

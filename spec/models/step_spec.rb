@@ -20,7 +20,7 @@ require 'rails_helper'
 
 RSpec.describe Step, type: :model do
 
-  describe 'Validation' do
+  describe 'step' do
     before(:each) do
       today = Date.today
       @three_weeks_ago = today-3.week
@@ -39,6 +39,23 @@ RSpec.describe Step, type: :model do
                                           :days_after_previous_milestone => 15, :months_after_previous_milestone => nil)
 
     end
+
+    it 'step#type returns Receipt when the step has the receipt type' do
+      expect(@step_done.type).to eq('Release of fund')
+    end
+
+    it 'step#type returns Release of fund when the step has the release type' do
+      step_type2 = FactoryGirl.create(:step_type, :label => 'Receipt')
+      @step_not_done.step_type = step_type2
+      expect(@step_not_done.type).to eq('Receipt')
+    end
+
+    it 'step#type returns Release of fund when the type is unknown' do
+      step_type3 = FactoryGirl.create(:step_type, :label => 'aaaaa')
+      @step_not_done.step_type = step_type3
+      expect(@step_not_done.type).to eq('')
+    end
+
 
     it 'should not be valid if there is both an expected date and a days_after_previous_milestone' do
       @step_not_done.expected_date = @three_weeks_ago
