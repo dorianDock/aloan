@@ -80,24 +80,6 @@ RSpec.describe LoanTemplate, type: :model do
       @loan_template = FactoryGirl.create(:loan_template, :amount => 1000000, :rate => 5, :duration => 4)
       @step_type_receipt = FactoryGirl.create(:step_type, :label => 'Receipt')
       @step_type_release = FactoryGirl.create(:step_type)
-
-      # @step1 = FactoryGirl.create(:step, :step_type_id => @step_type_release.id, :expected_date => nil, :is_done => false,
-      #                             :amount => 1000000, :loan_template_id => @loan_template.id,
-      #                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
-      # @step2 = FactoryGirl.create(:step, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
-      #                             :amount => 200000, :loan_template_id => @loan_template.id,
-      #                             :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
-      # @step3 = FactoryGirl.create(:step, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
-      #                             :amount => 200000, :loan_template_id => @loan_template.id,
-      #                             :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
-      # @step4 = FactoryGirl.create(:step, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
-      #                             :amount => 200000, :loan_template_id => @loan_template.id,
-      #                             :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
-      # @step5 = FactoryGirl.create(:step, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
-      #                             :amount => 410000, :loan_template_id => @loan_template.id,
-      #                             :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
-
-
     end
 
     it 'when no steps, maximum amount of release is the amount of the loan' do

@@ -27,6 +27,16 @@ class LoanTemplate < ApplicationRecord
   scope :amount_order, -> { order(amount: :asc) }
 
 
+  # the maximum duration that we should put on a step, no matter the step type
+  def maximum_step_months_duration
+    current_steps = self.steps.to_a
+    total_duration = 0
+    if current_steps.any?
+      total_duration = release_steps.map{|x| x.months_after_previous_milestone}.reduce(0, :+)
+    end
+    self.duration - total_duration
+  end
+
   # the maximum amount that we should put on a release step
   def maximum_release_amount
     amount_of_release_steps = 0
