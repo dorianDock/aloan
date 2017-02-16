@@ -40,7 +40,8 @@ $(document).on('turbolinks:load', function() {
 
     // show step
     function initShowStep(data){
-        $('#current_steps_container').append(data.partial_view);
+        $('.stepList').append(data.partial_view);
+        $('.addAStep').show();
     }
 
 
