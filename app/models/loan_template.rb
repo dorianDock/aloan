@@ -32,7 +32,7 @@ class LoanTemplate < ApplicationRecord
     current_steps = self.steps.to_a
     total_duration = 0
     if current_steps.any?
-      total_duration = release_steps.map{|x| x.months_after_previous_milestone}.reduce(0, :+)
+      total_duration = current_steps.map{|x| x.months_after_previous_milestone}.reduce(0, :+)
     end
     self.duration - total_duration
   end

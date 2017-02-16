@@ -90,6 +90,12 @@ RSpec.describe LoanTemplate, type: :model do
     it 'when no steps, maximum amount of receipt is 0 (no release yet)' do
       expect(@loan_template.maximum_receipt_amount).to eq(0)
     end
+
+    it 'when no steps, maximum_step_months_duration is duration if the template' do
+      expect(@loan_template.maximum_step_months_duration).to eq(@loan_template.duration)
+    end
+
+
   end
 
   describe 'when there is an initial step' do
@@ -105,6 +111,13 @@ RSpec.describe LoanTemplate, type: :model do
                                   :amount => 1000000, :loan_template_id => @loan_template.id,
                                       :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
       expect(@loan_template.maximum_release_amount).to eq(0)
+    end
+
+    it 'when one initial step with 0 months, maximum duration of steps does not change' do
+      step1 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_release.id, :expected_date => nil, :is_done => false,
+                                 :amount => 1000000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      expect(@loan_template.maximum_step_months_duration).to eq(@loan_template.duration)
     end
 
     it 'when one initial step with the full amount of the loan, maximum amount of receipt is the amount + the interests' do
@@ -138,6 +151,17 @@ RSpec.describe LoanTemplate, type: :model do
       expect(@loan_template.maximum_receipt_amount).to eq(850000)
 
     end
+
+    it 'when one step of release and one step of receipt, maximum duration of steps is correct' do
+      step1 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_release.id, :expected_date => nil, :is_done => false,
+                                 :amount => 1000000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      step2 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                 :amount => 200000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      expect(@loan_template.maximum_step_months_duration).to eq(3)
+    end
+
   end
   describe 'when there are almost all the steps' do
     before(:each) do
@@ -163,6 +187,10 @@ RSpec.describe LoanTemplate, type: :model do
       expect(@loan_template.maximum_receipt_amount).to eq(450000)
     end
 
+    it 'when there is just on step of receipt missing, maximum_step_months_duration is correct' do
+      expect(@loan_template.maximum_step_months_duration).to eq(1)
+    end
+
     it 'when there is just a last step to have for interests, max receipt amount is correct' do
       step5 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
                                  :amount => 400000, :loan_template_id => @loan_template.id,
@@ -175,6 +203,13 @@ RSpec.describe LoanTemplate, type: :model do
                                  :amount => 450000, :loan_template_id => @loan_template.id,
                                  :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
       expect(@loan_template.maximum_receipt_amount).to eq(0)
+    end
+
+    it 'when each step is done, maximum_step_months_duration is correct' do
+      step5 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                 :amount => 450000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      expect(@loan_template.maximum_step_months_duration).to eq(0)
     end
   end
 
