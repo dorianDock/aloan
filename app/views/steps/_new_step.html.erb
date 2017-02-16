@@ -23,7 +23,9 @@
             <div class="field">
               <label><%= t('step.months_after_prev_milestone_explanation_1') %></label>
               <%= f.text_field :months_after_previous_milestone %>
-              <div class="moreTopMargin"><%= t('step.months_after_prev_milestone_explanation_2') %></div>
+              <div class="moreTopMargin">
+                <%= t('step.months_after_prev_milestone_explanation_2') %> <br> <%= t('step.months_after_prev_milestone_explanation_3') %>
+              </div>
             </div>
         <%- end %>
 

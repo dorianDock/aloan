@@ -26,6 +26,29 @@ class LoanTemplate < ApplicationRecord
 
   scope :amount_order, -> { order(amount: :asc) }
 
+
+  # the maximum amount that we should put on a release step
+  def maximum_release_amount
+    amount_of_release_steps = 0
+    current_steps = self.steps.to_a
+    release_steps = current_steps.select{|y| y.type == Step::StepTypeEnum::RELEASE}
+    if release_steps.any?
+      amount_of_release_steps = release_steps.map{|x| x.amount}.reduce(0, :+)
+    end
+    self.amount - amount_of_release_steps
+  end
+
+  # the maximum amount that we should put on a receipt step
+  def maximum_receipt_amount
+    amount_of_receipt_steps = 0
+    current_steps = self.steps.to_a
+    release_steps = current_steps.select{|y| y.type == Step::StepTypeEnum::RECEIPT}
+    if release_steps.any?
+      amount_of_receipt_steps = release_steps.map{|x| x.amount}.reduce(0, :+)
+    end
+    maximum_release_amount - amount_of_receipt_steps
+  end
+
   def prerequisite_name
     unless self.prerequisite.nil?
       prerequisite.name
