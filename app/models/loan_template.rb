@@ -46,7 +46,8 @@ class LoanTemplate < ApplicationRecord
     if release_steps.any?
       amount_of_receipt_steps = release_steps.map{|x| x.amount}.reduce(0, :+)
     end
-    maximum_release_amount - amount_of_receipt_steps
+    interest_factor = 1.0+(self.rate.to_f/100)
+    interest_factor*(self.amount - maximum_release_amount) - amount_of_receipt_steps
   end
 
   def prerequisite_name

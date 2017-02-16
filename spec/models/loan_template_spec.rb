@@ -75,6 +75,137 @@ RSpec.describe LoanTemplate, type: :model do
     end
   end
 
+  describe 'Interactions with steps' do
+    before(:each) do
+      @loan_template = FactoryGirl.create(:loan_template, :amount => 1000000, :rate => 5, :duration => 4)
+      @step_type_receipt = FactoryGirl.create(:step_type, :label => 'Receipt')
+      @step_type_release = FactoryGirl.create(:step_type)
+
+      # @step1 = FactoryGirl.create(:step, :step_type_id => @step_type_release.id, :expected_date => nil, :is_done => false,
+      #                             :amount => 1000000, :loan_template_id => @loan_template.id,
+      #                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      # @step2 = FactoryGirl.create(:step, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+      #                             :amount => 200000, :loan_template_id => @loan_template.id,
+      #                             :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      # @step3 = FactoryGirl.create(:step, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+      #                             :amount => 200000, :loan_template_id => @loan_template.id,
+      #                             :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      # @step4 = FactoryGirl.create(:step, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+      #                             :amount => 200000, :loan_template_id => @loan_template.id,
+      #                             :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      # @step5 = FactoryGirl.create(:step, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+      #                             :amount => 410000, :loan_template_id => @loan_template.id,
+      #                             :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+
+
+    end
+
+    it 'when no steps, maximum amount of release is the amount of the loan' do
+      expect(@loan_template.maximum_release_amount).to eq(1000000)
+    end
+
+    it 'when no steps, maximum amount of receipt is 0 (no release yet)' do
+      expect(@loan_template.maximum_receipt_amount).to eq(0)
+    end
+
+    it 'when one initial step with the full amount of the loan, maximum amount of release is 0' do
+
+      step1 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_release.id, :expected_date => nil, :is_done => false,
+                                  :amount => 1000000, :loan_template_id => @loan_template.id,
+                                      :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      expect(@loan_template.maximum_release_amount).to eq(0)
+    end
+
+    it 'when one initial step with the full amount of the loan, maximum amount of receipt is the amount + the interests' do
+      step1 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_release.id, :expected_date => nil, :is_done => false,
+                                 :amount => 1000000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      expect(@loan_template.maximum_receipt_amount).to eq(1050000)
+    end
+
+    it 'when one initial step with a partial amount of the loan, maximum amount of release is the total amount - this partial amount' do
+      step1 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_release.id, :expected_date => nil, :is_done => false,
+                                 :amount => 400000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      expect(@loan_template.maximum_release_amount).to eq(600000)
+    end
+
+    it 'when one initial step with a partial amount of the loan, maximum amount of receipt is this partial amount + the interests on it' do
+      step1 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_release.id, :expected_date => nil, :is_done => false,
+                                 :amount => 100000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      expect(@loan_template.maximum_receipt_amount).to eq(105000)
+    end
+
+    it 'when one step of release and one step of receipt, max receipt amount is correct' do
+      step1 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_release.id, :expected_date => nil, :is_done => false,
+                                 :amount => 1000000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      step2 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                  :amount => 200000, :loan_template_id => @loan_template.id,
+                                  :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      expect(@loan_template.maximum_receipt_amount).to eq(850000)
+
+    end
+
+    it 'when there is just on step of receipt missing, max receipt amount is correct' do
+      step1 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_release.id, :expected_date => nil, :is_done => false,
+                                 :amount => 1000000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      step2 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                 :amount => 200000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      step3 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                 :amount => 200000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      step4 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                 :amount => 200000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      expect(@loan_template.maximum_receipt_amount).to eq(450000)
+    end
+
+    it 'when there is just a last step to have for interests, max receipt amount is correct' do
+      step1 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_release.id, :expected_date => nil, :is_done => false,
+                                 :amount => 1000000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      step2 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                 :amount => 200000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      step3 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                 :amount => 200000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      step4 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                 :amount => 200000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      step5 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                 :amount => 400000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      expect(@loan_template.maximum_receipt_amount).to eq(50000)
+    end
+
+    it 'when each step is done, max receipt amount is correct' do
+      step1 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_release.id, :expected_date => nil, :is_done => false,
+                                 :amount => 1000000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      step2 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                 :amount => 200000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      step3 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                 :amount => 200000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      step4 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                 :amount => 200000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      step5 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
+                                 :amount => 450000, :loan_template_id => @loan_template.id,
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      expect(@loan_template.maximum_receipt_amount).to eq(0)
+    end
+
+
+
+  end
+
 
   describe 'Scopes' do
     before(:each) do
