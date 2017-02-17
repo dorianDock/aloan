@@ -163,7 +163,7 @@ function HandleMessageFromServer(data){
 
 // Function about modals and confirmation modals
 
-function DisplayConfirmationPopup(actionToPerform,objectId,afterAction){
+function DisplayConfirmationPopup(actionToPerform,objectId,afterAction, parent_id, parent_type){
     $('.confirmationModal')
         .modal({
             closable  : true,
@@ -171,7 +171,7 @@ function DisplayConfirmationPopup(actionToPerform,objectId,afterAction){
                 CloseModal();
             },
             onApprove : function() {
-                var parameters = {objectid: objectId};
+                var parameters = {objectid: objectId, parent_id: parent_id, parent_type: parent_type};
                 AjaxRequest(actionToPerform, parameters, afterAction);
             }
         })

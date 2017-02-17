@@ -13,7 +13,8 @@
   <div class="leftMargin editStep editStep<%= step.id %> mini ui icon button blue">
     <i class="icon edit"></i>
   </div>
-  <div class="removeStep removeStep<%= step.id %> mini ui icon button red">
+  <div class="removeStep removeStep<%= step.id %> mini ui icon button red" data-url="<%= destroy_by_popup_step_path(step.id) %>"
+       data-objectid="<%= step.id %>" data-loantemplateid="<%= step.loan_template_id %>" data-parenttype="LoanTemplate">
     <i class="icon remove"></i>
   </div>
 </div>

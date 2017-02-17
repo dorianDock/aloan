@@ -41,7 +41,11 @@ Rails.application.routes.draw do
   end
 
   # steps
-  resources :steps
+  resources :steps do
+    member do
+      get 'destroy_by_popup'
+    end
+  end
   # get 'steps/new'
   # post 'steps/create'
   #:defaults => { :format => 'json' }

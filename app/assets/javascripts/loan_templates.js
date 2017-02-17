@@ -81,15 +81,34 @@ $(document).on('turbolinks:load', function() {
 
     $('.removeStep,.editStep').hide();
 
-    $('.loan_template_step').hover(function(){
-        $(this).children('.removeStep,.editStep').show();
-
-
-    },
+    $('.loan_template_step').hover(
+        function(){
+            $(this).children('.removeStep,.editStep').show();
+        },
         function(){
             $(this).children('.removeStep,.editStep').hide();
         }
     );
+
+
+    $('.removeStep').click(function(){
+        var linkDeletionUrl = $(this).data('url');
+        var objectId = $(this).data('objectid');
+        var loan_template_id = $(this).data('loantemplateid');
+        var parent_type=$(this).data('parenttype');
+        var afterAction=function(data){
+            if(data.isError===false){
+                window.location=data.redirection;
+            }
+            HandleMessageFromServer(data);
+            CloseModal();
+        };
+
+        DisplayConfirmationPopup(linkDeletionUrl,objectId,afterAction,loan_template_id,parent_type);
+    });
+
+
+    
         
 
 

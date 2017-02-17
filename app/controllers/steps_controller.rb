@@ -47,6 +47,37 @@ class StepsController < ApplicationController
   end
 
 
+  def destroy_by_popup
+    parent_id = 0
+    parent_id = params[:parent_id]
+    parent_type = params[:parent_type]
+    if parent_type=='Loan'
+      redirection_path = edit_loan_path(parent_id)
+    end
+    if parent_type=='LoanTemplate'
+      redirection_path = edit_loan_template_path(parent_id)
+    end
+    step = Step.find_by(id: params[:objectid])
+    response_message=''
+    is_destroyed=false
+    unless step.nil?
+      step.destroy
+      is_destroyed = step.destroyed?
+      if is_destroyed
+        response_message = I18n.t('step.class_article_name')+I18n.t('successful_deletion')
+      else
+        response_message=I18n.t('error_deletion')
+      end
+    end
+    flash[:info] = response_message
+    respond_to do |format|
+      format.json {
+        render json: {:isError => !(is_destroyed), :responseMessage => response_message, :redirection => redirection_path}
+      }
+    end
+  end
+
+
 
   protected
 
