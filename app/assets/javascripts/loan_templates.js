@@ -26,10 +26,6 @@ $(document).on('turbolinks:load', function() {
     });
 
 
-
-
-
-
     // init new step form
     function initNewStepForm(data){
         $('#new_step_container').append(data.partial_view);
@@ -83,14 +79,17 @@ $(document).on('turbolinks:load', function() {
         AjaxRequest(url, {loan_template_id: loan_template_id}, callNewStepTemplate)
     });
 
-    // We we post a new step
+    $('.removeStep,.editStep').hide();
 
-    
-    
-    // $('.newStepSubmit').on("ajax:success", function(e, data, status, xhr){
-    //        
-    // });
-        
+    $('.loan_template_step').hover(function(){
+        $(this).children('.removeStep,.editStep').show();
+
+
+    },
+        function(){
+            $(this).children('.removeStep,.editStep').hide();
+        }
+    );
         
 
 

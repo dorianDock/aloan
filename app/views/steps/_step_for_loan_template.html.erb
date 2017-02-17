@@ -1,5 +1,5 @@
 
-<div class="item light_item loan_template_step<%= step.id %>">
+<div class="item light_item loan_template_step loan_template_step<%= step.id %>">
   <%- if step.type == Step::StepTypeEnum::RELEASE %>
       <%= image_tag 'diagonal-arrow-6.png', :class => 'ui avatar image' %>
   <%- elsif step.type == Step::StepTypeEnum::RECEIPT %>
@@ -10,4 +10,11 @@
     <div class="header"><%= step.type %> of <%= step.amount %></div>
     <div class="description">(after <%= step.months_after_previous_milestone %> month)</div>
   </div>
+  <div class="leftMargin editStep editStep<%= step.id %> mini ui icon button blue">
+    <i class="icon edit"></i>
+  </div>
+  <div class="removeStep removeStep<%= step.id %> mini ui icon button red">
+    <i class="icon remove"></i>
+  </div>
 </div>
+
