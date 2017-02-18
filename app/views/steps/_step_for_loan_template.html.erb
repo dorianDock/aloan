@@ -8,7 +8,7 @@
 
   <div class="content">
     <div class="header"><%= step.type %> of <%= step.amount %></div>
-    <div class="description">(after <%= step.months_after_previous_milestone %> month)</div>
+    <div class="description">(<%= step_display_time(step.months_after_previous_milestone) %>)</div>
   </div>
   <div class="leftMargin editStep editStep<%= step.id %> mini ui icon button blue">
     <i class="icon edit"></i>
