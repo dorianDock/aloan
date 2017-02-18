@@ -135,6 +135,8 @@ en:
     months_after_prev_milestone_explanation_3: 'Ex: 1 month after the beginning.'
     time1: 'After '
     initial: 'Initial step'
+    should_be_less_than_max_duration: ': with your current parameters, the step will last too long, please correct the delay.'
+    should_be_less_than_max_amount: ': with your current parameters, the step amount is too much, please correct the amount.'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'
@@ -165,3 +167,5 @@ en:
         loan_template_id: 'Template linked'
       loan_template:
         template_completed_before_id: 'Prerequisite template'
+      step:
+        months_after_previous_milestone: 'Delay'

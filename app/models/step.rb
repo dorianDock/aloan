@@ -28,6 +28,8 @@ class Step < ApplicationRecord
   validates :days_after_previous_milestone, allow_nil: true, numericality: { message: I18n.t('error.should_be_number')}
   validates :months_after_previous_milestone, allow_nil: true, numericality: { message: I18n.t('error.should_be_number')}
 
+  validate :duration_inferior_to_max
+
   validate :date_or_delay_value
   validate :not_date_and_delay_value
   validate :loan_or_loan_template
@@ -56,40 +58,57 @@ class Step < ApplicationRecord
 
   private
 
+  # the months duration should always be inferior to the max allowed, depending also on the type
+  def duration_inferior_to_max
+    if (!months_after_previous_milestone.blank?) && !loan_template_id.blank?
+      if loan_template.maximum_step_months_duration < months_after_previous_milestone
+        errors.add(:months_after_previous_milestone, I18n.t('step.should_be_less_than_max_duration'))
+      end
+    end
+  end
+
+
+  # the months duration should always be inferior to the max allowed, depending also on the type
+  # def duration_inferior_to_max
+  #   if (!months_after_previous_milestone.blank?) && !loan_template_id.blank?
+  #     if type == StepTypeEnum::RELEASE
+  #       if loan_template.maximum_step_months_duration < months_after_previous_milestone
+  #         errors.add(:months_after_previous_milestone, I18n.t('step.should_be_less_than_max_duration'))
+  #       end
+  #     end
+  #   end
+  # end
+
+
+
   # we should always have either a date value or a delay value for a step
   def date_or_delay_value
     if (expected_date.blank?) && (days_after_previous_milestone.blank?) && (months_after_previous_milestone.blank?)
       errors.add(:expected_date, I18n.t('step.at_least_date_or_delay_value'))
     end
   end
-
   def not_date_and_delay_value
     if !expected_date.blank? && (!days_after_previous_milestone.blank? || !months_after_previous_milestone.blank?)
       errors.add(:expected_date, I18n.t('step.not_date_and_delay_value'))
     end
   end
 
-
-
   def days_or_months_after_previous
     if (days_after_previous_milestone.blank?) && (months_after_previous_milestone.blank?)
       errors.add(:days_after_previous_milestone, I18n.t('step.at_least_days_or_months_after_prev'))
     end
   end
-
   def not_days_and_months_after_previous
     if !days_after_previous_milestone.blank? && !months_after_previous_milestone.blank?
       errors.add(:days_after_previous_milestone, I18n.t('step.not_days_and_months_after_prev'))
     end
   end
 
-
   def loan_or_loan_template
     if (loan_id.blank?) && (loan_template_id.blank?)
       errors.add(:loan_id, I18n.t('step.at_least_loan_or_template'))
     end
   end
-
   def not_loan_and_loan_template
     if !loan_id.blank? && !loan_template_id.blank?
       errors.add(:loan_id, I18n.t('step.not_loan_and_loan_template'))
