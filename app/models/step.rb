@@ -29,6 +29,8 @@ class Step < ApplicationRecord
   validates :months_after_previous_milestone, allow_nil: true, numericality: { message: I18n.t('error.should_be_number')}
 
   validate :duration_inferior_to_max
+  validate :receipt_amount_inferior_to_max
+  validate :release_amount_inferior_to_max
 
   validate :date_or_delay_value
   validate :not_date_and_delay_value
@@ -58,7 +60,7 @@ class Step < ApplicationRecord
 
   private
 
-  # the months duration should always be inferior to the max allowed, depending also on the type
+  # the months duration should always be inferior to the max allowed
   def duration_inferior_to_max
     if (!months_after_previous_milestone.blank?) && !loan_template_id.blank?
       if loan_template.maximum_step_months_duration < months_after_previous_milestone
@@ -68,16 +70,29 @@ class Step < ApplicationRecord
   end
 
 
-  # the months duration should always be inferior to the max allowed, depending also on the type
-  # def duration_inferior_to_max
-  #   if (!months_after_previous_milestone.blank?) && !loan_template_id.blank?
-  #     if type == StepTypeEnum::RELEASE
-  #       if loan_template.maximum_step_months_duration < months_after_previous_milestone
-  #         errors.add(:months_after_previous_milestone, I18n.t('step.should_be_less_than_max_duration'))
-  #       end
-  #     end
-  #   end
-  # end
+  # the receipt amount should always be inferior to the max allowed
+  def receipt_amount_inferior_to_max
+    if (!amount.blank?) && !loan_template_id.blank?
+      if type == StepTypeEnum::RECEIPT
+        max_amount = loan_template.maximum_receipt_amount
+        if max_amount < amount
+          errors.add(:amount, I18n.t('step.should_be_less_than_max_amount', :possible_amount => max_amount))
+        end
+      end
+    end
+  end
+
+  # the receipt amount should always be inferior to the max allowed
+  def release_amount_inferior_to_max
+    if (!amount.blank?) && !loan_template_id.blank?
+      if type == StepTypeEnum::RELEASE
+        max_amount = loan_template.maximum_release_amount
+        if max_amount < amount
+          errors.add(:amount, I18n.t('step.should_be_less_than_max_amount', :possible_amount => max_amount))
+        end
+      end
+    end
+  end
 
 
 
