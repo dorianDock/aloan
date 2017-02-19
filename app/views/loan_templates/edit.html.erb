@@ -54,8 +54,36 @@
     </h4>
 
     <div class="fields">
+      <div class="six wide field">
+
+      </div>
+      <div class="ten wide field">
+
+          <div class="ui list">
+            <div class="item light_item">
+              <%= image_tag 'diagonal-arrow-6.png', :class => 'ui avatar image' %>
+              <div class="content">
+                <div class="description">Remaining Release Amount: 500000 MGA.</div>
+                
+              </div>
+            </div>
+            <div class="item light_item">
+              <%= image_tag 'diagonal-arrow-5.png', :class => 'ui avatar image' %>
+              <div class="content">
+                <div class="description">Remaining Receipt amount: 0 MGA.</div>
+              </div>
+            </div>
+          </div>
+
+
+      </div>
+
+    </div>
+
+    <div class="fields">
       <div class="sixteen wide field">
         <div class="field stepsField">
+
           <div id="current_steps_container">
             <%- if @template.steps.any? %>
                 <%= render 'steps/step_list', :steps => @template.steps %>
