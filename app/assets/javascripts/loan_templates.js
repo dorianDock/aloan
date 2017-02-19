@@ -18,7 +18,7 @@ $(document).on('turbolinks:load', function() {
             if(data.isError===false){
                 window.location=data.redirection;
             }
-            HandleMessageFromServer(data);
+            // HandleMessageFromServer(data);
             CloseModal();
         };
 

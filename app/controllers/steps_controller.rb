@@ -65,14 +65,16 @@ class StepsController < ApplicationController
       is_destroyed = step.destroyed?
       if is_destroyed
         response_message = I18n.t('step.class_article_name')+I18n.t('successful_deletion')
+        flash[:info] = response_message
       else
         response_message=I18n.t('error_deletion')
+        flash[:alert] = response_message
       end
     end
-    flash[:info] = response_message
+
     respond_to do |format|
       format.json {
-        render json: {:isError => !(is_destroyed), :responseMessage => response_message, :redirection => redirection_path}
+        render json: {:isError => !(is_destroyed), :redirection => redirection_path}
       }
     end
   end

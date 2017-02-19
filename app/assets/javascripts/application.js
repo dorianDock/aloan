@@ -141,6 +141,7 @@ function showMessage(classToUseForContainer,classToUseForHeader, classToUseForCo
 
 function showSuccess(headerText, contentText) {
     showMessage('.myCustomSuccessMessage','.myCustomSuccessMessageHeader','.myCustomSuccessMessageContent',headerText,contentText);
+
 }
 
 function showError(headerText, contentText) {
