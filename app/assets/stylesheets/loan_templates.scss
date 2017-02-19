@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #current_steps_container{
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   margin-top: 5px;
 }
 //.removeStep{
@@ -12,3 +12,7 @@
 //.removeStep:hover{
 //  display: inline-block !important;
 //}
+
+.noSteps{
+  margin-top: 15px;
+}

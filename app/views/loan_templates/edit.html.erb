@@ -60,7 +60,9 @@
             <%- if @template.steps.any? %>
                 <%= render 'steps/step_list', :steps => @template.steps %>
             <%- else %>
-                <p><%= t('no_steps') %></p>
+                <div class="ui relaxed horizontal list stepList">
+                </div>
+                <p class="noSteps"><%= t('no_steps') %></p>
             <%- end %>
           </div>
         </div>
