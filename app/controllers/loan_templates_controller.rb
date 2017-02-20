@@ -22,6 +22,8 @@ class LoanTemplatesController < ApplicationController
 
   def edit
     @template = LoanTemplate.find_by id: params[:id]
+    @max_release_amount = @template.maximum_release_amount
+    @max_receipt_amount = @template.maximum_receipt_amount
   end
 
   def show
