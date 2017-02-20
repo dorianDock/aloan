@@ -32,13 +32,19 @@ class StepsController < ApplicationController
         loan_id = permitted_params[:loan_id]
         loan_template_id = permitted_params[:loan_template_id]
         my_html = ''
+        max_release_amount = 0
+        max_receipt_amount = 0
         unless loan_id.blank?
           my_html=render_to_string('steps/_step_for_loan', :formats => [:html], :layout => false, :locals => {:step => @new_step})
         end
         unless loan_template_id.blank?
           my_html=render_to_string('steps/_step_for_loan_template', :formats => [:html], :layout => false, :locals => {:step => @new_step})
+          loan_template = LoanTemplate.find_by(:id => loan_template_id)
+          max_release_amount = loan_template.maximum_release_amount
+          max_receipt_amount = loan_template.maximum_receipt_amount
         end
-        format.json { render json: {:partial_view => my_html, :step_id => @new_step.id, :success => true} }
+        format.json { render json: {:partial_view => my_html, :step_id => @new_step.id,
+                                    :max_release_amount => max_release_amount, :max_receipt_amount => max_receipt_amount, :success => true} }
       else
         my_html=render_to_string('steps/_new_step', :formats => [:html], :layout => false, :locals => {:new_step => @new_step})
         format.json { render json: {:partial_view => my_html, :success => false } }

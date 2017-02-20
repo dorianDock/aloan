@@ -39,6 +39,10 @@ $(document).on('turbolinks:load', function() {
         $('.stepList').append(data.partial_view);
         bindStepRemovalEvent('.removeStep'+data.step_id);
         bindEditAndRemoveStepEvent('.loan_template_step'+data.step_id);
+        if(data.max_release_amount != null && data.max_receipt_amount != null){
+            $('.remainingReleaseNumber').html(data.max_release_amount);
+            $('.remainingReceiptNumber').html(data.max_receipt_amount);
+        }
         $('.addAStep').show();
     }
 
