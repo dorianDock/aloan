@@ -63,14 +63,13 @@
             <div class="item light_item">
               <%= image_tag 'diagonal-arrow-6.png', :class => 'ui avatar image' %>
               <div class="content">
-                <div class="description">Remaining Release Amount: 500000 MGA.</div>
-                
+                <div class="description"><%= t('step.remaining_release') %> <span class="stepRemainingNumber remainingReleaseNumber"><%= @template.maximum_release_amount %></span> MGA.</div>
               </div>
             </div>
             <div class="item light_item">
               <%= image_tag 'diagonal-arrow-5.png', :class => 'ui avatar image' %>
               <div class="content">
-                <div class="description">Remaining Receipt amount: 0 MGA.</div>
+                <div class="description"><%= t('step.remaining_receipt') %> <span class="stepRemainingNumber remainingReceiptNumber"><%= @template.maximum_receipt_amount %></span> MGA.</div>
               </div>
             </div>
           </div>

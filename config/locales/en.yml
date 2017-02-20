@@ -137,6 +137,8 @@ en:
     initial: 'Initial step'
     should_be_less_than_max_duration: ': with your current parameters, the step will be in too long, please correct the delay.'
     should_be_less_than_max_amount: ': with your current parameters, the step amount is too much, it should be inferior to %{possible_amount}, please correct the amount.'
+    remaining_release: 'Remaining Release Amount:'
+    remaining_receipt: 'Remaining Receipt Amount:'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'
