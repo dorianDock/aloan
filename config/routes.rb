@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   resources :steps do
     member do
       get 'destroy_by_popup'
+      get 'type_for_step'
     end
   end
   # get 'steps/new'

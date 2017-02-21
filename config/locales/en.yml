@@ -139,6 +139,7 @@ en:
     should_be_less_than_max_amount: ': with your current parameters, the step amount is too much, it should be inferior to %{possible_amount}, please correct the amount.'
     remaining_release: 'Remaining Release Amount:'
     remaining_receipt: 'Remaining Receipt Amount:'
+    successful_update: 'The step was successfully updated.'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'

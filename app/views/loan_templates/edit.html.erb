@@ -53,28 +53,7 @@
       <%= t('loan_template.steps') %>
     </h4>
 
-    <div class="fields">
-      <div class="six wide field">
-      </div>
-      <div class="ten wide field">
-          <%- if @max_release_amount != 0 || @max_receipt_amount !=0 %>
-          <div class="ui list">
-            <div class="item light_item">
-              <%= image_tag 'diagonal-arrow-6.png', :class => 'ui avatar image' %>
-              <div class="content">
-                <div class="description"><%= t('step.remaining_release') %> <span class="stepRemainingNumber remainingReleaseNumber"><%= @max_release_amount %></span> MGA.</div>
-              </div>
-            </div>
-            <div class="item light_item">
-              <%= image_tag 'diagonal-arrow-5.png', :class => 'ui avatar image' %>
-              <div class="content">
-                <div class="description"><%= t('step.remaining_receipt') %> <span class="stepRemainingNumber remainingReceiptNumber"><%= @max_receipt_amount %></span> MGA.</div>
-              </div>
-            </div>
-          </div>
-        <%- end %>
-      </div>
-    </div>
+    <%= render 'loan_templates/max_amounts', :max_release_amount => @max_release_amount, :max_receipt_amount => @max_receipt_amount %>
 
     <div class="fields">
       <div class="sixteen wide field">

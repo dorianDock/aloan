@@ -52,10 +52,37 @@ class StepsController < ApplicationController
     end
   end
 
+  def edit
+    @step = Step.find_by id: params[:id]
+    template = @step.loan_template
+    @max_release_amount = template.maximum_release_amount
+    @max_receipt_amount = template.maximum_receipt_amount
+  end
+
+  def update
+    @step = Step.find_by id: params[:id]
+    unless @step.nil?
+      permitted_params = permitted_params(params[:step])
+      if @step.update(permitted_params)
+        flash[:info] = I18n.t('step.successful_update')
+        # According to what the step is linked to, we redirect to a different page
+        unless @step.loan_id.nil?
+          redirect_to edit_loan_path(@step.loan)
+        end
+        unless @step.loan_template_id.nil?
+          redirect_to edit_loan_template_path(@step.loan_template)
+        end
+      else
+        render 'edit'
+      end
+    end
+
+  end
+
+
 
   def destroy_by_popup
-    parent_id = 0
-    parent_id = params[:parent_id]
+    parent_id = params[:parent_id] || 0
     parent_type = params[:parent_type]
     if parent_type=='Loan'
       redirection_path = edit_loan_path(parent_id)
@@ -85,6 +112,19 @@ class StepsController < ApplicationController
     end
   end
 
+  # def type_for_step
+  #   step_id=params[:objectid]
+  #   @the_step=Step.find_by(id: loan_id)
+  #   template = nil
+  #   unless @the_loan.loan_template.nil?
+  #     template= @the_loan.loan_template.id
+  #   end
+  #   respond_to do |format|
+  #     format.json {
+  #       render json: template
+  #     }
+  #   end
+  # end
 
 
   protected

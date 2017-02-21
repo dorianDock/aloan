@@ -1,0 +1,53 @@
+<% # encoding: utf-8   %>
+
+<%= validation_error_messages!(@step) %>
+
+<%= render 'loan_templates/max_amounts', :max_release_amount => @max_release_amount, :max_receipt_amount => @max_receipt_amount %>
+
+<%= form_for @step, html: {:multipart => true, class: 'ui form variation_form' } do |f| %>
+
+    <h4><%= t('step.edit') %></h4>
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+    <%= f.hidden_field :loan_id %>
+    <%= f.hidden_field :loan_template_id %>
+
+    <div class="fields">
+      <div class="six wide field">
+        <%- if @step.loan_id %>
+            <div class="field">
+              <label><%= f.label :expected_date %></label>
+              <%= f.text_field :expected_date, :class => 'stepExpectedtDate' %>
+            </div>
+        <%- elsif @step.loan_template_id%>
+            <div class="field">
+              <label><%= t('step.months_after_prev_milestone_explanation_1') %></label>
+              <%= f.text_field :months_after_previous_milestone %>
+              <div class="moreTopMargin">
+                <%= t('step.months_after_prev_milestone_explanation_2') %> <br> <%= t('step.months_after_prev_milestone_explanation_3') %>
+              </div>
+            </div>
+        <%- end %>
+
+      </div>
+      <div class="five wide field">
+        <div class="field">
+          <label><%= f.label :amount %></label>
+          <%= f.text_field  :amount, :placeholder => t('loan.amount_example') %>
+        </div>
+      </div>
+      <div class="five wide field">
+        <div class="field">
+          <label><%= f.label :step_type_id %></label>
+          <%= select_tag('step[step_type_id]', '',id: 'step_step_type_id', class: 'ui dropdown search stepEditType stepEditionType',
+                         data: {:url => data_source_step_types_list_url, :propertyvalue => @step.step_type_id,
+                                :objectlinkid => @step.id, :placeholder => 'Choose a step Type', :withoutsearch => 'true'
+                         }) %>
+        </div>
+      </div>
+
+    </div>
+
+    <%= f.submit t('submit'), class: 'ui teal button right floated newStepSubmit' %>
+<% end %>
+

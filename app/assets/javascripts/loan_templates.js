@@ -43,7 +43,7 @@ $(document).on('turbolinks:load', function() {
             $('.remainingReleaseNumber').html(data.max_release_amount);
             $('.remainingReceiptNumber').html(data.max_receipt_amount);
         }
-        if((data.max_release_amount == undefined && data.max_receipt_amount == undefined) || (data.max_release_amount != 0 && data.max_receipt_amount != 0)){
+        if((data.max_release_amount == undefined && data.max_receipt_amount == undefined) || (data.max_release_amount != 0 || data.max_receipt_amount != 0)){
             $('.addAStep').show();
         }
 

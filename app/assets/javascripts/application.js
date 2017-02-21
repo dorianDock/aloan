@@ -88,6 +88,8 @@ function InitializeSelectList(aCssClass, callBackOnChange) {
                 });
         }
 
+
+
         for (var i = 0; i < data.results.length; i++) {
             firstValue = data.results[i].value;
             $('.' + aCssClass + ' > select').append('<option value="' + data.results[i].value + '">' + data.results[i].name + '</option>');
@@ -101,20 +103,30 @@ function InitializeSelectList(aCssClass, callBackOnChange) {
 
         // objectLink is the entity by which we are going to take the data already set
         var objectLink = $('.' + aCssClass + ' > select').data('objectlinkid');
+        var initializeUrl = $('.' + aCssClass + ' > select').data('initializeurl');
         if (objectLink != undefined && objectLink != "") {
-            var initializeUrl = $('.' + aCssClass + ' > select').data('initializeurl');
-            var changeTheDropDown = function (data) {
-                if(data == null){
-                    return;
-                }
-                // we change the data from [] to [""]
-                for (i = 0; i < data.length; i++) {
-                    data[i] = data[i].toString();
-                }
-                $('.' + aCssClass).dropdown('set selected', data);
-            };
-            var parameters = {objectid: objectLink};
-            AjaxRequest(initializeUrl, parameters, changeTheDropDown);
+            if(initializeUrl != undefined && initializeUrl != ""){
+                var changeTheDropDown = function (data) {
+                    if(data == null){
+                        return;
+                    }
+                    // we change the data from [] to [""]
+                    for (i = 0; i < data.length; i++) {
+                        data[i] = data[i].toString();
+                    }
+                    $('.' + aCssClass).dropdown('set selected', data);
+                };
+                var parameters = {objectid: objectLink};
+                AjaxRequest(initializeUrl, parameters, changeTheDropDown);
+            } else{
+                setTimeout(function(){
+                    // we set the selected data with the value of the field
+                    var value = $('.' + aCssClass + ' > select').data('propertyvalue');
+                    $('.' + aCssClass).dropdown('set selected', value);
+                },1);
+
+            }
+
         }
 
 
