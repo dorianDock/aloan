@@ -42,7 +42,11 @@
       <a class="ui blue ribbon label"><%= t('loan.steps') %></a>
       <span class="ui header"><%= t('loan.step_list') %></span>
       <p></p>
-      <p class=""><%= t('no_info') %></p>
+      <%- if @loan.loan_template.steps.any? %>
+        <%= render 'steps/step_list_for_loans', :steps => @loan.loan_template.steps %>
+      <%- else %>
+          <p class=""><%= t('no_info') %></p>
+      <%- end %>
     </div>
 
   </div>
