@@ -93,6 +93,7 @@ en:
     display_based_on1: 'Based on the '
     display_based_on2: ' template.'
     interest_rate: 'with %{rate}% of interest'
+    synchronize: 'Synchronize the steps from the loan template'
   loan_template:
     successful_deletion: 'The template was successfully removed.'
     successful_update1: 'The template '

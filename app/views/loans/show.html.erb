@@ -41,6 +41,10 @@
     <div class="ui segment">
       <a class="ui blue ribbon label"><%= t('loan.steps') %></a>
       <span class="ui header"><%= t('loan.step_list') %></span>
+      <button class="ui button icon isPopup handCursor synchronizeSteps" data-content="<%= t('loan.synchronize') %>"
+              data-objectid="<%= step.id %>" data-url="<%= destroy_by_popup_step_path(step.id) %>">
+        <i class="icon refresh" ></i>
+      </button>
       <p></p>
       <%- if @loan.loan_template.steps.any? %>
         <%= render 'steps/step_list_for_loans', :steps => @loan.loan_template.steps %>
