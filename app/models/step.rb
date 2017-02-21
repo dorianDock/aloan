@@ -75,6 +75,9 @@ class Step < ApplicationRecord
     if (!amount.blank?) && !loan_template_id.blank?
       if type == StepTypeEnum::RECEIPT
         max_amount = loan_template.maximum_receipt_amount
+        unless id.blank?
+          max_amount = max_amount + amount
+        end
         if max_amount < amount
           errors.add(:amount, I18n.t('step.should_be_less_than_max_amount', :possible_amount => max_amount))
         end
@@ -87,6 +90,9 @@ class Step < ApplicationRecord
     if (!amount.blank?) && !loan_template_id.blank?
       if type == StepTypeEnum::RELEASE
         max_amount = loan_template.maximum_release_amount
+        unless id.blank?
+          max_amount = max_amount + amount
+        end
         if max_amount < amount
           errors.add(:amount, I18n.t('step.should_be_less_than_max_amount', :possible_amount => max_amount))
         end
