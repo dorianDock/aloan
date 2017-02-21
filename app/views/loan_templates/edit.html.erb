@@ -55,7 +55,6 @@
 
     <div class="fields">
       <div class="six wide field">
-
       </div>
       <div class="ten wide field">
           <%- if @max_release_amount != 0 || @max_receipt_amount !=0 %>
@@ -74,19 +73,15 @@
             </div>
           </div>
         <%- end %>
-
-
       </div>
-
     </div>
 
     <div class="fields">
       <div class="sixteen wide field">
         <div class="field stepsField">
-
           <div id="current_steps_container">
             <%- if @template.steps.any? %>
-                <%= render 'steps/step_list', :steps => @template.steps %>
+                <%= render 'steps/step_list', :steps => @template.steps.order(:months_after_previous_milestone => :asc) %>
             <%- else %>
                 <div class="ui relaxed horizontal list stepList">
                 </div>
