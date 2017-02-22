@@ -94,6 +94,12 @@ class LoansController < ApplicationController
     end
   end
 
+
+  # We synchronize the steps of the loan with the steps of the loan template
+  def synchronize_steps
+
+  end
+
   protected
 
   def permitted_parameters(params)

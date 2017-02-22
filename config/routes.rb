@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     member do
       get 'borrower_for_loan'
       get 'template_for_loan'
+      get 'synchronize_steps'
     end
   end
 
