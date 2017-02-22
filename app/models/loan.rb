@@ -131,10 +131,10 @@ class Loan < ApplicationRecord
       true
     else
       is_sync = false
-      template_steps = self.loan_template.steps.to_a.group_by {|step| step.step_type_id}.map {|v| v.length}
+      template_steps = self.loan_template.steps.to_a.group_by {|step| step.step_type_id}.map { |k, v| [k, v.count]}.to_h.map{|a| a.second}
       template_steps_first_type = template_steps[0]
       template_steps_second_type = template_steps[1]
-      loan_steps = self.steps.to_a.group_by {|step| step.step_type_id}.map {|v| v.length}
+      loan_steps = self.steps.to_a.group_by {|step| step.step_type_id}.map { |k, v| [k, v.count]}.to_h.map{|a| a.second}
       loan_steps_first_type = loan_steps[0]
       loan_steps_second_type = loan_steps[1]
       if template_steps_first_type == loan_steps_first_type && template_steps_second_type == loan_steps_second_type

@@ -453,13 +453,13 @@ RSpec.describe Loan, type: :model do
       @loan = FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: three_weeks_ago, contractual_end_date: in_one_week,
                                  amount: 500000, rate: 1, loan_goal: 'Have some money to organize trips to make new deals',
                                  loan_template_id: @loan_template.id)
-      step_type = FactoryGirl.create(:step_type)
-      step_type2 = FactoryGirl.create(:step_type, :label => 'Lalalala')
+      @step_type = FactoryGirl.create(:step_type)
+      @step_type2 = FactoryGirl.create(:step_type, :label => 'Lalalala')
 
-      step_1_template = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => step_type.id, :expected_date => nil,
+      step_1_template = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type.id, :expected_date => nil,
                                           :is_done => false, :amount => @loan.amount, :loan_template_id => @loan_template.id,
                                           :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
-      step_2_template = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => step_type2.id, :expected_date => nil,
+      step_2_template = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type2.id, :expected_date => nil,
                                    :is_done => false, :amount => 505000, :loan_template_id => @loan_template.id,
                                    :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
     end
@@ -472,6 +472,24 @@ RSpec.describe Loan, type: :model do
     it 'steps_synchronized? is false when the loan does not have steps but the template has' do
       expect(@loan.steps_synchronized?).to eq(false)
     end
+
+    it 'steps_synchronized? is false when the loan has one step and the template has one of each type' do
+      step_1_loan = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_type.id, :expected_date => nil,
+                                           :is_done => false, :amount => @loan.amount, :loan_template_id => nil,
+                                           :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      expect(@loan.steps_synchronized?).to eq(false)
+    end
+
+    it 'steps_synchronized? is true when the loan has one step of each type and the template too' do
+      step_1_loan = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_type.id, :expected_date => nil,
+                                       :is_done => false, :amount => @loan.amount, :loan_template_id => nil,
+                                       :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      step_2_loan = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_type2.id, :expected_date => nil,
+                                       :is_done => false, :amount => @loan.amount, :loan_template_id => nil,
+                                       :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      expect(@loan.steps_synchronized?).to eq(true)
+    end
+
 
   end
 
