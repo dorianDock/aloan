@@ -442,4 +442,37 @@ RSpec.describe Loan, type: :model do
     end
   end
 
+
+  describe 'Loan Steps' do
+    before(:each) do
+      today = Date.today
+      three_weeks_ago = today-3.week
+      in_one_week = today+1.week
+      borrower = FactoryGirl.create(:borrower)
+      @loan_template = FactoryGirl.create(:loan_template,amount: 500000, rate: 1, duration: 1, name: '1m500k')
+      @loan = FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: three_weeks_ago, contractual_end_date: in_one_week,
+                                 amount: 500000, rate: 1, loan_goal: 'Have some money to organize trips to make new deals',
+                                 loan_template_id: @loan_template.id)
+      step_type = FactoryGirl.create(:step_type)
+      step_type2 = FactoryGirl.create(:step_type, :label => 'Lalalala')
+
+      step_1_template = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => step_type.id, :expected_date => nil,
+                                          :is_done => false, :amount => @loan.amount, :loan_template_id => @loan_template.id,
+                                          :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      step_2_template = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => step_type2.id, :expected_date => nil,
+                                   :is_done => false, :amount => 505000, :loan_template_id => @loan_template.id,
+                                   :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+    end
+
+    it 'steps_synchronized? is correct when the loan does not have a template' do
+      @loan.loan_template =nil
+      expect(@loan.steps_synchronized?).to eq(true)
+    end
+
+    it 'steps_synchronized? is false when the loan does not have steps but the template has' do
+      expect(@loan.steps_synchronized?).to eq(false)
+    end
+
+  end
+
 end

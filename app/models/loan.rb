@@ -124,6 +124,27 @@ class Loan < ApplicationRecord
     end
   end
 
+  # calculates if the steps of the loan are synchronized with the steps of the loan template or not
+  # we just look if there is the same number of steps of the same type
+  def steps_synchronized?
+    if self.loan_template.nil?
+      true
+    else
+      is_sync = false
+      template_steps = self.loan_template.steps.to_a.group_by {|step| step.step_type_id}.map {|v| v.length}
+      template_steps_first_type = template_steps[0]
+      template_steps_second_type = template_steps[1]
+      loan_steps = self.steps.to_a.group_by {|step| step.step_type_id}.map {|v| v.length}
+      loan_steps_first_type = loan_steps[0]
+      loan_steps_second_type = loan_steps[1]
+      if template_steps_first_type == loan_steps_first_type && template_steps_second_type == loan_steps_second_type
+        is_sync = true
+      end
+      is_sync
+    end
+  end
+
+
   private
 
   # def end_date_is_after_start_date
