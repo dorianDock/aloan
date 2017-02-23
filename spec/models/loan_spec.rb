@@ -509,12 +509,12 @@ RSpec.describe Loan, type: :model do
       @loan.loan_template = nil
       @loan.save
       response = @loan.generate_steps
-      expect(response[:message]).to eq('')
+      expect(response[:message]).to eq(I18n.t('loan.step_generation_no_t'))
     end
 
     it 'generate_steps returns the right message when all went good' do
       response = @loan.generate_steps
-      expect(response[:message]).to eq('')
+      expect(response[:message]).to eq(I18n.t('loan.step_generation_ok'))
     end
 
   end

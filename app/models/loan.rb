@@ -162,12 +162,12 @@ class Loan < ApplicationRecord
         no_error = new_step || no_error
       end
       if no_error
-        return {:message => 'The generation of steps went fine, nice click!', :is_error => no_error}
+        return {:message => I18n.t('loan.step_generation_ok'), :is_error => no_error}
       else
-        return {:message => 'A problem happened during the generation of the new steps, please contact the support team...', :is_error => no_error}
+        return {:message => I18n.t('loan.step_generation_error'), :is_error => no_error}
       end
     end
-    {:message => 'No template was found', :is_error => true}
+    {:message => I18n.t('loan.step_generation_no_t'), :is_error => true}
   end
 
   private
