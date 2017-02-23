@@ -64,6 +64,8 @@ class Loan < ApplicationRecord
   belongs_to :loan_template, optional: true
   has_many :steps
 
+  attr_accessor :is_sync
+
   validates :start_date, presence: { message: I18n.t('loan.not_blank')}
   validates :contractual_end_date, presence: { message: I18n.t('loan.not_blank')}
   validates :rate, presence: { message: I18n.t('loan.not_blank')}

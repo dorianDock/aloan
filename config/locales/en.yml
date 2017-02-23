@@ -93,6 +93,7 @@ en:
     display_based_on1: 'Based on the '
     display_based_on2: ' template.'
     interest_rate: 'with %{rate}% of interest'
+    sync_alert: 'The steps of the loan template ans the loan steps are not the same, please correct it by synchronize them accordingly to the template (the button is on the right)'
     synchronize: 'Synchronize the steps from the loan template'
   loan_template:
     successful_deletion: 'The template was successfully removed.'

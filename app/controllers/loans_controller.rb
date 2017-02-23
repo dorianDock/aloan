@@ -37,6 +37,8 @@ class LoansController < ApplicationController
 
   def edit
     @loan = Loan.find_by id: params[:id]
+    is_sync = @loan.steps_synchronized?
+    @loan.is_sync = is_sync
   end
 
   def show
