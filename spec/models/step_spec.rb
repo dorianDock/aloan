@@ -131,10 +131,10 @@ RSpec.describe Step, type: :model do
       expect(@step_not_done).to_not be_valid
     end
 
-    it 'should have the right message when there no loan AND no loan template' do
+    it 'should have the right message when there no days and no months' do
       @step_not_done.days_after_previous_milestone = nil
       @step_not_done.save
-      expect(@step_not_done.errors.messages[:days_after_previous_milestone]).to eq([I18n.t('step.at_least_days_or_months_after_prev')])
+      expect(@step_not_done.errors.messages[:expected_date]).to eq([I18n.t('step.at_least_date_or_delay_value')])
     end
 
 

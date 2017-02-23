@@ -98,9 +98,19 @@ class LoansController < ApplicationController
 
 
   # We synchronize the steps of the loan with the steps of the loan template
+  # Please note that is is synced according to the template only (template always win)
   def synchronize_steps
-
+    loan_id=params[:objectid]
+    @the_loan=Loan.find_by(id: loan_id)
+    response_hash = @the_loan.generate_steps
+    respond_to do |format|
+      format.json {
+        render json: response_hash
+      }
+    end
   end
+
+
 
   protected
 

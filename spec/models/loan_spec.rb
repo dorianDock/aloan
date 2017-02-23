@@ -442,15 +442,80 @@ RSpec.describe Loan, type: :model do
     end
   end
 
-
-  describe 'Loan Steps' do
+  describe 'We can sync Loan Steps' do
     before(:each) do
       today = Date.today
-      three_weeks_ago = today-3.week
-      in_one_week = today+1.week
+      @three_weeks_ago = today-3.week
+      @in_one_week = today+1.week
       borrower = FactoryGirl.create(:borrower)
       @loan_template = FactoryGirl.create(:loan_template,amount: 500000, rate: 1, duration: 1, name: '1m500k')
-      @loan = FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: three_weeks_ago, contractual_end_date: in_one_week,
+      @loan = FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: @three_weeks_ago, contractual_end_date: @in_one_week,
+                                 amount: 500000, rate: 1, loan_goal: 'Have some money to organize trips to make new deals',
+                                 loan_template_id: @loan_template.id)
+      @step_type = FactoryGirl.create(:step_type)
+      @step_type2 = FactoryGirl.create(:step_type, :label => 'Lalalala')
+
+      step_1_template = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type.id, :expected_date => nil,
+                                           :is_done => false, :amount => @loan.amount, :loan_template_id => @loan_template.id,
+                                           :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+      step_2_template = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type2.id, :expected_date => nil,
+                                           :is_done => false, :amount => 505000, :loan_template_id => @loan_template.id,
+                                           :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+      @loan.generate_steps
+      @step_1_loan = Step.new(:loan_id => @loan.id, :step_type_id => @step_type.id, :expected_date => @three_weeks_ago,
+                              :is_done => false, :amount => @loan.amount, :loan_template_id => nil)
+      @step_2_loan = Step.new(:loan_id => @loan.id, :step_type_id => @step_type2.id, :expected_date => @in_one_week,
+                              :is_done => false, :amount => 505000, :loan_template_id => nil)
+      @loan.reload
+      @steps_g = @loan.steps.to_a
+      @step_1 = @steps_g[0]
+      @step_2 = @steps_g[1]
+    end
+
+    it 'generate_steps generated two steps from the template' do
+      steps_g_count = @steps_g.count
+      expect(steps_g_count).to eq(2)
+    end
+
+    it 'generate_steps generated correct amounts' do
+      expect(@step_1.amount).to eq(@step_1_loan.amount)
+      expect(@step_2.amount).to eq(@step_2_loan.amount)
+    end
+
+    it 'generate_steps generated correct dates' do
+      expect(@step_1.expected_date).to eq(@step_1_loan.expected_date)
+      expect(@step_2.expected_date).to eq(@step_2_loan.expected_date)
+    end
+
+    it 'generate_steps generated correct types' do
+      expect(@step_1.step_type_id).to eq(@step_1_loan.step_type_id)
+      expect(@step_2.step_type_id).to eq(@step_2_loan.step_type_id)
+    end
+
+    it 'generate_steps generated correct loan_ids' do
+      expect(@step_1.loan_id).to eq(@step_1_loan.loan_id)
+      expect(@step_2.loan_id).to eq(@step_2_loan.loan_id)
+    end
+
+    it 'generate_steps generated just two steps from the template even after three calls' do
+      @loan.generate_steps
+      @loan.reload
+      @loan.generate_steps
+      @loan.reload
+      expect(@loan.steps.to_a.count).to eq(2)
+    end
+
+  end
+
+
+  describe 'Loan Steps Are Synchronized' do
+    before(:each) do
+      today = Date.today
+      @three_weeks_ago = today-3.week
+      @in_one_week = today+1.week
+      borrower = FactoryGirl.create(:borrower)
+      @loan_template = FactoryGirl.create(:loan_template,amount: 500000, rate: 1, duration: 1, name: '1m500k')
+      @loan = FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: @three_weeks_ago, contractual_end_date: @in_one_week,
                                  amount: 500000, rate: 1, loan_goal: 'Have some money to organize trips to make new deals',
                                  loan_template_id: @loan_template.id)
       @step_type = FactoryGirl.create(:step_type)
@@ -472,6 +537,8 @@ RSpec.describe Loan, type: :model do
     it 'steps_synchronized? is false when the loan does not have steps but the template has' do
       expect(@loan.steps_synchronized?).to eq(false)
     end
+
+
 
     it 'steps_synchronized? is false when the loan has one step and the template has one of each type' do
       step_1_loan = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_type.id, :expected_date => nil,

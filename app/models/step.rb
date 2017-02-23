@@ -36,7 +36,7 @@ class Step < ApplicationRecord
   validate :not_date_and_delay_value
   validate :loan_or_loan_template
   validate :not_loan_and_loan_template
-  validate :days_or_months_after_previous
+  # validate :days_or_months_after_previous
   validate :not_days_and_months_after_previous
 
   module StepTypeEnum
@@ -114,11 +114,11 @@ class Step < ApplicationRecord
     end
   end
 
-  def days_or_months_after_previous
-    if (days_after_previous_milestone.blank?) && (months_after_previous_milestone.blank?)
-      errors.add(:days_after_previous_milestone, I18n.t('step.at_least_days_or_months_after_prev'))
-    end
-  end
+  # def days_or_months_after_previous
+  #   if (days_after_previous_milestone.blank?) && (months_after_previous_milestone.blank?)
+  #     errors.add(:days_after_previous_milestone, I18n.t('step.at_least_days_or_months_after_prev'))
+  #   end
+  # end
   def not_days_and_months_after_previous
     if !days_after_previous_milestone.blank? && !months_after_previous_milestone.blank?
       errors.add(:days_after_previous_milestone, I18n.t('step.not_days_and_months_after_prev'))

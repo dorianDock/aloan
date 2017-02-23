@@ -146,6 +146,29 @@ class Loan < ApplicationRecord
     end
   end
 
+  def generate_steps
+    # if the loan_template does not exist, we do nothing
+    unless self.loan_template.nil?
+      # we clean the steps before recreating some
+      self.steps.destroy_all
+      template_steps = self.loan_template.steps
+      start_date = self.start_date
+      no_error = true
+      # we turn the delay into a date
+      template_steps.each do |step|
+        new_date = start_date+((step.months_after_previous_milestone).months)
+        new_step = Step.create(:amount => step.amount, :expected_date => new_date, :loan_id => self.id,
+                               :step_type_id => step.step_type_id, :is_done => false)
+        no_error = new_step || no_error
+      end
+      if no_error
+        return {:message => 'The generation of steps went fine, nice click!', :is_error => no_error}
+      else
+        return {:message => 'A problem happened during the generation of the new steps, please contact the support team...', :is_error => no_error}
+      end
+    end
+    {:message => 'No template was found', :is_error => true}
+  end
 
   private
 
