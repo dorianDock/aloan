@@ -505,6 +505,18 @@ RSpec.describe Loan, type: :model do
       expect(@loan.steps.to_a.count).to eq(2)
     end
 
+    it 'generate_steps returns the right message when there is no template linked' do
+      @loan.loan_template = nil
+      @loan.save
+      response = @loan.generate_steps
+      expect(response[:message]).to eq('')
+    end
+
+    it 'generate_steps returns the right message when all went good' do
+      response = @loan.generate_steps
+      expect(response[:message]).to eq('')
+    end
+
   end
 
 
