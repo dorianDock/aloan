@@ -202,3 +202,15 @@ function DisplayConfirmationPopup(actionToPerform,objectId,afterAction, parent_i
         .modal('show')
     ;
 }
+
+
+function bindEditAndRemoveStepEvent(cssClass){
+    $(cssClass).hover(
+        function(){
+            $(this).children('.removeStep,.editStep').show();
+        },
+        function(){
+            $(this).children('.removeStep,.editStep').hide();
+        }
+    );
+}

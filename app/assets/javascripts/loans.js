@@ -111,8 +111,27 @@ $(document).on('turbolinks:load', function(){
             AjaxRequest(url, {objectid: loan_id}, handleSyncResponse)
         });
     }
+    bindEditAndRemoveStepEvent('.loan_step');
 
+    function bindStepRemovalEvent(cssClass){
+        $(cssClass).click(function(){
+            var linkDeletionUrl = $(this).data('url');
+            var objectId = $(this).data('objectid');
+            var loan_id = $(this).data('loanid');
+            var parent_type=$(this).data('parenttype');
+            var afterAction=function(data){
+                if(data.isError===false){
+                    window.location=data.redirection;
+                }
+                HandleMessageFromServer(data);
+                CloseModal();
+            };
 
+            DisplayConfirmationPopup(linkDeletionUrl,objectId,afterAction,loan_id,parent_type);
+        });
+    }
+
+    bindStepRemovalEvent('.removeStep');
 
 
 });

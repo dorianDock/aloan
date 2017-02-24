@@ -90,19 +90,7 @@ $(document).on('turbolinks:load', function() {
 
     $('.removeStep,.editStep').hide();
 
-    function bindEditAndRemoveStepEvent(cssClass){
-        $(cssClass).hover(
-            function(){
-                $(this).children('.removeStep,.editStep').show();
-            },
-            function(){
-                $(this).children('.removeStep,.editStep').hide();
-            }
-        );
-    }
-
-
-
+    
     function bindStepRemovalEvent(cssClass){
         $(cssClass).click(function(){
             var linkDeletionUrl = $(this).data('url');

@@ -85,7 +85,7 @@ class StepsController < ApplicationController
     parent_id = params[:parent_id] || 0
     parent_type = params[:parent_type]
     if parent_type=='Loan'
-      redirection_path = edit_loan_path(parent_id)
+      redirection_path = loan_path(parent_id)
     end
     if parent_type=='LoanTemplate'
       redirection_path = edit_loan_template_path(parent_id)
