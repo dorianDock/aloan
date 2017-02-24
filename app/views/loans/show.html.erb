@@ -42,7 +42,7 @@
       <a class="ui blue ribbon label"><%= t('loan.steps') %></a>
       <span class="ui header"><%= t('loan.step_list') %></span>
       <%- unless @loan.is_sync %>
-          <i class="ui icon warning sign orange isPopup" data-content="<%= t('loan.sync_alert') %>"></i>
+          <i class="ui icon warning sign orange isPopup synchronizeStepsIcon" data-content="<%= t('loan.sync_alert') %>"></i>
           <button class="ui button icon isPopup handCursor synchronizeSteps" data-content="<%= t('loan.synchronize') %>"
                   data-objectid="<%= @loan.id %>" data-url="<%= synchronize_steps_loan_path(@loan) %>">
             <i class="icon refresh" ></i>
@@ -52,11 +52,13 @@
       <%- if @loan.loan_template.steps.any? %>
           <%= render 'steps/step_list', :steps => @loan.loan_template.steps %>
       <%- end %>
+      <div class="step_list_container">
       <%- if @loan.steps.any? %>
         <%= render 'steps/step_list_for_loans', :steps => @loan.steps %>
       <%- else %>
           <p class=""><%= t('no_info') %></p>
       <%- end %>
+      </div>
     </div>
 
   </div>

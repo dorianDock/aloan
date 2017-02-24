@@ -154,15 +154,18 @@ class Loan < ApplicationRecord
       template_steps = self.loan_template.steps
       start_date = self.start_date
       no_error = true
+      new_steps = []
       # we turn the delay into a date
       template_steps.each do |step|
         new_date = start_date+((step.months_after_previous_milestone).months)
         new_step = Step.create(:amount => step.amount, :expected_date => new_date, :loan_id => self.id,
                                :step_type_id => step.step_type_id, :is_done => false)
-        no_error = new_step || no_error
+        no_error = new_step.valid? || no_error
+        new_steps.push(new_step)
       end
+
       if no_error
-        return {:message => I18n.t('loan.step_generation_ok'), :is_error => no_error}
+        return {:message => I18n.t('loan.step_generation_ok'), :is_error => no_error, :steps => new_steps}
       else
         return {:message => I18n.t('loan.step_generation_error'), :is_error => no_error}
       end

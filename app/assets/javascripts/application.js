@@ -166,10 +166,20 @@ function CloseModal(){
 
 // Help to manage the errors and the messages coming back form the server
 function HandleMessageFromServer(data){
-    if(data.isError===true){
-        showError(data.responseMessage);
+    if(data.isError===true || data.is_error === true){
+        if(data.message!=''&&data.message!=undefined){
+            showError(data.message);
+        }
+        if(data.responseMessage!=''&&data.responseMessage!=undefined){
+            showError(data.responseMessage);
+        }
     } else{
-        showSuccess(data.responseMessage);
+        if(data.message!=''&&data.message!=undefined){
+            showSuccess(data.message);
+        }
+        if(data.responseMessage!=''&&data.responseMessage!=undefined){
+            showSuccess(data.responseMessage);
+        }
     }
 }
 
