@@ -41,13 +41,12 @@
     <div class="ui segment">
       <a class="ui blue ribbon label"><%= t('loan.steps') %></a>
       <span class="ui header"><%= t('loan.step_list') %></span>
-
       <%- unless @loan.is_sync %>
           <i class="ui icon warning sign orange isPopup" data-content="<%= t('loan.sync_alert') %>"></i>
-      <button class="ui button icon isPopup handCursor synchronizeSteps" data-content="<%= t('loan.synchronize') %>"
-              data-objectid="<%= @loan.id %>" data-url="<%= synchronize_steps_loan_path(@loan) %>">
-        <i class="icon refresh" ></i>
-      </button>
+          <button class="ui button icon isPopup handCursor synchronizeSteps" data-content="<%= t('loan.synchronize') %>"
+                  data-objectid="<%= @loan.id %>" data-url="<%= synchronize_steps_loan_path(@loan) %>">
+            <i class="icon refresh" ></i>
+          </button>
       <%- end %>
       <p></p>
       <%- if @loan.loan_template.steps.any? %>
