@@ -165,9 +165,9 @@ class Loan < ApplicationRecord
       end
 
       if no_error
-        return {:message => I18n.t('loan.step_generation_ok'), :is_error => no_error, :steps => new_steps}
+        return {:message => I18n.t('loan.step_generation_ok'), :is_error => !no_error, :steps => new_steps}
       else
-        return {:message => I18n.t('loan.step_generation_error'), :is_error => no_error}
+        return {:message => I18n.t('loan.step_generation_error'), :is_error => !no_error}
       end
     end
     {:message => I18n.t('loan.step_generation_no_t'), :is_error => true}

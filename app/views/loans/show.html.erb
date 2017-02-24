@@ -49,9 +49,6 @@
           </button>
       <%- end %>
       <p></p>
-      <%- if @loan.loan_template.steps.any? %>
-          <%= render 'steps/step_list', :steps => @loan.loan_template.steps %>
-      <%- end %>
       <div class="step_list_container">
       <%- if @loan.steps.any? %>
         <%= render 'steps/step_list_for_loans', :steps => @loan.steps %>

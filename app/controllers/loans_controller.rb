@@ -43,6 +43,8 @@ class LoansController < ApplicationController
 
   def show
     @loan = Loan.find_by id: params[:id]
+    is_sync = @loan.steps_synchronized?
+    @loan.is_sync = is_sync
   end
 
   def update
@@ -103,6 +105,11 @@ class LoansController < ApplicationController
     loan_id=params[:objectid]
     @the_loan=Loan.find_by(id: loan_id)
     response_hash = @the_loan.generate_steps
+    # we take the generated steps to prepare a new partial view
+    if response_hash[:steps] != nil
+      my_html=render_to_string('steps/_step_list_for_loans', :formats => [:html], :layout => false, :locals => {:steps => response_hash[:steps]})
+      response_hash[:partial_view] = my_html
+    end
     respond_to do |format|
       format.json {
         render json: response_hash

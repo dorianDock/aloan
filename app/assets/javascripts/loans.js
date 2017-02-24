@@ -99,8 +99,8 @@ $(document).on('turbolinks:load', function(){
             $('.step_list_container').html(data.partial_view);
         }
         HandleMessageFromServer(data);
-        $('.synchronizeSteps').hide();
-        $('.synchronizeStepsIcon').hide();
+        // $('.synchronizeSteps').hide();
+        // $('.synchronizeStepsIcon').hide();
     }
 
 
