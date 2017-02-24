@@ -92,25 +92,7 @@ $(document).on('turbolinks:load', function(){
         ;
     }
 
-    // When we click on the sync button
-    function handleSyncResponse(data){
-        // we receive the new list of steps from the server
-        if(data.partial_view){
-            $('.step_list_container').html(data.partial_view);
-        }
-        HandleMessageFromServer(data);
-        // $('.synchronizeSteps').hide();
-        // $('.synchronizeStepsIcon').hide();
-    }
 
-
-    if($('.synchronizeSteps').length!==0){
-        $('.synchronizeSteps').click(function(){
-            var url = $(this).data('url');
-            var loan_id = $(this).data('objectid');
-            AjaxRequest(url, {objectid: loan_id}, handleSyncResponse)
-        });
-    }
     bindEditAndRemoveStepEvent('.loan_step');
 
     function bindStepRemovalEvent(cssClass){
@@ -133,5 +115,26 @@ $(document).on('turbolinks:load', function(){
 
     bindStepRemovalEvent('.removeStep');
 
+    // When we click on the sync button
+    function handleSyncResponse(data){
+        // we receive the new list of steps from the server
+        if(data.partial_view){
+            $('.step_list_container').html(data.partial_view);
+        }
+        HandleMessageFromServer(data);
+        bindEditAndRemoveStepEvent('.loan_step');
+        bindStepRemovalEvent('.removeStep');
+        // $('.synchronizeSteps').hide();
+        // $('.synchronizeStepsIcon').hide();
+    }
+
+
+    if($('.synchronizeSteps').length!==0){
+        $('.synchronizeSteps').click(function(){
+            var url = $(this).data('url');
+            var loan_id = $(this).data('objectid');
+            AjaxRequest(url, {objectid: loan_id}, handleSyncResponse)
+        });
+    }
 
 });
