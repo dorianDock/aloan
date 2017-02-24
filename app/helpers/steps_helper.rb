@@ -8,5 +8,12 @@ module StepsHelper
     end
   end
 
+  def step_display_status(step)
+    if step.date_done.nil?
+      t('step.not_validated')
+    else
+      t('step.validated_on')+step.date_done.strftime('%d/%m/%Y')
+    end
+  end
 
 end

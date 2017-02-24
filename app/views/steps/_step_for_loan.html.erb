@@ -8,7 +8,8 @@
 
   <div class="content">
     <div class="header"><%= step.type %> of <%= step.amount %></div>
-    <div class="description">(<%= step.expected_date.strftime('%d/%m/%Y') %>)</div>
+    <div class="description">(<%= t('step.expected_date') %>: <%= step.expected_date.strftime('%d/%m/%Y') %>)</div>
+    <div class="description"><%= step_display_status(step) %></div>
   </div>
   <a class="leftMargin editStep editStep<%= step.id %> mini ui icon button blue" href="<%= edit_step_path(step.id) %>">
     <i class="icon edit"></i>

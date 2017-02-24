@@ -28,6 +28,20 @@ RSpec.describe StepsHelper, type: :helper do
       expect(result).to eq('After 2 months')
     end
 
+    it 'step_display_status displays a correct message when the step is not done' do
+      a_step = Step.new
+      a_step.date_done = nil
+      result = step_display_status(a_step)
+      expect(result).to eq(t('step.not_validated'))
+    end
+
+    it 'step_display_status displays a correct message when the step is done' do
+      a_step = Step.new
+      a_step.date_done = Date.today
+      result = step_display_status(a_step)
+      expect(result).to eq(t('step.validated_on')+a_step.date_done.strftime('%d/%m/%Y'))
+    end
+
   end
 
 end
