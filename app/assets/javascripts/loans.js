@@ -124,8 +124,8 @@ $(document).on('turbolinks:load', function(){
         HandleMessageFromServer(data);
         bindEditAndRemoveStepEvent('.loan_step');
         bindStepRemovalEvent('.removeStep');
-        // $('.synchronizeSteps').hide();
-        // $('.synchronizeStepsIcon').hide();
+        $('.synchronizeSteps').hide();
+        $('.synchronizeStepsIcon').hide();
     }
 
 
