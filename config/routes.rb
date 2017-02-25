@@ -46,6 +46,7 @@ Rails.application.routes.draw do
     member do
       get 'destroy_by_popup'
       get 'type_for_step'
+      post 'validate'
     end
   end
   # get 'steps/new'

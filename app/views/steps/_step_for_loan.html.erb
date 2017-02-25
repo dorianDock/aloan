@@ -1,22 +1,35 @@
-
+<% late_class_name = '' %>
 <div class="item loan_step loan_step<%= step.id %>">
   <%- if step.type == Step::StepTypeEnum::RELEASE %>
       <%= image_tag 'diagonal-arrow-6.png', :class => 'ui avatar image' %>
   <%- elsif step.type == Step::StepTypeEnum::RECEIPT %>
       <%= image_tag 'diagonal-arrow-5.png', :class => 'ui avatar image' %>
   <%- end %>
-
+  <%- if step.is_late?
+        late_class_name = 'lateStep' %>
+  <%- end %>
   <div class="content">
-    <div class="header"><%= step.type %> of <%= step.amount %></div>
-    <div class="description">(<%= t('step.expected_date') %>: <%= step.expected_date.strftime('%d/%m/%Y') %>)</div>
-    <div class="description"><%= step_display_status(step) %></div>
+    <div class="header <%= late_class_name %>">
+      <%- if step.is_late? %>
+          <i class="icon warning circle isPopup" data-content="The step is late, do something!"></i>
+      <%- end %>
+      <%= step.type %> of <%= step.amount %></div>
+    <div class="description <%= late_class_name %>">(<%= t('step.expected_date') %>: <%= step.expected_date.strftime('%d/%m/%Y') %>)</div>
+    <div class="description <%= late_class_name %>"><%= step_display_status(step) %></div>
   </div>
-  <a class="leftMargin editStep editStep<%= step.id %> mini ui icon button blue" href="<%= edit_step_path(step.id) %>">
-    <i class="icon edit"></i>
-  </a>
-  <div class="removeStep removeStep<%= step.id %> mini ui icon button red" data-url="<%= destroy_by_popup_step_path(step.id) %>"
-       data-objectid="<%= step.id %>" data-loanid="<%= step.loan_id %>" data-parenttype="Loan">
-    <i class="icon remove"></i>
+  <div class="ui icon mini buttons">
+    <a class="validateStep validateStep<%= step.id %> mini icon ui green button" data-url="<%= validate_step_path(step.id) %>"><i class="icon check"></i></a>
+    <a class="editStep editStep<%= step.id %> ui icon mini grey button" href="<%= edit_step_path(step.id) %>"><i class="icon edit"></i></a>
+    <a class="removeStep removeStep<%= step.id %> mini icon ui red button" data-url="<%= destroy_by_popup_step_path(step.id) %>"
+            data-objectid="<%= step.id %>" data-loanid="<%= step.loan_id %>" data-parenttype="Loan"><i class="icon remove"></i></a>
   </div>
+
+  <!--<a class="editStep editStep<%= step.id %> mini ui icon button blue" >-->
+    <!--<i class="icon edit"></i>-->
+  <!--</a>-->
+  <!--<div class="removeStep removeStep<%= step.id %> mini ui icon button red" data-url="<%= destroy_by_popup_step_path(step.id) %>"-->
+       <!--data-objectid="<%= step.id %>" data-loanid="<%= step.loan_id %>" data-parenttype="Loan">-->
+    <!--<i class="icon remove"></i>-->
+  <!--</div>-->
 </div>
 

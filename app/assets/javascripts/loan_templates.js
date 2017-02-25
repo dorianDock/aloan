@@ -88,7 +88,7 @@ $(document).on('turbolinks:load', function() {
         AjaxRequest(url, {loan_template_id: loan_template_id}, callNewStepTemplate)
     });
 
-    $('.removeStep,.editStep').hide();
+    $('.removeStep,.editStep,.validateStep').hide();
 
     
     function bindStepRemovalEvent(cssClass){

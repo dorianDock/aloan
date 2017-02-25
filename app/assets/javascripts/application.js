@@ -207,10 +207,10 @@ function DisplayConfirmationPopup(actionToPerform,objectId,afterAction, parent_i
 function bindEditAndRemoveStepEvent(cssClass){
     $(cssClass).hover(
         function(){
-            $(this).children('.removeStep,.editStep').show();
+            $('.removeStep,.editStep,.validateStep').show();
         },
         function(){
-            $(this).children('.removeStep,.editStep').hide();
+            $('.removeStep,.editStep,.validateStep').hide();
         }
     );
 }
