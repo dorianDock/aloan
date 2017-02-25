@@ -60,7 +60,11 @@ class Step < ApplicationRecord
 
   def is_late?
     today = Date.today
-    self.expected_date < today && !self.is_done
+    if self.expected_date
+      (self.expected_date < today) && !self.is_done
+    else
+      false
+    end
   end
 
   private

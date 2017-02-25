@@ -176,6 +176,17 @@ RSpec.describe Step, type: :model do
       expect(@step_done.is_done).to eq(false)
     end
 
+    it 'is_late? should return true when the step is late' do
+      @step_not_done.expected_date = @three_weeks_ago
+      expect(@step_not_done.is_late?).to eq(true)
+    end
+
+    it 'is_late? should return false when the step is already done' do
+      expect(@step_done.is_late?).to eq(false)
+    end
 
   end
+
+
+
 end
