@@ -58,6 +58,11 @@ class Step < ApplicationRecord
   end
 
 
+  def is_late?
+    today = Date.today
+    self.expected_date < today && !self.is_done
+  end
+
   private
 
   # the months duration should always be inferior to the max allowed

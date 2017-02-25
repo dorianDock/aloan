@@ -572,4 +572,43 @@ RSpec.describe Loan, type: :model do
 
   end
 
+
+
+  describe 'Loan Steps: are they done or not ?' do
+    before(:each) do
+      today = Date.today
+      three_weeks_ago = today-3.week
+      in_one_week = today+1.week
+      in_one_month_and_one_week = today+1.week+1.month
+      in_two_months_and_one_week = today+1.week+2.month
+      end_of_loan = today+1.week+3.month
+      borrower = FactoryGirl.create(:borrower)
+      @loan_template = FactoryGirl.create(:loan_template,amount: 500000, rate: 5, duration: 4, name: '4m500k')
+      @loan = FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: three_weeks_ago, contractual_end_date: end_of_loan,
+                                 amount: 500000, rate: 5, loan_goal: 'Have some money to organize trips to make new deals',
+                                 loan_template_id: @loan_template.id)
+      @step_type = FactoryGirl.create(:step_type)
+      @step_type2 = FactoryGirl.create(:step_type, :label => 'Lalalala')
+
+      step_1_loan = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_type.id, :expected_date => three_weeks_ago,
+                                           :is_done => false, :amount => @loan.amount, :date_done => three_weeks_ago, :is_done => true)
+      step_2_loan = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_type2.id, :expected_date => in_one_week,
+                                           :is_done => false, :amount => 50000)
+      step_3_loan = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_type2.id, :expected_date => in_one_month_and_one_week,
+                                       :is_done => false, :amount => 50000)
+      step_4_loan = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_type2.id, :expected_date => in_two_months_and_one_week,
+                                       :is_done => false, :amount => 50000)
+      step_5_loan = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_type2.id, :expected_date => end_of_loan,
+                                       :is_done => false, :amount => 355000)
+    end
+
+    it 'steps_done are just 1 here' do
+      expect(@loan.steps_done.count).to eq(1)
+    end
+
+    it 'steps_not_done are just 4 here' do
+      expect(@loan.steps_not_done.count).to eq(4)
+    end
+
+  end
 end

@@ -173,6 +173,13 @@ class Loan < ApplicationRecord
     {:message => I18n.t('loan.step_generation_no_t'), :is_error => true}
   end
 
+  def steps_done
+    self.steps.where(:is_done => true)
+  end
+
+  def steps_not_done
+    self.steps.where(:is_done => false)
+  end
   private
 
   # def end_date_is_after_start_date
