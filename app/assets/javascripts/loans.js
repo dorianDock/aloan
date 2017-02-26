@@ -124,6 +124,7 @@ $(document).on('turbolinks:load', function(){
         HandleMessageFromServer(data);
         bindEditAndRemoveStepEvent('.loan_step');
         bindStepRemovalEvent('.removeStep');
+        bindStepValidationEvent('.validateStep');
         $('.synchronizeSteps').hide();
         $('.synchronizeStepsIcon').hide();
     }
@@ -144,19 +145,15 @@ $(document).on('turbolinks:load', function(){
             var objectId = $(this).data('objectid');
             var loan_id = $(this).data('loanid');
             var parent_type = $(this).data('parenttype');
-
             var afterAction = function(data){
                 if(data.is_error===false){
                     window.location=data.redirection;
                 }
-                
                 CloseModal();
             };
-
             DisplayConfirmationPostPopup(linkDeletionUrl, objectId, afterAction, loan_id, parent_type, cssClass);
         });
     }
-
     bindStepValidationEvent('.validateStep');
 
 });
