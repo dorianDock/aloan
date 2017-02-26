@@ -145,6 +145,15 @@ function AjaxRequest(targetUrl, parameters, callBackFunction) {
     }).done(callBackFunction);
 }
 
+function AjaxPostRequest(targetUrl, parameters, callBackFunction) {
+    $.ajax({
+        url: targetUrl,
+        data: parameters,
+        type : 'POST'
+    }).done(callBackFunction);
+}
+
+
 function showMessage(classToUseForContainer,classToUseForHeader, classToUseForContent, headerText, contentText){
     $(classToUseForContainer+' > '+classToUseForHeader).html(headerText);
     $(classToUseForContainer+' > '+classToUseForContent).html(contentText);
@@ -184,8 +193,7 @@ function HandleMessageFromServer(data){
 }
 
 
-// Function about modals and confirmation modals
-
+// Display a confirmation Modal, with a GET request
 function DisplayConfirmationPopup(actionToPerform, objectId, afterAction, parent_id, parent_type, cssClass){
     var baseElement = $(cssClass);
 
@@ -211,6 +219,40 @@ function DisplayConfirmationPopup(actionToPerform, objectId, afterAction, parent
             onApprove : function() {
                 var parameters = {objectid: objectId, parent_id: parent_id, parent_type: parent_type};
                 AjaxRequest(actionToPerform, parameters, afterAction);
+            }
+        })
+        .modal('setting', 'transition', 'horizontal flip')
+        .modal('show')
+    ;
+}
+
+
+// Display a confirmation Modal, with a POST request
+function DisplayConfirmationPostPopup(actionToPerform, objectId, afterAction, parent_id, parent_type, cssClass){
+    var baseElement = $(cssClass);
+
+    var modalIcon = baseElement.data('modalicon') || "trash";
+    var modalTitle = baseElement.data('modaltitle');
+    var modalContent = baseElement.data('modalcontent');
+    var modalNegativeAnswer = baseElement.data('modalnegativeanswer');
+    var modalPositiveAnswer = baseElement.data('modalpositiveanswer');
+
+    $('.modalIcon').addClass(modalIcon);
+    $('.modalTitle').html(modalTitle);
+    $('.modalContent').html(modalContent);
+    $('.modalNegativeAnswer').html(modalNegativeAnswer);
+    $('.modalPositiveAnswer').html(modalPositiveAnswer);
+
+    $('.confirmationModal')
+        .modal({
+            closable  : false,
+            onDeny    : function(){
+                CloseModal();
+                $('.modalIcon').removeClass(modalIcon);
+            },
+            onApprove : function() {
+                var parameters = {objectid: objectId, parent_id: parent_id, parent_type: parent_type};
+                AjaxPostRequest(actionToPerform, parameters, afterAction);
             }
         })
         .modal('setting', 'transition', 'horizontal flip')

@@ -153,7 +153,7 @@ $(document).on('turbolinks:load', function(){
                 CloseModal();
             };
 
-            DisplayConfirmationPopup(linkDeletionUrl, objectId, afterAction, loan_id, parent_type, cssClass);
+            DisplayConfirmationPostPopup(linkDeletionUrl, objectId, afterAction, loan_id, parent_type, cssClass);
         });
     }
 
