@@ -1,4 +1,9 @@
 en:
+  default:
+    modal_title: 'Delete'
+    modal_content: 'Are you sure that you want to delete this item?'
+    modal_negative_answer: 'No'
+    modal_positive_answer: 'Yes'
   during: 'During'
   hello: "Hello world"
   month:
@@ -148,6 +153,10 @@ en:
     not_validated: 'The step was not validated yet'
     validated_on: 'The step was done on the '
     expected_date: 'Expected date'
+    modal_title: 'Step Validation'
+    modal_content: 'Do you want to validate the step?'
+    modal_negative_answer: 'No'
+    modal_positive_answer: 'Yes (that means there was a transfer of money)'
   delete_confirmation_question: 'Are you sure that you want to delete it?'
   yes: 'Yes'
   no: 'No'

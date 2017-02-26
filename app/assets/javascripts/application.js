@@ -186,12 +186,27 @@ function HandleMessageFromServer(data){
 
 // Function about modals and confirmation modals
 
-function DisplayConfirmationPopup(actionToPerform,objectId,afterAction, parent_id, parent_type){
+function DisplayConfirmationPopup(actionToPerform, objectId, afterAction, parent_id, parent_type, cssClass){
+    var baseElement = $(cssClass);
+
+    var modalIcon = baseElement.data('modalicon') || "trash";
+    var modalTitle = baseElement.data('modaltitle');
+    var modalContent = baseElement.data('modalcontent');
+    var modalNegativeAnswer = baseElement.data('modalnegativeanswer');
+    var modalPositiveAnswer = baseElement.data('modalpositiveanswer');
+
+    $('.modalIcon').addClass(modalIcon);
+    $('.modalTitle').html(modalTitle);
+    $('.modalContent').html(modalContent);
+    $('.modalNegativeAnswer').html(modalNegativeAnswer);
+    $('.modalPositiveAnswer').html(modalPositiveAnswer);
+
     $('.confirmationModal')
         .modal({
-            closable  : true,
+            closable  : false,
             onDeny    : function(){
                 CloseModal();
+                $('.modalIcon').removeClass(modalIcon);
             },
             onApprove : function() {
                 var parameters = {objectid: objectId, parent_id: parent_id, parent_type: parent_type};
@@ -207,10 +222,10 @@ function DisplayConfirmationPopup(actionToPerform,objectId,afterAction, parent_i
 function bindEditAndRemoveStepEvent(cssClass){
     $(cssClass).hover(
         function(){
-            $('.removeStep,.editStep,.validateStep').show();
+            $(this).children().children('.removeStep,.editStep,.validateStep').show();
         },
         function(){
-            $('.removeStep,.editStep,.validateStep').hide();
+            $(this).children().children('.removeStep,.editStep,.validateStep').hide();
         }
     );
 }

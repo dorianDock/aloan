@@ -109,7 +109,7 @@ $(document).on('turbolinks:load', function(){
                 CloseModal();
             };
 
-            DisplayConfirmationPopup(linkDeletionUrl,objectId,afterAction,loan_id,parent_type);
+            DisplayConfirmationPopup(linkDeletionUrl, objectId, afterAction, loan_id, parent_type, cssClass);
         });
     }
 
@@ -136,5 +136,25 @@ $(document).on('turbolinks:load', function(){
             AjaxRequest(url, {objectid: loan_id}, handleSyncResponse)
         });
     }
+
+
+    function bindStepValidationEvent(cssClass){
+        $(cssClass).click(function(){
+            var linkDeletionUrl = $(this).data('url');
+            var objectId = $(this).data('objectid');
+            var loan_id = $(this).data('loanid');
+            var parent_type=$(this).data('parenttype');
+            var afterAction=function(data){
+                if(data.isError===false){
+                    window.location=data.redirection;
+                }
+                HandleMessageFromServer(data);
+                CloseModal();
+            };
+            DisplayConfirmationPopup(linkDeletionUrl, objectId, afterAction, loan_id, parent_type, cssClass);
+        });
+    }
+
+    bindStepValidationEvent('.validateStep');
 
 });
