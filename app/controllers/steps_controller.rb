@@ -112,6 +112,24 @@ class StepsController < ApplicationController
     end
   end
 
+  # we acknowledge the fact that the step was done
+  def validate
+    today = Date.today
+    step = Step.find_by(id: params[:objectid])
+    step.date_done = today
+    step.is_done = true
+    is_error = true
+    if step.save
+      is_error = false
+    end
+    loan_id = params[:parent_id] || 0
+    redirection_path = loan_path(loan_id)
+    respond_to do |format|
+      format.json {
+        render json: {:is_error => is_error, :loan_id => loan_id, :redirection => redirection_path}
+      }
+    end
+  end
   # def type_for_step
   #   step_id=params[:objectid]
   #   @the_step=Step.find_by(id: loan_id)

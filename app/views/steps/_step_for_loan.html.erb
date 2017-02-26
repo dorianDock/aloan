@@ -17,14 +17,14 @@
     <div class="description <%= late_class_name %>">(<%= t('step.expected_date') %>: <%= step.expected_date.strftime('%d/%m/%Y') %>)</div>
     <div class="description <%= late_class_name %>"><%= step_display_status(step) %></div>
   </div>
-  <div class="ui icon mini buttons">
+  <div class="ui icon mini buttons leftMargin">
 
     <a class="validateStep validateStep<%= step.id %> mini icon ui green button" data-url="<%= validate_step_path(step.id) %>"
        data-objectid="<%= step.id %>" data-loanid="<%= step.loan_id %>" data-parenttype="Loan"
        data-modaltitle="<%= t('step.modal_title') %>" data-modalcontent="<%= t('step.modal_content') %>" data-modalnegativeanswer="<%= t('step.modal_negative_answer') %>"
         data-modalpositiveanswer="<%= t('step.modal_positive_answer') %>" data-modalicon="check"><i class="icon check"></i></a>
 
-    <a class="editStep editStep<%= step.id %> ui icon mini grey button" href="<%= edit_step_path(step.id) %>"><i class="icon edit"></i></a>
+    <a class="editStep editStep<%= step.id %> ui icon mini teal button" href="<%= edit_step_path(step.id) %>"><i class="icon edit"></i></a>
 
     <a class="removeStep removeStep<%= step.id %> mini icon ui red button" data-url="<%= destroy_by_popup_step_path(step.id) %>"
             data-objectid="<%= step.id %>" data-loanid="<%= step.loan_id %>" data-parenttype="Loan"
