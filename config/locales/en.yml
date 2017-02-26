@@ -17,6 +17,7 @@ en:
   successful_update: ' was successfully updated.'
   error_update: 'There was a problem during the update, please contact the support team'
   successful_deletion: ' was successfully removed from the system.'
+  successful_validation: ' was successfully validated'
   error_deletion: 'There was a problem during the deletion, please contact the support team'
   error_creation: 'There was a problem during the creation, please contact the support team'
   error_validation_m:

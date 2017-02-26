@@ -149,7 +149,7 @@ $(document).on('turbolinks:load', function(){
                 if(data.is_error===false){
                     window.location=data.redirection;
                 }
-                HandleMessageFromServer(data);
+                
                 CloseModal();
             };
 

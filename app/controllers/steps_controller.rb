@@ -121,6 +121,8 @@ class StepsController < ApplicationController
     is_error = true
     if step.save
       is_error = false
+      response_message = I18n.t('step.class_article_name')+I18n.t('successful_validation')
+      flash[:info] = response_message
     end
     loan_id = params[:parent_id] || 0
     redirection_path = loan_path(loan_id)
