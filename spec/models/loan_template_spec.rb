@@ -171,16 +171,16 @@ RSpec.describe LoanTemplate, type: :model do
 
       step1 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_release.id, :expected_date => nil, :is_done => false,
                                  :amount => 1000000, :loan_template_id => @loan_template.id,
-                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 0)
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 0, :order => 1)
       step2 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
                                  :amount => 200000, :loan_template_id => @loan_template.id,
-                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1, :order => 2)
       step3 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
                                  :amount => 200000, :loan_template_id => @loan_template.id,
-                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1, :order => 3)
       step4 = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type_receipt.id, :expected_date => nil, :is_done => false,
                                  :amount => 200000, :loan_template_id => @loan_template.id,
-                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
+                                 :days_after_previous_milestone => nil, :months_after_previous_milestone => 1, :order => 4)
     end
 
     it 'when there is just on step of receipt missing, max receipt amount is correct' do
@@ -211,7 +211,20 @@ RSpec.describe LoanTemplate, type: :model do
                                  :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
       expect(@loan_template.maximum_step_months_duration).to eq(0)
     end
+
+    it 'ordered_steps is giving ascending ordered steps' do
+      ordered_steps = @loan_template.ordered_steps
+      expect(ordered_steps.first.order).to eq(1)
+    end
+
+    it 'ordered_steps is giving ascending ordered steps' do
+      ordered_steps = @loan_template.ordered_steps
+      expect(ordered_steps.last.order).to eq(4)
+    end
+
   end
+
+
 
 
   describe 'Scopes' do
