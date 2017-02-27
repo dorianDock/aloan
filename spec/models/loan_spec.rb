@@ -512,6 +512,14 @@ RSpec.describe Loan, type: :model do
       expect(response[:message]).to eq(I18n.t('loan.step_generation_no_t'))
     end
 
+    it 'generate_steps returns the right message when a step is already done in the loan' do
+      @step_1_loan.is_done = true
+      @step_1_loan.save
+      @loan.reload
+      response = @loan.generate_steps
+      expect(response[:message]).to eq(I18n.t('loan.step_generation_steps_already_done'))
+    end
+
     it 'generate_steps returns the right message when all went good' do
       response = @loan.generate_steps
       expect(response[:message]).to eq(I18n.t('loan.step_generation_ok'))

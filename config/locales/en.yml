@@ -101,6 +101,7 @@ en:
     interest_rate: 'with %{rate}% of interest'
     sync_alert: 'The steps of the loan template ans the loan steps are not the same, please correct it by synchronize them accordingly to the template (the button is on the right)'
     synchronize: 'Synchronize the steps from the loan template'
+    step_generation_steps_already_done: 'You cannot synchronize the steps automatically since some of them were already completed. Please add and edit steps by hand until you are matching the template pattern, or change the template.'
     step_generation_ok: 'The generation of steps went fine, nice click!'
     step_generation_no_t: 'No template was found'
     step_generation_error: 'A problem happened during the generation of the new steps, please contact the support team...'

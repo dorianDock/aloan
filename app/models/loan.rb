@@ -149,6 +149,10 @@ class Loan < ApplicationRecord
   def generate_steps
     # if the loan_template does not exist, we do nothing
     unless self.loan_template.nil?
+      # we do sth only if there is no finished steps
+      if self.steps.any?{|step| step.is_done}
+        return {:message => I18n.t('loan.step_generation_steps_already_done'), :is_error => true}
+      end
       # we clean the steps before recreating some
       self.steps.destroy_all
       template_steps = self.loan_template.steps
