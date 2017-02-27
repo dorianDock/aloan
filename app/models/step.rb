@@ -22,6 +22,7 @@ class Step < ApplicationRecord
   belongs_to :loan, optional: true
   belongs_to :loan_template, optional: true
   belongs_to :step_type, required: true
+  attr_accessor :previous_steps
 
   validates :amount, presence: { message: I18n.t('step.not_blank')}
 
@@ -76,13 +77,35 @@ class Step < ApplicationRecord
     end
   end
 
+  def decrease_order
+    unless self.order == 1
+      self.order = self.order-1
+    end
+  end
 
-  attr_accessor :previous_steps
   # gives the month number corresponding to the time gone since the beginning (ie 4 months for example)
   def month_number
     self.previous_steps.map{|x| x.months_after_previous_milestone||0}.reduce(0, :+)+self.months_after_previous_milestone
   end
 
+  # when we delete a step (self), we should be able to update the order of any connected step, the same goes for edition
+  def offset_sibling_steps_orders
+    siblings_steps = []
+    unless self.loan_id.nil?
+      # we take all the steps except the current one
+      siblings_steps = Step.where(:loan_id => self.loan_id, :id => !self.id).to_a
+    end
+    unless self.loan_template_id.nil?
+      # we take all the steps except the current one
+      siblings_steps = Step.where(:loan_template_id => self.loan_template_id, :id => !self.id).to_a
+    end
+    steps_after = siblings_steps.select{|s| s.order > self.order}
+    # we ask each step to increase their order
+    steps_after.each do |s|
+      s.decrease_order
+      s.save
+    end
+  end
 
 
   private
