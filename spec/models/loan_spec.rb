@@ -442,6 +442,41 @@ RSpec.describe Loan, type: :model do
     end
   end
 
+  describe 'Loan Steps' do
+    before(:each) do
+      today = Date.today
+      @three_weeks_ago = today-3.week
+      @in_one_week = today+1.week
+      borrower = FactoryGirl.create(:borrower)
+      @loan_template = FactoryGirl.create(:loan_template,amount: 500000, rate: 1, duration: 1, name: '1m500k')
+      @loan = FactoryGirl.create(:loan, borrower_id: borrower.id, start_date: @three_weeks_ago, contractual_end_date: @in_one_week,
+                                 amount: 500000, rate: 1, loan_goal: 'Have some money to organize trips to make new deals',
+                                 loan_template_id: @loan_template.id)
+      @step_type = FactoryGirl.create(:step_type)
+      @step_type2 = FactoryGirl.create(:step_type, :label => 'Lalalala')
+      @step_type3 = FactoryGirl.create(:step_type, :label => 'Ililili')
+
+      @step_1_loan = Step.create(:loan_id => @loan.id, :step_type_id => @step_type.id, :expected_date => @three_weeks_ago,
+                              :is_done => false, :amount => @loan.amount, :loan_template_id => nil, :order => 1)
+      @step_2_loan = Step.create(:loan_id => @loan.id, :step_type_id => @step_type2.id, :expected_date => @in_one_week,
+                              :is_done => false, :amount => 505000, :loan_template_id => nil, :order => 2)
+      @step_3_loan = Step.create(:loan_id => @loan.id, :step_type_id => @step_type3.id, :expected_date => @in_one_week,
+                                 :is_done => false, :amount => 505000, :loan_template_id => nil, :order => 3)
+
+    end
+
+    it 'ordered_steps is giving ascending ordered steps' do
+      ordered_steps = @loan.ordered_steps
+      expect(ordered_steps.first.order).to eq(1)
+    end
+
+    it 'ordered_steps is giving ascending ordered steps' do
+      ordered_steps = @loan.ordered_steps
+      expect(ordered_steps.last.order).to eq(3)
+    end
+  end
+
+
   describe 'We can sync Loan Steps' do
     before(:each) do
       today = Date.today
@@ -454,6 +489,7 @@ RSpec.describe Loan, type: :model do
                                  loan_template_id: @loan_template.id)
       @step_type = FactoryGirl.create(:step_type)
       @step_type2 = FactoryGirl.create(:step_type, :label => 'Lalalala')
+      @step_type3 = FactoryGirl.create(:step_type, :label => 'Ililili')
 
       step_1_template = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type.id, :expected_date => nil,
                                            :is_done => false, :amount => @loan.amount, :loan_template_id => @loan_template.id,
@@ -463,14 +499,16 @@ RSpec.describe Loan, type: :model do
                                            :days_after_previous_milestone => nil, :months_after_previous_milestone => 1)
       @loan.generate_steps
       @step_1_loan = Step.new(:loan_id => @loan.id, :step_type_id => @step_type.id, :expected_date => @three_weeks_ago,
-                              :is_done => false, :amount => @loan.amount, :loan_template_id => nil)
+                              :is_done => false, :amount => @loan.amount, :loan_template_id => nil, :order => 1)
       @step_2_loan = Step.new(:loan_id => @loan.id, :step_type_id => @step_type2.id, :expected_date => @in_one_week,
-                              :is_done => false, :amount => 505000, :loan_template_id => nil)
+                              :is_done => false, :amount => 505000, :loan_template_id => nil, :order => 2)
       @loan.reload
       @steps_g = @loan.steps.to_a
       @step_1 = @steps_g[0]
       @step_2 = @steps_g[1]
     end
+
+
 
     it 'generate_steps generated two steps from the template' do
       steps_g_count = @steps_g.count
