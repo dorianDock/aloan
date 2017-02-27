@@ -41,6 +41,27 @@ RSpec.describe Step, type: :model do
 
     end
 
+    it 'step#order is 1 by default' do
+      expect(@step_done.order).to eq(1)
+    end
+
+    it 'step#increment_order returns 1 when order is nil' do
+      @step_done.order = nil
+      @step_done.increment_order
+      expect(@step_done.order).to eq(1)
+    end
+
+    it 'step#increment_order returns 2 when we increment once an order worthing 1' do
+      @step_done.increment_order
+      expect(@step_done.order).to eq(2)
+    end
+
+    it 'step#increment_order returns 3 when we increment twice an order worthing 1' do
+      @step_done.increment_order
+      @step_done.increment_order
+      expect(@step_done.order).to eq(3)
+    end
+
     it 'step#type returns Receipt when the step has the receipt type' do
       expect(@step_done.type).to eq('Release of fund')
     end

@@ -68,6 +68,14 @@ class Step < ApplicationRecord
     end
   end
 
+  def increment_order
+    if self.order.nil?
+      self.order = 1
+    else
+      self.order = self.order+1
+    end
+  end
+
   private
 
   # the months duration should always be inferior to the max allowed
