@@ -14,6 +14,7 @@
 #  loan_template_id                :integer
 #  days_after_previous_milestone   :integer
 #  months_after_previous_milestone :integer
+#  order                           :integer          default("1")
 #
 
 FactoryGirl.define do
