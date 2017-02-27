@@ -93,11 +93,11 @@ class Step < ApplicationRecord
     siblings_steps = []
     unless self.loan_id.nil?
       # we take all the steps except the current one
-      siblings_steps = Step.where(:loan_id => self.loan_id, :id => !self.id).to_a
+      siblings_steps = Step.where('loan_id = ? AND id <> ?', self.loan_id, self.id).to_a
     end
     unless self.loan_template_id.nil?
       # we take all the steps except the current one
-      siblings_steps = Step.where(:loan_template_id => self.loan_template_id, :id => !self.id).to_a
+      siblings_steps = Step.where('loan_template_id = ? AND id <> ?', self.loan_template_id, self.id).to_a
     end
     steps_after = siblings_steps.select{|s| s.order > self.order}
     # we ask each step to increase their order

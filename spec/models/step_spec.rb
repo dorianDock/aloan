@@ -42,6 +42,31 @@ RSpec.describe Step, type: :model do
 
     end
 
+    it 'step#offset_sibling_steps_orders works when no steps after the current step' do
+
+      @other_step = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_second_type.id, :expected_date => nil,
+                                       :date_done => @three_weeks_ago, :is_done => true, :amount => @loan.amount, :loan_template_id => nil,
+                                       :days_after_previous_milestone => nil, :months_after_previous_milestone => 2, :order => 2)
+      @other_step.offset_sibling_steps_orders
+      @other_step.reload
+      @step_done.reload
+      expect(@step_done.order).to eq(1)
+      expect(@other_step.order).to eq(2)
+    end
+
+    it 'step#offset_sibling_steps_orders works' do
+
+      @other_step = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_second_type.id, :expected_date => nil,
+                                       :date_done => @three_weeks_ago, :is_done => true, :amount => @loan.amount, :loan_template_id => nil,
+                                       :days_after_previous_milestone => nil, :months_after_previous_milestone => 2, :order => 2)
+      @step_done.offset_sibling_steps_orders
+      @other_step.reload
+      @step_done.reload
+      expect(@other_step.order).to eq(1)
+      expect(@step_done.order).to eq(1)
+    end
+
+
     it 'loan#month_number is 12 when we have 2 steps (with 0 respectively 10 and 2 months)' do
 
       @other_step = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_second_type.id, :expected_date => nil,
