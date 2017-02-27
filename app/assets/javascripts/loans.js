@@ -113,7 +113,7 @@ $(document).on('turbolinks:load', function(){
         });
     }
 
-    bindStepRemovalEvent('.removeStep');
+    // bindStepRemovalEvent('.removeStep');
 
     // When we click on the sync button
     function handleSyncResponse(data){
