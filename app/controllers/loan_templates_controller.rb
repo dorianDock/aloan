@@ -24,6 +24,11 @@ class LoanTemplatesController < ApplicationController
     @template = LoanTemplate.find_by id: params[:id]
     @max_release_amount = @template.maximum_release_amount
     @max_receipt_amount = @template.maximum_receipt_amount
+    steps = @template.ordered_steps
+    steps.each do |step|
+      step.previous_steps = @template.ordered_steps.select{|e| e.order < step.order}.to_a
+    end
+    a = ''
   end
 
   def show

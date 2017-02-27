@@ -190,6 +190,10 @@ class Loan < ApplicationRecord
     self.steps.count
   end
 
+  def ordered_steps
+    self.steps.order(:order => :asc).to_a
+  end
+
   private
 
   # def end_date_is_after_start_date

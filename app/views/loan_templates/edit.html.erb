@@ -60,7 +60,7 @@
         <div class="field stepsField">
           <div id="current_steps_container">
             <%- if @template.steps.any? %>
-                <%= render 'steps/step_list', :steps => @template.steps.order(:months_after_previous_milestone => :asc) %>
+                <%= render 'steps/step_list', :steps => @template.ordered_steps %>
             <%- else %>
                 <div class="ui relaxed horizontal list stepList">
                 </div>

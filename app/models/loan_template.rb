@@ -71,4 +71,10 @@ class LoanTemplate < ApplicationRecord
     self.steps.count
   end
 
+  # attr_accessor :ordered_steps
+
+  def ordered_steps
+    @ordered_steps = @ordered_steps || self.steps.order(:order => :asc).to_a
+  end
+
 end

@@ -77,6 +77,13 @@ class Step < ApplicationRecord
   end
 
 
+  attr_accessor :previous_steps
+  # gives the month number corresponding to the time gone since the beginning (ie 4 months for example)
+  def month_number
+    self.previous_steps.map{|x| x.months_after_previous_milestone||0}.reduce(0, :+)+self.months_after_previous_milestone
+  end
+
+
 
   private
 
