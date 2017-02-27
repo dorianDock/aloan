@@ -10,12 +10,21 @@
     <div class="header"><%= step.type %> of <%= step.amount %></div>
     <div class="description">(<%= step_display_time(step.months_after_previous_milestone) %>)</div>
   </div>
-  <a class="leftMargin editStep editStep<%= step.id %> mini ui icon button blue" href="<%= edit_step_path(step.id) %>">
-   <i class="icon edit"></i>
-  </a>
-  <div class="removeStep removeStep<%= step.id %> mini ui icon button red" data-url="<%= destroy_by_popup_step_path(step.id) %>"
-       data-objectid="<%= step.id %>" data-loantemplateid="<%= step.loan_template_id %>" data-parenttype="LoanTemplate">
-    <i class="icon remove"></i>
+  <div class="ui icon mini buttons leftMargin">
+    <!--<a class="leftMargin editStep editStep<%= step.id %> mini ui icon button blue" href="<%= edit_step_path(step.id) %>">-->
+      <!--<i class="icon edit"></i>-->
+    <!--</a>-->
+    <!--<div class="removeStep removeStep<%= step.id %> mini ui icon button red" data-url="<%= destroy_by_popup_step_path(step.id) %>"-->
+         <!--data-objectid="<%= step.id %>" data-loantemplateid="<%= step.loan_template_id %>" data-parenttype="LoanTemplate">-->
+      <!--<i class="icon remove"></i>-->
+    <!--</div>-->
+    <a class="editStep editStep<%= step.id %> ui icon mini teal button" href="<%= edit_step_path(step.id) %>"><i class="icon edit"></i></a>
+
+    <a class="removeStep removeStep<%= step.id %> mini icon ui red button" data-url="<%= destroy_by_popup_step_path(step.id) %>"
+       data-objectid="<%= step.id %>" data-loantemplateid="<%= step.loan_template_id %>" data-parenttype="LoanTemplate"
+       data-modaltitle="<%= t('default.modal_title') %>" data-modalcontent="<%= t('default.modal_content') %>" data-modalnegativeanswer="<%= t('default.modal_negative_answer') %>"
+       data-modalpositiveanswer="<%= t('default.modal_positive_answer') %>" data-modalicon="trash"><i class="icon remove"></i></a>
   </div>
+
 </div>
 
