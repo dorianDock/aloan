@@ -87,6 +87,25 @@ RSpec.describe Step, type: :model do
       expect(@step_done.order).to eq(3)
     end
 
+    it 'step#decrease_order returns 1 when order is already 1' do
+      @step_done.order = 1
+      @step_done.decrease_order
+      expect(@step_done.order).to eq(1)
+    end
+
+    it 'step#increment_order returns 2 when we decrease once an order being 3' do
+      @step_done.order = 3
+      @step_done.decrease_order
+      expect(@step_done.order).to eq(2)
+    end
+
+    it 'step#increment_order returns 1 when we decrease twice an order being 3' do
+      @step_done.order = 3
+      @step_done.decrease_order
+      @step_done.decrease_order
+      expect(@step_done.order).to eq(1)
+    end
+
     it 'step#type returns Receipt when the step has the receipt type' do
       expect(@step_done.type).to eq('Release of fund')
     end
