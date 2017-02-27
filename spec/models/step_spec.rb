@@ -35,25 +35,34 @@ RSpec.describe Step, type: :model do
       @step_second_type = FactoryGirl.create(:step_type)
       @step_done = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_type.id, :expected_date => nil,
                                  :date_done => @three_weeks_ago, :is_done => true, :amount => @loan.amount, :loan_template_id => nil,
-                                      :days_after_previous_milestone => nil, :months_after_previous_milestone => 10)
+                                      :days_after_previous_milestone => nil, :months_after_previous_milestone => 10, :order => 1)
       @step_not_done = FactoryGirl.create(:step, :loan_id => nil, :step_type_id => @step_type.id, :expected_date => nil,
                                           :is_done => false, :amount => @loan.amount, :loan_template_id => @loan_template.id,
                                           :days_after_previous_milestone => 15, :months_after_previous_milestone => nil)
 
     end
 
-    it 'loan#last_sibling_order should be one' do
+    it 'loan#month_number is 12 when we have 2 steps (with 0 respectively 10 and 2 months)' do
+
+      @other_step = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_second_type.id, :expected_date => nil,
+                                      :date_done => @three_weeks_ago, :is_done => true, :amount => @loan.amount, :loan_template_id => nil,
+                                      :days_after_previous_milestone => nil, :months_after_previous_milestone => 2, :order => 2)
+      @other_step.previous_steps = [@step_done]
+      expect(@other_step.month_number).to eq(12)
+    end
+
+    it 'loan#last_step_order should be one' do
       expect(@loan.last_step_order).to eq(1)
     end
 
-    it 'loan#last_sibling_order should be 2 when we add a step' do
+    it 'loan#last_step_order should be 2 when we add a step' do
       @step_done = FactoryGirl.create(:step, :loan_id => @loan.id, :step_type_id => @step_second_type.id, :expected_date => nil,
                                       :date_done => @three_weeks_ago, :is_done => true, :amount => @loan.amount, :loan_template_id => nil,
                                       :days_after_previous_milestone => nil, :months_after_previous_milestone => 10)
       expect(@loan.last_step_order).to eq(2)
     end
 
-    it 'loan_template#last_sibling_order should be one' do
+    it 'loan_template#last_step_order should be one' do
       expect(@loan_template.last_step_order).to eq(1)
     end
 

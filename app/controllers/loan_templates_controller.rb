@@ -28,7 +28,6 @@ class LoanTemplatesController < ApplicationController
     steps.each do |step|
       step.previous_steps = @template.ordered_steps.select{|e| e.order < step.order}.to_a
     end
-    a = ''
   end
 
   def show
