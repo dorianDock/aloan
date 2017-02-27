@@ -26,11 +26,25 @@ class StepsController < ApplicationController
     permitted_params = permitted_params(params[:step])
     @new_step = Step.new(permitted_params)
     @new_step.is_done = false
+    last_order = 1
+    loan_id = permitted_params[:loan_id]
+    loan_template_id = permitted_params[:loan_template_id]
+    # we reach the loan to know what is the last step order
+    unless loan_id.blank?
+      parent = Loan.find_by(:id => loan_id)
+      last_order = parent.last_step_order
+    end
+    unless loan_template_id.blank?
+      parent = LoanTemplate.find_by(:id => loan_template_id)
+      last_order = parent.last_step_order
+    end
+    @new_step.order = last_order
+    @new_step.increment_order
+
     respond_to do |format|
       if @new_step.valid?
         @new_step.save!
-        loan_id = permitted_params[:loan_id]
-        loan_template_id = permitted_params[:loan_template_id]
+
         my_html = ''
         max_release_amount = 0
         max_receipt_amount = 0

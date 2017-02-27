@@ -1,5 +1,6 @@
 
 <div class="item light_item loan_template_step loan_template_step<%= step.id %>">
+
   <%- if step.type == Step::StepTypeEnum::RELEASE %>
       <%= image_tag 'diagonal-arrow-6.png', :class => 'ui avatar image' %>
   <%- elsif step.type == Step::StepTypeEnum::RECEIPT %>
@@ -7,7 +8,7 @@
   <%- end %>
 
   <div class="content">
-    <div class="header"><%= step.type %> of <%= step.amount %></div>
+    <div class="header">#<%= step.order %> - <%= step.type %> of <%= step.amount %></div>
     <div class="description">(<%= step_display_time(step.months_after_previous_milestone) %>)</div>
   </div>
   <div class="ui icon mini buttons leftMargin">
