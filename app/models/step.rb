@@ -76,6 +76,8 @@ class Step < ApplicationRecord
     end
   end
 
+
+
   private
 
   # the months duration should always be inferior to the max allowed

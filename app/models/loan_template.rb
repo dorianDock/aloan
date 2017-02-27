@@ -66,4 +66,9 @@ class LoanTemplate < ApplicationRecord
     end
   end
 
+  # give the order of the last element created (ie if I'm creating a new step and the last sibling order is 4, my new step is going to be 5)
+  def last_step_order
+    self.steps.count
+  end
+
 end

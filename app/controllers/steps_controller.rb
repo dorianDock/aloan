@@ -132,19 +132,6 @@ class StepsController < ApplicationController
       }
     end
   end
-  # def type_for_step
-  #   step_id=params[:objectid]
-  #   @the_step=Step.find_by(id: loan_id)
-  #   template = nil
-  #   unless @the_loan.loan_template.nil?
-  #     template= @the_loan.loan_template.id
-  #   end
-  #   respond_to do |format|
-  #     format.json {
-  #       render json: template
-  #     }
-  #   end
-  # end
 
 
   protected

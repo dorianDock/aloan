@@ -184,6 +184,12 @@ class Loan < ApplicationRecord
   def steps_not_done
     self.steps.where(:is_done => false)
   end
+
+  # give the order of the last element created (ie if I'm creating a new step and the last sibling order is 4, my new step is going to be 5)
+  def last_step_order
+    self.steps.count
+  end
+
   private
 
   # def end_date_is_after_start_date
