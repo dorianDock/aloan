@@ -118,8 +118,11 @@ $(document).on('turbolinks:load', function(){
     // When we click on the sync button
     function handleSyncResponse(data){
         // we receive the new list of steps from the server
-        if(data.partial_view){
-            $('.step_list_container').html(data.partial_view);
+        if(data.current_steps_partial_view){
+            $('.step_list_container').html(data.current_steps_partial_view);
+        }
+        if(data.current_steps_partial_view){
+            $('.past_step_list_container').html(data.past_steps_partial_view);
         }
         HandleMessageFromServer(data);
         bindEditAndRemoveStepEvent('.loan_step');

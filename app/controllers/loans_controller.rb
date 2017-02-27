@@ -105,10 +105,15 @@ class LoansController < ApplicationController
     loan_id=params[:objectid]
     @the_loan=Loan.find_by(id: loan_id)
     response_hash = @the_loan.generate_steps
+    current_steps = response_hash[:steps].select{|step| !step.is_done }
+    past_steps = response_hash[:steps].select{|step| step.is_done }
     # we take the generated steps to prepare a new partial view
     if response_hash[:steps] != nil
-      my_html=render_to_string('steps/_step_list_for_loans', :formats => [:html], :layout => false, :locals => {:steps => response_hash[:steps]})
-      response_hash[:partial_view] = my_html
+      my_html=render_to_string('steps/_step_list_for_loans', :formats => [:html], :layout => false, :locals => {:steps => current_steps})
+      response_hash[:current_steps_partial_view] = my_html
+      # we do the same for past steps
+      my_html_past=render_to_string('steps/_step_list_for_loans', :formats => [:html], :layout => false, :locals => {:steps => past_steps})
+      response_hash[:past_steps_partial_view] = my_html_past
     end
     respond_to do |format|
       format.json {
